@@ -1,6 +1,6 @@
-import React from "react";
 import JobSidebar from "@/components/Job_Form/JobSidebar";
 import JobOverview from "@/components/Job_Form/JobOverview";
+import Button from "@/components/Button";
 
 export default function JobFormLayout() {
   return (
@@ -18,7 +18,7 @@ export default function JobFormLayout() {
       {/* bottom action bar */}
       <div className="sticky bottom-0 left-0 right-0 bg-white mt-6 p-4 rounded-t-xl shadow-inner flex justify-end gap-4">
         <button className="px-4 py-2 rounded-md border">Save as Draft</button>
-        <button className="px-6 py-2 rounded-md bg-blue-600 text-white">Next</button>
+        <Button variant="primary">Next</Button>
       </div>
     </div>
   );

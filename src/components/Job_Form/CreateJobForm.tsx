@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "@/components/Button";
 
 type Props = {
   onClose: () => void;
@@ -57,15 +58,12 @@ export default function CreateJobModal({ onClose }: Props) {
 
         {/* Footer */}
         <div className="flex justify-end">
-          <button
+          <Button
             onClick={handleProceed}
             disabled={!selected}
-            className={`px-5 py-2.5 rounded-lg text-white ${
-              selected ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-300 cursor-not-allowed"
-            }`}
           >
             Proceed
-          </button>
+          </Button>
         </div>
       </div>
     </div>

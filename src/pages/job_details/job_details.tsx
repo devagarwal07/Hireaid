@@ -1,10 +1,12 @@
 // JobDashboardPage.tsx
 import React from "react";
 import Topbar from "@/components/Topbar";
+import { useAppContext } from "@/context/AppContext";
 import InterviewSchedule from "@/components/job_details/InterviewSchedule";
 import JobList from "@/components/job_details/JobList";
 
 const JobDashboardPage: React.FC = () => {
+  const { user } = useAppContext();
   return (
     <div className="min-h-screen w-full bg-[radial-gradient(ellipse_at_top_left,_#f5f8ff,_#ffffff)]">
       {/* Top padding so header doesn't hug the top */}
@@ -15,7 +17,13 @@ const JobDashboardPage: React.FC = () => {
           <main>
             {/* Topbar sits full width of main column */}
             <div className="mb-6">
-              <Topbar userName="John" />
+              <Topbar
+                userName={user.firstName}
+                initials={user.initials}
+                fullName={`${user.firstName} ${user.lastName}`}
+                role={user.role}
+                notificationsCount={user.notificationsCount}
+              />
             </div>
 
             {/* HERO + small stats on the right of hero */}

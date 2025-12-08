@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { FiPaperclip, FiUpload, FiSend } from "react-icons/fi";
+import { FiPaperclip, FiUpload } from "react-icons/fi";
+import { RiArrowUpLine } from "react-icons/ri";
 
 type Props = {
   text: string;
@@ -19,6 +20,7 @@ export default function ChatInput({
   const fileRef = useRef<HTMLInputElement | null>(null);
   const imageRef = useRef<HTMLInputElement | null>(null);
   const [selectedName, setSelectedName] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState<"idle" | "uploading" | "uploaded" | "failed">("idle");
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -34,7 +36,11 @@ export default function ChatInput({
     const f = e.target.files?.[0];
     if (f) {
       setSelectedName(f.name);
+      setIsUploading("uploading");
       cb?.(f);
+
+      // simple fake state progression to mirror Figma upload states
+      setTimeout(() => setIsUploading("uploaded"), 1000);
     }
     e.currentTarget.value = "";
   };
@@ -57,7 +63,7 @@ export default function ChatInput({
       />
 
       {/* Container */}
-      <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
+      <div className="bg-white rounded-xl p-4 border border-[#DFDFDF] shadow-sm">
         {/* Input Field */}
         <input
           value={text}
@@ -73,7 +79,7 @@ export default function ChatInput({
           <div className="flex gap-3">
             <button
               onClick={() => fileRef.current?.click()}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-sky-50 text-sky-700 border border-sky-100 text-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-[#F0F8FF] text-[#0857A1]"
             >
               <FiPaperclip className="w-4 h-4" />
               Attach File
@@ -81,7 +87,7 @@ export default function ChatInput({
 
             <button
               onClick={() => imageRef.current?.click()}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-sky-50 text-sky-700 border border-sky-100 text-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-[#F0F8FF] text-[#0857A1]"
             >
               <FiUpload className="w-4 h-4" />
               Upload Image
@@ -91,16 +97,84 @@ export default function ChatInput({
           {/* Send Button */}
           <button
             onClick={send}
-            className="w-10 h-10 rounded-full bg-sky-600 text-white flex items-center justify-center shadow-md hover:bg-sky-700 transition"
+            disabled={!text.trim()}
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors
+              ${
+                text.trim()
+                  ? "bg-[#0857A1] hover:bg-[#2C77BD] text-white"
+                  : "bg-[#CCCCCC] text-white cursor-not-allowed"
+              }`}
           >
-            <FiSend className="w-5 h-5" />
+            <RiArrowUpLine className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Optional File Name */}
+        {/* Upload states preview (simple visual based on selectedName + isUploading) */}
         {selectedName && (
-          <div className="mt-3 text-xs text-slate-500">
-            Selected: {selectedName}
+          <div className="mt-4 space-y-2 text-xs">
+            {isUploading === "uploading" && (
+              <div className="flex items-center justify-between border border-[#E1E1E1] rounded-md px-3 py-2 bg-white">
+                <div className="flex items-center gap-3">
+                  <div className="relative w-10 h-10">
+                    <div className="absolute inset-0 rounded border border-[#D5D7DA] bg-white" />
+                    <div className="absolute left-[10%] right-[35%] top-[45%] bottom-[15%] rounded bg-[#0857A1]" />
+                  </div>
+                  <div>
+                    <div className="text-[14px] font-medium text-[#181D27] leading-[18px]">{selectedName}</div>
+                    <div className="flex items-center gap-2 text-[#535862] mt-0.5">
+                      <span>Uploading</span>
+                      <span className="w-px h-3 bg-[#D5D7DA]" />
+                      <span className="flex items-center gap-1">
+                        <span className="w-4 h-4 rounded-full border border-[#A4A7AE]" />
+                        <span>40%</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {isUploading === "uploaded" && (
+              <div className="flex items-center justify-between border border-[#E5E6E7] rounded-md px-3 py-2 bg-white">
+                <div className="flex items-center gap-3">
+                  <div className="relative w-10 h-10">
+                    <div className="absolute inset-0 rounded border border-[#D5D7DA] bg-white" />
+                    <div className="absolute left-[10%] right-[35%] top-[45%] bottom-[15%] rounded bg-[#0857A1]" />
+                  </div>
+                  <div>
+                    <div className="text-[14px] font-medium text-[#181D27] leading-[18px]">{selectedName}</div>
+                    <div className="flex items-center gap-2 text-[#535862] mt-0.5">
+                      <span>Uploaded</span>
+                      <span className="w-px h-3 bg-[#D5D7DA]" />
+                      <span className="flex items-center gap-1">
+                        <span className="w-4 h-4 rounded-full border border-[#11A843]" />
+                        <span>100%</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {isUploading === "failed" && (
+              <div className="flex items-center justify-between border border-[#E5E6E7] rounded-md px-3 py-2 bg-white">
+                <div className="flex items-center gap-3">
+                  <div className="relative w-10 h-10">
+                    <div className="absolute inset-0 rounded border border-[#D5D7DA] bg-white" />
+                    <div className="absolute left-[10%] right-[35%] top-[45%] bottom-[15%] rounded bg-[#0857A1]" />
+                  </div>
+                  <div>
+                    <div className="text-[14px] font-medium text-[#181D27] leading-[18px]">{selectedName}</div>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="flex items-center gap-1 text-[#FF3636]">
+                        <span className="w-4 h-4 rounded-full border border-[#FF3636]" />
+                        <span>Upload failed</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

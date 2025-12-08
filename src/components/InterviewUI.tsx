@@ -4,23 +4,33 @@ import RightSideBar from "@/components/interview_screen/RightSideBar";
 import AssistantPanel from "@/components/interview_screen/AssistantPanel";
 import InterviewHeader from "@/components/interview_screen/InterviewHeader";
 import Topbar from "@/components/Topbar";
+import { DisclaimerModal } from "@/components/interview_screen/DisclaimerModal";
 import type { Candidate } from "@/components/interview_screen/InterviewHeader";
+import { useAppContext } from "@/context/AppContext";
 
 export default function InterviewUI(): React.ReactElement {
+  const { user, currentInterview } = useAppContext();
   const [started, setStarted] = useState(false);
+
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [hasAcceptedDisclaimer, setHasAcceptedDisclaimer] = useState(false);
 
   // Step state for the Submit / Next / Save flow
   const [step, setStep] = useState<number>(0);
   const totalSteps = 3; // set this to however many steps you want; final step index will be totalSteps
 
   const candidate: Candidate = {
-    name: "Samuel Baker",
-    role: "Frontend",
-    time: "10:05",
+    name: currentInterview.candidateName,
+    role: currentInterview.candidateRole,
+    time: currentInterview.scheduledTime,
   };
 
   function handleStartInterview() {
-    setStarted(true);
+    if (!hasAcceptedDisclaimer) {
+      setShowDisclaimer(true);
+    } else {
+      setStarted(true);
+    }
     console.log("Start interview clicked for", candidate.name);
   }
 
@@ -64,21 +74,34 @@ export default function InterviewUI(): React.ReactElement {
     }
   }
 
+  function handleDisclaimerAgree() {
+    setHasAcceptedDisclaimer(true);
+    setShowDisclaimer(false);
+    setStarted(true);
+  }
+
+  function handleDisclaimerClose() {
+    setShowDisclaimer(false);
+  }
+
   return (
     // Full viewport background (pale bluish) that the main card sits on
-    <div className="min-h-screen bg-[#e9f0fb]">
+    <div className="min-h-screen bg-[#E8EEFF]">
       {/* Topbar sits flush at the top of the page */}
       <Topbar
-        userName="John"
-        initials="JD"
+        userName={user.firstName}
+        initials={user.initials}
+        fullName={`${user.firstName} ${user.lastName}`}
+        role={user.role}
+        notificationsCount={user.notificationsCount}
         onNotifications={() => console.log("notifications")}
         onProfile={() => console.log("profile clicked")}
       />
 
       {/* Outer padding so UI breathes from screen edges */}
-      <div className="w-full px-6 py-6">
-        {/* Main app card: white rounded container centered, full width use (no max-width cap) */}
-        <div className="w-full bg-white rounded-2xl shadow-[0_10px_30px_rgba(15,23,42,0.06)] overflow-hidden">
+      <div className="w-full px-6 py-6 flex justify-center">
+        {/* Main app card: white rounded container centered with max-width to match design frame */}
+        <div className="w-full max-w-[1280px] bg-white rounded-2xl shadow-[0_10px_30px_rgba(15,23,42,0.06)] overflow-hidden">
           {/* Top decorative strip inside the card (subtle blue decorative area like reference) */}
           <div className="w-full bg-gradient-to-r from-transparent via-white to-white">
             {/* empty — reserved for any decorative shapes / gradient */}
@@ -87,9 +110,9 @@ export default function InterviewUI(): React.ReactElement {
           {/* CONTENT ROW: center, right sidebar (removed left sidebar since MainNavigation handles it) */}
           <div className="flex items-start gap-6 p-6">
             {/* CENTER COLUMN: header + video + assistant (fluid) */}
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 flex flex-col items-start">
               {/* Interview header (candidate + action buttons) */}
-              <div className="mb-4">
+              <div className="w-full max-w-[1152px] mb-4">
                 <InterviewHeader
                   candidate={candidate}
                   onAssistant={() => console.log("AI Assistant pressed")}
@@ -102,10 +125,10 @@ export default function InterviewUI(): React.ReactElement {
               </div>
 
               {/* Main stacked content: video card + assistant panel */}
-              <div className="grid gap-6">
+              <div className="w-full max-w-[673px] grid gap-6">
                 {/* VIDEO CARD: elevated, rounded, with white border + inner black video */}
-                <div className="bg-white border border-[#eef3fa] rounded-xl shadow-sm p-3">
-                  <div className="relative rounded-lg bg-black h-[420px] flex items-center justify-center text-white text-4xl">
+                <div className="bg-white border border-[#eef3fa] rounded-2xl shadow-sm p-4" style={{ height: '375px' }}>
+                  <div className="relative rounded-2xl bg-black flex items-center justify-center text-white text-4xl" style={{ height: '363px' }}>
                     {/* candidate name in center like reference */}
                     {candidate.name}
                     {/* small top-right control placeholder (mimic zoom view) */}
@@ -119,7 +142,7 @@ export default function InterviewUI(): React.ReactElement {
             </div>
 
             {/* RIGHT SIDEBAR: fixed width that visually matches reference (cards inside) */}
-            <div className="w-[380px]">
+            <div className="w-[432px]">
               <div className="sticky top-24">
                 <RightSideBar
                   candidate={candidate}
@@ -139,6 +162,12 @@ export default function InterviewUI(): React.ReactElement {
           </div>
         </div>
       </div>
+
+      <DisclaimerModal
+        open={showDisclaimer}
+        onClose={handleDisclaimerClose}
+        onAgree={handleDisclaimerAgree}
+      />
     </div>
   );
 }

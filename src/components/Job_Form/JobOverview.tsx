@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import AISuggestionCard from "./AiSuggestionCard";
+import Button from "@/components/Button";
 
 export default function JobOverview() {
   const [jobTitle, setJobTitle] = useState("");
@@ -15,7 +16,13 @@ export default function JobOverview() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-xl font-semibold">Complete Job Description</h3>
-        <a className="text-sm text-blue-600">Show Preview</a>
+        <Button
+          type="button"
+          variant="tertiary"
+          className="text-sm px-0 py-0 h-auto"
+        >
+          Show Preview
+        </Button>
       </div>
 
       <div className="border rounded-lg p-6 bg-white">

@@ -1,5 +1,4 @@
 // src/components/InterviewHeader.tsx
-import React from "react";
 
 export type Candidate = {
   name: string;
@@ -21,11 +20,11 @@ export default function InterviewHeader({
   onEnd,
 }: Props) {
   return (
-    <div className="w-full flex justify-center py-4 px-2" style={{ background: "#f3f8ff" }}>
-      <div className="w-full max-w-[1150px] bg-white rounded-2xl shadow-sm overflow-hidden px-10 py-5">
-        <div className="flex items-center justify-between w-full">
+    <div className="w-full flex justify-center" style={{ background: '#f3f8ff' }}>
+      <div className="bg-white rounded-2xl shadow-sm overflow-hidden px-8 py-4" style={{ width: '1152px', height: '136px' }}>
+        <div className="flex items-center justify-between w-full h-full">
           {/* LEFT SECTION */}
-          <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5">
             <div className="text-sm text-gray-500">
               Interview Schedule <span className="mx-1">/</span>
               <span className="font-medium text-gray-700">Interview</span>
@@ -75,28 +74,35 @@ export default function InterviewHeader({
           </div>
 
           {/* RIGHT BUTTONS */}
-          <div className="flex items-center gap-5">
+            <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={onAssistant}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#bcdcff] bg-[#f7fbff] text-[#0a6adf] font-medium text-sm"
+              className="relative inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-full border text-sm font-medium transition-colors
+                         bg-white border-[#67B4FB] text-[#3576B2]
+                         hover:bg-[#F0F8FF] hover:border-[#67B4FB]
+                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0857A1]
+                         active:bg-[#0857A1] active:border-[#0857A1] active:text-white
+                         disabled:bg-[#EFEFEF] disabled:border-[#CCCCCC] disabled:text-[#767676]"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6l4 2" />
-              </svg>
-              AI Assistant
+              <span className="relative inline-flex items-center justify-center w-5 h-5 flex-none">
+                <span
+                  className="absolute inset-[10%] rounded-full"
+                  style={{
+                    background:
+                      "linear-gradient(155.56deg, #2DD4BD 4.69%, #6990F9 94.79%)",
+                  }}
+                />
+              </span>
+              <span className="text-[16px] leading-6">AI Assistant</span>
             </button>
 
             <button
               type="button"
               onClick={onStructure}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#bcdcff] bg-[#f7fbff] text-[#0a6adf] font-medium text-sm"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full border text-[14px] leading-5 font-medium
+                         bg-white border-[#C8C8C8] text-[#0857A1]
+                         hover:bg-[#F0F8FF] hover:border-[#C8C8C8]"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -112,18 +118,28 @@ export default function InterviewHeader({
             <button
               type="button"
               onClick={onEnd}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#ffcdcd] bg-[#fff5f5] text-[#d64545] font-medium text-sm"
+              className="relative inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full border text-[16px] leading-6 font-medium transition-colors
+                         bg-white border-[#FFB1B1] text-[#FF3636]
+                         hover:bg-[#FFF2F0] hover:border-[#FFB1B1]
+                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#AA0404]
+                         active:bg-[#AA0404] active:border-[#AA0404] active:text-white
+                         disabled:bg-[#EFEFEF] disabled:border-[#CCCCCC] disabled:text-[#767676]"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4"
+                className="w-4 h-4 flex-none"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6.75 8.25l10.5 7.5M6.75 15.75l10.5-7.5"
+                />
               </svg>
-              End Interview
+              <span>End Interview</span>
             </button>
           </div>
         </div>

@@ -1,14 +1,11 @@
-// src/components/interview_screen/VoicePart.tsx
-import React from "react";
-
 type Props = {
   small?: boolean; // future variant
   className?: string;
 };
 
-export default function VoicePart({ small = true, className = "" }: Props) {
+export default function VoicePart({ className = "" }: Props) {
   return (
-    <div className={`bg-white rounded-xl border border-[#e6f0ff] shadow-sm p-3 mb-3 ${className}`}>
+	<div className={`bg-white rounded-xl border border-[#e6f0ff] shadow-[4px_4px_40px_rgba(0,0,0,0.1)] p-3 mb-3 ${className}`}>
       {/* Header: small mark + label */}
       <div className="flex items-center gap-2 mb-2">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="flex-shrink-0" xmlns="http://www.w3.org/2000/svg">

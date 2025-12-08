@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CreateJobModal from "@/components/Job_Form/CreateJobForm";
 import JobFormLayout from "@/components/Job_Form/JobFormLayout";
 

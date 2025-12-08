@@ -1,5 +1,3 @@
-import React from "react";
-
 export type Interview = {
   id: string | number;
   title: string;

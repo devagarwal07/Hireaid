@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CreateJobModal from "./CreateJobModal";
 
 export default function JobList() {

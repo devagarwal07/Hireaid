@@ -1,6 +1,3 @@
-// src/components/interview_screen/Sidebar.tsx
-import React from "react";
-
 import CloseSrc from "@/assets/icons/sidebar_close.svg";
 import InterviewSrc from "@/assets/icons/sidebar_interview.svg";
 import DashboardSrc from "@/assets/icons/sidebar_dashboard.svg";
@@ -60,21 +57,16 @@ export default function Sidebar({
                 }`}
               />
 
-              {/* 3x size for work, camera, profile */}
-                <img
-                  src={it.src}
-                  alt={it.label}
-                  className={`${
-                    ["work", "camera", "profile"].includes(it.id)
-                      ? "w-[4000px] h-[15px]"   // 3× bigger
-                      : "w-5 h-5"
-                  } object-contain z-10 transition-opacity ${
-                    isActive ? "opacity-100" : "opacity-70"
-                  }`}
-                  style={{
-                    filter: isActive ? "saturate(1) brightness(1)" : "grayscale(1) brightness(0.55)",
-                  }}
-                />
+              <img
+                src={it.src}
+                alt={it.label}
+                className={`w-5 h-5 object-contain z-10 transition-opacity ${
+                  isActive ? "opacity-100" : "opacity-70"
+                }`}
+                style={{
+                  filter: isActive ? "saturate(1) brightness(1)" : "grayscale(1) brightness(0.55)",
+                }}
+              />
 
               {/* left active bar */}
               {isActive && <span className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 h-6 w-0.5 bg-teal-500 rounded" />}

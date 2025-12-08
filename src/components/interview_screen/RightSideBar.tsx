@@ -1,7 +1,8 @@
 // src/components/interview_screen/RightSideBar.tsx
 import React, { useEffect, useState } from "react";
 import RecommendedQuestion from "./RecommendedQuestion";
-import VoicePart from "./VoicePart";
+import AISuggestionsCard from "./AISuggestionsCard";
+import { QuestionCard } from "./QuestionCard";
 
 export type RightTab = "structure" | "resume";
 
@@ -183,11 +184,11 @@ export default function RightSideBar({
   };
 
   return (
-    <div className={`w-96 transform transition-all ${open ? "opacity-100" : "opacity-0 scale-95 pointer-events-none"}`} aria-hidden={!open}>
-      <div className="rounded-2xl shadow-[0_12px_30px_rgba(34,54,84,0.12)] overflow-hidden" style={{ background: "linear-gradient(180deg,#f7fbff, #eef6ff)" }}>
-        <div className="h-full bg-white rounded-2xl border border-[#e6f0ff] p-4 flex flex-col">
+    <div className={`transform transition-all ${open ? "opacity-100" : "opacity-0 scale-95 pointer-events-none"}`} aria-hidden={!open} style={{ width: '432px' }}>
+      <div className="rounded-2xl shadow-[0_12px_30px_rgba(34,54,84,0.12)] overflow-hidden" style={{ background: "linear-gradient(180deg,#f7fbff, #eef6ff)", height: '753px' }}>
+        <div className="h-full bg-white rounded-2xl border border-[#e6f0ff] px-4 py-5 flex flex-col">
           {/* Header tabs */}
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-4">
               <button onClick={() => setActiveTab("structure")} className={`text-sm font-medium pb-2 ${activeTab === "structure" ? "text-[#0f4db2] border-b-2 border-[#dbeafe]" : "text-[#6b7280]"}`}>
                 Interview Structure
@@ -250,78 +251,30 @@ export default function RightSideBar({
                   <div className="text-xs text-[#9aa4b2]">Warmup ({derivedCurrent + 1} out of {questionsState.length} Questions)</div>
                 </div>
 
-                {/* Question card */}
+                {/* Question card using shared QuestionCard component */}
                 <div className="mb-4">
-                  <div className="text-xs text-[#0f4db2] font-semibold mb-2">{q.title}</div>
-                  <div className="bg-[#f8fbff] border border-[#e6f0ff] rounded-lg p-3 text-sm text-[#374151]">{q.body}</div>
+                  <QuestionCard
+                    index={derivedCurrent + 1}
+                    title={q.body}
+                    state={q.evaluated ? "active" : "default"}
+                    evaluatedSummary={
+                      q.evaluated && q.score != null
+                        ? `Description\n${q.score.toFixed(1)} / 10`
+                        : undefined
+                    }
+                    feedbackPoints={q.evaluated ? q.feedback : undefined}
+                    status={
+                      q.evaluated
+                        ? "analysis-complete"
+                        : "analyzing"
+                    }
+                  />
                 </div>
 
-                {/* Evaluated block (shows only when question.evaluated is true) */}
-                {q.evaluated && (
-                  <div className="mb-4 bg-white border border-[#eef6ff] rounded-xl p-4 shadow-sm">
-                    {/* Header */}
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-2">
-                        <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                          <circle cx="10" cy="10" r="9" stroke="#10a37f" strokeWidth="2" />
-                          <path d="M6 10l2.5 2.5L14 7" stroke="#10a37f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        <span className="text-sm font-semibold text-[#10a37f]">Evaluated Score</span>
-                      </div>
+                {/* AI suggestions module: listening state + recommended follow-up */}
+                <AISuggestionsCard variant="listening" />
 
-                      <button className="text-xs text-[#9aa4b2]">Hide</button>
-                    </div>
-
-                    {/* THREE CIRCLES */}
-                    <div className="flex items-center justify-between mb-4">
-                      {q.metrics?.map((m) => (
-                        <div key={m.label} className="flex flex-col items-center w-24">
-                          <div className="relative w-14 h-14">
-                            <svg className="transform -rotate-90 w-14 h-14">
-                              <circle cx="28" cy="28" r="24" stroke="#e5e7eb" strokeWidth="5" fill="transparent" />
-                              <circle
-                                cx="28"
-                                cy="28"
-                                r="24"
-                                stroke={m.label === "Communication" ? "#f59e0b" : "#22c55e"}
-                                strokeWidth="5"
-                                strokeDasharray={2 * Math.PI * 24}
-                                strokeDashoffset={(1 - m.value / 100) * 2 * Math.PI * 24}
-                                strokeLinecap="round"
-                                fill="transparent"
-                              />
-                            </svg>
-
-                            {/* Value in center */}
-                            <div className="absolute inset-0 flex items-center justify-center text-[#111] font-semibold text-sm">
-                              {m.value}
-                            </div>
-                          </div>
-
-                          <span className="text-xs text-[#374151] mt-1 text-center leading-tight">{m.label}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* FEEDBACK TEXT LIST */}
-                    <ul className="border-t border-[#eef6ff] pt-3 space-y-2 text-sm text-[#374151]">
-                      {q.feedback?.map((f, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10a37f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-1">
-                            <path d="M20 6L9 17l-5-5"></path>
-                          </svg>
-                          <span className={`${f.toLowerCase().includes("excel") ? "text-red-500" : ""}`}>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Recommended question component */}
                 <RecommendedQuestion text="Could you tell me what are the features in ADP Workforce Now you liked the most ?" />
-
-                {/* Voice/AI listening component */}
-                <VoicePart />
               </div>
 
               {/* Footer */}
