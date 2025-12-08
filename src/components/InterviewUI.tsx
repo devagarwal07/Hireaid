@@ -4,12 +4,10 @@ import RightSideBar from "@/components/interview_screen/RightSideBar";
 import AssistantPanel from "@/components/interview_screen/AssistantPanel";
 import InterviewHeader from "@/components/interview_screen/InterviewHeader";
 import Topbar from "@/components/Topbar";
-import Sidebar from "@/components/LeftSidebar";
 import type { Candidate } from "@/components/interview_screen/InterviewHeader";
 
 export default function InterviewUI(): React.ReactElement {
   const [started, setStarted] = useState(false);
-  const [leftActive, setLeftActive] = useState<string>("raise-hand");
 
   // Step state for the Submit / Next / Save flow
   const [step, setStep] = useState<number>(0);
@@ -86,24 +84,8 @@ export default function InterviewUI(): React.ReactElement {
             {/* empty — reserved for any decorative shapes / gradient */}
           </div>
 
-          {/* CONTENT ROW: left rail column (pale), center, right sidebar */}
+          {/* CONTENT ROW: center, right sidebar (removed left sidebar since MainNavigation handles it) */}
           <div className="flex items-start gap-6 p-6">
-            {/* LEFT COLUMN: pale background block that contains the icon rail */}
-            <div className="flex-shrink-0">
-              {/* make the outer pale panel exactly the same width as the sidebar (w-20 = 80px)
-                  and remove horizontal padding so the inner rail fills the whole area */}
-              <div className="h-[calc(100vh-150px)] rounded-3xl bg-[#f5fbff] w-20 flex items-start">
-                <Sidebar
-                  className="" // Sidebar already uses w-20 internally; keep this empty or pass overrides if needed
-                  active={leftActive}
-                  onSelect={(id) => {
-                    setLeftActive(id);
-                    console.log("left nav:", id);
-                  }}
-                />
-              </div>
-            </div>
-
             {/* CENTER COLUMN: header + video + assistant (fluid) */}
             <div className="flex-1 min-w-0">
               {/* Interview header (candidate + action buttons) */}

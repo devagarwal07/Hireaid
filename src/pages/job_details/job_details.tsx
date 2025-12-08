@@ -1,6 +1,5 @@
 // JobDashboardPage.tsx
 import React from "react";
-import LeftSidebar from "@/components/LeftSidebar";
 import Topbar from "@/components/Topbar";
 import InterviewSchedule from "@/components/job_details/InterviewSchedule";
 import JobList from "@/components/job_details/JobList";
@@ -10,18 +9,13 @@ const JobDashboardPage: React.FC = () => {
     <div className="min-h-screen w-full bg-[radial-gradient(ellipse_at_top_left,_#f5f8ff,_#ffffff)]">
       {/* Top padding so header doesn't hug the top */}
       <div className="pt-6 pb-10 px-6">
-        {/* Grid: sidebar | main | right */}
-        <div className="w-full grid grid-cols-[72px_1fr_360px] gap-8">
-          {/* Left Sidebar (fixed width) */}
-          <div>
-            <LeftSidebar />
-          </div>
-
+        {/* Grid: main | right (removed left sidebar since MainNavigation handles it) */}
+        <div className="w-full grid grid-cols-[1fr_360px] gap-8">
           {/* Main area */}
-          <main className="col-start-2">
+          <main>
             {/* Topbar sits full width of main column */}
             <div className="mb-6">
-              <Topbar name="John" />
+              <Topbar userName="John" />
             </div>
 
             {/* HERO + small stats on the right of hero */}
@@ -98,7 +92,7 @@ const JobDashboardPage: React.FC = () => {
           </main>
 
           {/* Right schedule column — fixed width and sticky */}
-          <aside className="col-start-3 hidden md:block">
+          <aside className="hidden md:block">
             <div className="sticky top-6">
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 min-h-[520px]">
                 <InterviewSchedule />

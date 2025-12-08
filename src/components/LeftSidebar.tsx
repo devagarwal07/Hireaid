@@ -19,8 +19,19 @@ const ITEMS: SidebarItem[] = [
   { id: "profile", label: "Profile", src: ProfileSrc },
 ];
 
-export default function Sidebar({ active = "interview", className = "" }: { active?: string; className?: string }) {
+export default function Sidebar({ 
+  active = "interview", 
+  className = "",
+  onSelect
+}: { 
+  active?: string; 
+  className?: string;
+  onSelect?: (id: string) => void;
+}) {
   const navigate = (id: string) => {
+    if (onSelect) {
+      onSelect(id);
+    }
     if (id === "close") window.location.href = "/";
     if (id === "interview") window.location.href = "/interview";
     if (id === "dashboard") window.location.href = "/job-dashboard";
