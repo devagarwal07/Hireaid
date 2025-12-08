@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  MdViewSidebar,
-  MdDashboardCustomize,
-  MdWorkOutline,
-  MdVideoCall,
-  MdPersonOutline,
-  MdEmojiPeople,
-} from "react-icons/md";
+
+// Import SVG icons from assets
+import CloseSrc from "@/assets/icons/sidebar_close.svg";
+import DashboardSrc from "@/assets/icons/sidebar_dashboard.svg";
+import WorkSrc from "@/assets/icons/sidebar_work.svg";
+import InterviewSrc from "@/assets/icons/sidebar_interview.svg";
+import CameraSrc from "@/assets/icons/sidebar_camera.svg";
+import ProfileSrc from "@/assets/icons/sidebar_profile.svg";
 
 interface NavItem {
   id: string;
   label: string;
-  Icon: React.ComponentType<{ size?: number; color?: string }>;
+  iconSrc: string;
   path: string;
 }
 
@@ -20,25 +20,25 @@ const navItems: NavItem[] = [
   {
     id: "dashboard",
     label: "Dashboard",
-    Icon: MdDashboardCustomize,
+    iconSrc: DashboardSrc,
     path: "/job-dashboard",
   },
   {
     id: "jobs",
     label: "Jobs",
-    Icon: MdWorkOutline,
+    iconSrc: WorkSrc,
     path: "/job-dashboard",
   },
   {
     id: "interviews",
     label: "Interviews",
-    Icon: MdVideoCall,
+    iconSrc: InterviewSrc,
     path: "/interview",
   },
   {
     id: "candidates",
     label: "Candidates",
-    Icon: MdPersonOutline,
+    iconSrc: ProfileSrc,
     path: "/job-dashboard",
   },
 ];
@@ -67,6 +67,12 @@ export default function MainNavigation({ children }: { children: React.ReactNode
     navigate(path);
   };
 
+  // Icon sizes - dashboard/jobs are smaller, others are standard
+  const getIconSize = (itemId: string) => {
+    if (itemId === "dashboard" || itemId === "jobs") return 12;
+    return 37; // interviews & candidates (22 + 15)
+  };
+
   const renderCollapsedItem = (item: NavItem) => {
     const isActive = item.id === activeId;
     const isHovered = hoveredItem === item.id;
@@ -74,11 +80,10 @@ export default function MainNavigation({ children }: { children: React.ReactNode
     const background = isActive
       ? "#E4ECFF"
       : isHovered
-      ? "#EDF2FF"
-      : "#FFFFFF";
+        ? "#EDF2FF"
+        : "#FFFFFF";
 
-    const iconColor = isActive ? "#0857A1" : "#424242";
-    const iconSize = item.id === "dashboard" ? 16 : 18;
+    const iconSize = getIconSize(item.id);
 
     return (
       <button
@@ -105,18 +110,18 @@ export default function MainNavigation({ children }: { children: React.ReactNode
         }}
         aria-label={item.label}
       >
-        <div
+        <img
+          src={item.iconSrc}
+          alt={item.label}
           style={{
             width: `${iconSize}px`,
             height: `${iconSize}px`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: iconColor,
+            objectFit: "contain",
+            filter: isActive ? "none" : "grayscale(1) brightness(0.55)",
+            opacity: isActive ? 1 : 0.7,
+            transition: "filter 0.2s, opacity 0.2s",
           }}
-        >
-          <item.Icon size={iconSize} color={iconColor} />
-        </div>
+        />
       </button>
     );
   };
@@ -133,9 +138,13 @@ export default function MainNavigation({ children }: { children: React.ReactNode
             background: "#FFFFFF",
             boxShadow: "0px 4px 7.2px rgba(0, 0, 0, 0.12)",
             borderRadius: "0px 16px 16px 0px",
-            position: "relative",
+            position: "fixed",
+            left: 0,
+            top: 0,
+            bottom: 0,
             padding: "24px 0",
             gap: "12px",
+            zIndex: 1000,
           }}
         >
           <button
@@ -160,7 +169,7 @@ export default function MainNavigation({ children }: { children: React.ReactNode
             }}
             aria-label="Expand navigation"
           >
-            <MdViewSidebar size={24} color="#424242" />
+            <img src={CloseSrc} alt="Menu" style={{ width: "24px", height: "24px" }} />
           </button>
 
           {/* AI assistant icon in collapsed rail */}
@@ -171,7 +180,7 @@ export default function MainNavigation({ children }: { children: React.ReactNode
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              background: "#E0FFF8",
+              background: "transparent",
               border: "none",
               cursor: "pointer",
               borderRadius: "12px",
@@ -179,7 +188,7 @@ export default function MainNavigation({ children }: { children: React.ReactNode
             }}
             aria-label="AI assistant"
           >
-            <MdEmojiPeople size={24} color="#2DD4BD" />
+            <img src={CameraSrc} alt="AI Assistant" style={{ width: "17px", height: "17px" }} />
           </button>
 
           <div
@@ -209,9 +218,13 @@ export default function MainNavigation({ children }: { children: React.ReactNode
             padding: "24px 16px",
             display: "flex",
             flexDirection: "column",
+            position: "fixed",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            zIndex: 1000,
             gap: "12px",
             marginLeft: "16px",
-            position: "relative",
           }}
         >
           <div
@@ -307,10 +320,10 @@ export default function MainNavigation({ children }: { children: React.ReactNode
               }}
               aria-label="Collapse navigation"
             >
-              <MdViewSidebar
-                size={24}
-                color="#424242"
-                style={{ transform: "scaleX(-1)" }}
+              <img
+                src={CloseSrc}
+                alt="Close"
+                style={{ width: "24px", height: "24px", transform: "scaleX(-1)" }}
               />
             </button>
           </div>
@@ -330,11 +343,10 @@ export default function MainNavigation({ children }: { children: React.ReactNode
               const background = isActive
                 ? "#E4ECFF"
                 : isHovered
-                ? "#EDF2FF"
-                : "#FFFFFF";
+                  ? "#EDF2FF"
+                  : "#FFFFFF";
 
-              const iconColor = isActive ? "#0857A1" : "#424242";
-              const iconSize = item.id === "dashboard" ? 16 : 18;
+              const iconSize = getIconSize(item.id);
 
               return (
                 <button
@@ -357,18 +369,18 @@ export default function MainNavigation({ children }: { children: React.ReactNode
                     transition: "background 0.2s",
                   }}
                 >
-                  <div
+                  <img
+                    src={item.iconSrc}
+                    alt={item.label}
                     style={{
                       width: `${iconSize}px`,
                       height: `${iconSize}px`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: iconColor,
+                      objectFit: "contain",
+                      filter: isActive ? "none" : "grayscale(1) brightness(0.55)",
+                      opacity: isActive ? 1 : 0.7,
+                      transition: "filter 0.2s, opacity 0.2s",
                     }}
-                  >
-                    <item.Icon size={iconSize} color={iconColor} />
-                  </div>
+                  />
                   <span
                     style={{
                       fontFamily: "Poppins, sans-serif",
@@ -391,7 +403,15 @@ export default function MainNavigation({ children }: { children: React.ReactNode
       )}
 
       {/* Page Content - Full width after sidebar */}
-      <div className="flex-1 overflow-auto min-h-0 w-full">{children}</div>
+      <div
+        className="flex-1 overflow-auto min-h-0 w-full"
+        style={{
+          marginLeft: isNavExpanded ? "334px" : "80px",
+          transition: "margin-left 0.3s ease"
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 }

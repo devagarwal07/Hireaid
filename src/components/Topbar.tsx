@@ -35,8 +35,8 @@ export default function Topbar({
   const displayName = fullName ?? `${userName} Doe`;
 
   return (
-    <div className="w-full flex justify-center px-6 pt-6 pb-3">
-      <div className="flex items-center justify-between rounded-2xl bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] px-6 py-3" style={{ width: '1152px', height: '69px' }}>
+    <div className="w-full px-6 pt-4 pb-3">
+      <div className="flex items-center justify-between rounded-2xl bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] px-6 py-3">
         <div className="text-[18px] font-medium text-[#454545]">{greeting}</div>
 
         <div className="flex items-center gap-6">

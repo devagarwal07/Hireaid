@@ -2,16 +2,65 @@ export type QuestionCardState = 'default' | 'active' | 'analysis-error' | 'faile
 
 export type QuestionStatus = 'idle' | 'analyzing' | 'analysis-complete' | 'not-audible';
 
+export interface Metric {
+  label: string;
+  value: number;
+  color: string;
+}
+
 export interface QuestionCardProps {
   state?: QuestionCardState;
   index: number;
   title: string;
   evaluatedSummary?: string;
   feedbackPoints?: string[];
+  metrics?: Metric[];
   errorMessage?: string;
   onReload?: () => void;
   status?: QuestionStatus;
   statusText?: string;
+}
+
+// Circular Progress Component
+function CircularProgress({ value, color, size = 56 }: { value: number; color: string; size?: number }) {
+  const strokeWidth = 4;
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const progress = Math.min(100, Math.max(0, value));
+  const strokeDashoffset = circumference - (progress / 100) * circumference;
+
+  return (
+    <div className="relative" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="-rotate-90">
+        {/* Background circle */}
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke="#E5E7EB"
+          strokeWidth={strokeWidth}
+        />
+        {/* Progress circle */}
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke={color}
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+          style={{ transition: 'stroke-dashoffset 0.5s ease' }}
+        />
+      </svg>
+      {/* Center text */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-sm font-bold text-slate-800">{value}</span>
+      </div>
+    </div>
+  );
 }
 
 export function QuestionCard({
@@ -20,6 +69,7 @@ export function QuestionCard({
   title,
   evaluatedSummary,
   feedbackPoints,
+  metrics,
   errorMessage,
   onReload,
   status,
@@ -39,13 +89,12 @@ export function QuestionCard({
 
   return (
     <div
-      className={`rounded-2xl border px-4 py-3 transition shadow-[0_16px_40px_rgba(15,23,42,0.08)] ${
-        isActive
-          ? 'border-[#0857A1] bg-white'
-          : isError
+      className={`rounded-2xl border px-4 py-3 transition shadow-[0_16px_40px_rgba(15,23,42,0.08)] ${isActive
+        ? 'border-[#0857A1] bg-white'
+        : isError
           ? 'border-[#FCA5A5] bg-[#FFF5F5]'
           : 'border-[#E5E7EB] bg-white'
-      }`}
+        }`}
     >
       <div className="flex items-start justify-between gap-3">
         <div>
@@ -71,15 +120,48 @@ export function QuestionCard({
               Evaluated Score
             </span>
           </div>
-          <p className="mt-2 text-xs text-slate-700">{evaluatedSummary}</p>
-          {feedbackPoints && feedbackPoints.length > 0 ? (
-            <ul className="mt-2 space-y-1 text-[11px] text-slate-600">
-              {feedbackPoints.map((point, i) => (
-                <li key={i} className="flex gap-1.5">
-                  <span className="mt-1 h-1 w-1 flex-shrink-0 rounded-full bg-slate-400" />
-                  <span>{point}</span>
-                </li>
+
+          {/* Circular Progress Metrics */}
+          {metrics && metrics.length > 0 && (
+            <div className="mt-3 flex items-center justify-around gap-2">
+              {metrics.map((metric, i) => (
+                <div key={i} className="flex flex-col items-center gap-1">
+                  <CircularProgress value={metric.value} color={metric.color} size={52} />
+                  <span className="text-[10px] text-slate-600 text-center leading-tight max-w-[60px]">
+                    {metric.label}
+                  </span>
+                </div>
               ))}
+            </div>
+          )}
+
+          {feedbackPoints && feedbackPoints.length > 0 ? (
+            <ul className="mt-3 space-y-1.5 text-[11px]">
+              {feedbackPoints.map((point, i) => {
+                const isPositive = point.toLowerCase().includes('good') ||
+                  point.toLowerCase().includes('excellent') ||
+                  point.toLowerCase().includes('strong') ||
+                  point.toLowerCase().includes('clear') ||
+                  !point.toLowerCase().includes('improve');
+                return (
+                  <li key={i} className="flex items-start gap-2">
+                    {isPositive ? (
+                      <span className="mt-0.5 flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded-full bg-[#10B981]">
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                          <path d="M1.5 4L3 5.5L6.5 2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span className="mt-0.5 flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded-full bg-[#F59E0B]">
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                          <path d="M4 2V4.5M4 6V5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                        </svg>
+                      </span>
+                    )}
+                    <span className={isPositive ? "text-slate-700" : "text-amber-700"}>{point}</span>
+                  </li>
+                );
+              })}
             </ul>
           ) : null}
         </div>

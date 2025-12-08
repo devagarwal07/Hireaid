@@ -70,17 +70,6 @@ export default function AISuggestionsCard({
           )}
         </div>
       </div>
-
-      {/* Footer button */}
-      <div className="flex justify-end pt-1">
-        <button
-          type="button"
-          onClick={onPrimaryAction}
-          className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-[#0857A1] text-white text-[16px] font-medium min-w-[154px]"
-        >
-          {primaryLabel}
-        </button>
-      </div>
     </div>
   );
 }

@@ -24,7 +24,7 @@ export default function InterviewHeader({
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden px-8 py-4" style={{ width: '1152px', height: '136px' }}>
         <div className="flex items-center justify-between w-full h-full">
           {/* LEFT SECTION */}
-            <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1.5">
             <div className="text-sm text-gray-500">
               Interview Schedule <span className="mx-1">/</span>
               <span className="font-medium text-gray-700">Interview</span>
@@ -49,32 +49,32 @@ export default function InterviewHeader({
               </div>
 
               <div className="flex flex-col leading-tight">
-  <span className="text-lg font-semibold text-gray-900">{candidate.name}</span>
+                <span className="text-lg font-semibold text-gray-900">{candidate.name}</span>
 
-  <span className="inline-flex items-center rounded-full border border-[#d4e4f7] bg-[#eef5fd] px-2 h-6 text-sm font-medium text-[#0a6adf]">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-3.5 h-3.5 text-[#0a6adf]"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth="1.8"
-  >
-    <circle cx="12" cy="12" r="9" />
-    <path d="M12 8v4l3 3" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
+                <span className="inline-flex items-center rounded-full border border-[#d4e4f7] bg-[#eef5fd] px-2 h-6 text-sm font-medium text-[#0a6adf]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-3.5 h-3.5 text-[#0a6adf]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  >
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 8v4l3 3" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
 
-  <span className="ml-1 leading-tight">
-    {candidate.time ?? "—"}
-  </span>
-</span>
-</div>
+                  <span className="ml-1 leading-tight">
+                    {candidate.time ?? "—"}
+                  </span>
+                </span>
+              </div>
 
             </div>
           </div>
 
           {/* RIGHT BUTTONS */}
-            <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={onAssistant}
