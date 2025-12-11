@@ -1,16 +1,16 @@
 import { useState } from "react";
 import CreateJobModal from "@/components/Job_Form/CreateJobForm";
-import JobFormLayout from "@/components/Job_Form/JobFormLayout";
+import JobFormLayoutNew from "@/components/Job_Form/JobFormLayoutNew";
 import PageHeader from "@/components/ui/PageHeader";
 
 export default function JobFormPage() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-[#F9FAFB]">
+      <div className="w-full px-6">
         {/* Dynamic Page Header with breadcrumbs */}
-        <div className="mb-6">
+        <div className="pb-4">
           <PageHeader
             config={{
               breadcrumbs: [
@@ -24,7 +24,7 @@ export default function JobFormPage() {
         </div>
 
         <main>
-          <JobFormLayout />
+          <JobFormLayoutNew />
         </main>
       </div>
 

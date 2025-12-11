@@ -3,89 +3,242 @@ export type Interview = {
   title: string;
   time: string; // e.g. "11:30 am - 12:30 pm"
   interviewer: string;
-  accent?: string; // any Tailwind color or gradient class for the left accent
+  accentColor: "blue" | "purple" | "orange" | "teal" | "yellow" | "pink";
 };
 
-const defaultAccent = "from-[#d3f3ff] to-[#fff]";
+// Accent color configurations matching Figma
+const accentColors = {
+  blue: {
+    bar: "#0857A1",
+    barLight: "rgba(8, 87, 161, 0.15)",
+  },
+  purple: {
+    bar: "#7C5CFC",
+    barLight: "rgba(124, 92, 252, 0.15)",
+  },
+  orange: {
+    bar: "#FF9F43",
+    barLight: "rgba(255, 159, 67, 0.15)",
+  },
+  teal: {
+    bar: "#2ED5BD",
+    barLight: "rgba(46, 213, 189, 0.15)",
+  },
+  yellow: {
+    bar: "#FFCA28",
+    barLight: "rgba(255, 202, 40, 0.15)",
+  },
+  pink: {
+    bar: "#FF6B9D",
+    barLight: "rgba(255, 107, 157, 0.15)",
+  },
+};
 
-const sample: Interview[] = [
-  { id: 1, title: "Product Design Interview", time: "11:30 am - 12:30 pm", interviewer: "Tony Smith", accent: "from-[#fff1f0] to-[#fff]" },
-  { id: 2, title: "Fullstack Engineer Interview", time: "11:30 am - 12:30 pm", interviewer: "Tony Smith", accent: "from-[#f6f0ff] to-[#fff]" },
-  { id: 3, title: "Accountant Interview", time: "11:30 am - 12:30 pm", interviewer: "Tony Smith", accent: "from-[#fff7e6] to-[#fff]" },
-  { id: 4, title: "HR Manager Interview", time: "11:30 am - 12:30 pm", interviewer: "Tony Smith", accent: "from-[#e6fffa] to-[#fff]" },
-  { id: 5, title: "Data Analyst Interview", time: "11:30 am - 12:30 pm", interviewer: "Tony Smith", accent: "from-[#fff5f0] to-[#fff]" },
-  { id: 6, title: "Frontend Developer Interview", time: "11:30 am - 12:30 pm", interviewer: "Tony Smith", accent: "from-[#fff5e6] to-[#fff]" },
+const sampleInterviews: Interview[] = [
+  {
+    id: 1,
+    title: "Product Design Interview",
+    time: "11:30 am - 12:30 pm",
+    interviewer: "Tony Smith",
+    accentColor: "blue",
+  },
+  {
+    id: 2,
+    title: "Fullstack Engineer Interview",
+    time: "11:30 am - 12:30 pm",
+    interviewer: "Tony Smith",
+    accentColor: "purple",
+  },
+  {
+    id: 3,
+    title: "Accountant Interview",
+    time: "11:30 am - 12:30 pm",
+    interviewer: "Tony Smith",
+    accentColor: "orange",
+  },
+  {
+    id: 4,
+    title: "HR Manager Interview",
+    time: "11:30 am - 12:30 pm",
+    interviewer: "Tony Smith",
+    accentColor: "teal",
+  },
+  {
+    id: 5,
+    title: "Data Analyst Interview",
+    time: "11:30 am - 12:30 pm",
+    interviewer: "Tony Smith",
+    accentColor: "yellow",
+  },
+  {
+    id: 6,
+    title: "Frontend Developer Interview",
+    time: "11:30 am - 12:30 pm",
+    interviewer: "Tony Smith",
+    accentColor: "pink",
+  },
 ];
 
 export default function InterviewSchedule({
-  items = sample,
+  items = sampleInterviews,
   className = "",
 }: {
   items?: Interview[];
   className?: string;
 }) {
   return (
-    <div className={`w-full max-w-[360px] bg-white rounded-2xl shadow-sm p-4 ${className}`}>
-      <div className="flex items-start justify-between mb-3">
-        <h3 className="text-sm font-semibold text-slate-700">Interview Schedule</h3>
-        <a className="text-xs text-sky-600 hover:underline">View All</a>
+    <div
+      className={`flex flex-col bg-white rounded-2xl p-4 ${className}`}
+      style={{ width: "463px" }}
+    >
+      {/* Header */}
+      <div className="flex justify-between items-center mb-3">
+        <h3 className="font-['Poppins'] font-semibold text-lg text-[#181D27]">
+          Interview Schedule
+        </h3>
+        <button className="font-['Poppins'] font-normal text-sm text-[#0857A1] hover:underline">
+          View All
+        </button>
       </div>
 
-      <div className="h-[1px] bg-slate-100 mb-4" />
+      {/* Divider */}
+      <div className="h-px bg-[#E2E2E2] mb-4" />
 
-      <div className="space-y-3 max-h-[520px] overflow-y-auto pr-1">
-        {items.map((it) => (
-          <button
-            key={it.id}
-            className="w-full flex items-center gap-3 rounded-lg p-3 bg-white border border-slate-100 hover:shadow-sm active:scale-[.997] transition-transform duration-75"
-            aria-label={`Open ${it.title}`}
-          >
-            {/* left accent */}
-            <div
-              className={`w-1.5 h-14 rounded-full mr-2 shrink-0 bg-gradient-to-b ${it.accent ?? defaultAccent}`}
-              style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.6)" }}
-            />
+      {/* Interview Cards */}
+      <div className="flex flex-col gap-4 overflow-y-auto max-h-[600px] pr-1">
+        {items.map((interview) => {
+          const colors = accentColors[interview.accentColor];
+          return (
+            <button
+              key={interview.id}
+              className="flex items-center gap-3 p-3 bg-white border border-[#EBEBEB] rounded-lg hover:shadow-sm transition-shadow w-full text-left"
+              style={{ height: "112px" }}
+            >
+              {/* Left Color Bar */}
+              <div
+                className="w-1.5 h-full rounded-full shrink-0"
+                style={{ backgroundColor: colors.bar }}
+              />
 
-            <div className="flex-1 text-left">
-              <div className="flex items-center justify-between">
-                <div className="text-sm font-medium text-slate-800">{it.title}</div>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+              {/* Content */}
+              <div className="flex-1 flex flex-col gap-2">
+                {/* Title Row */}
+                <div className="flex justify-between items-center">
+                  <span className="font-['Poppins'] font-medium text-sm text-[#181D27]">
+                    {interview.title}
+                  </span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="text-[#989898]"
+                  >
+                    <path
+                      d="M6 12L10 8L6 4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+
+                {/* Time Row */}
+                <div className="flex items-center gap-2">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z"
+                      stroke="#717171"
+                      strokeWidth="1.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M8 4.66667V8L10.6667 9.33333"
+                      stroke="#717171"
+                      strokeWidth="1.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="font-['Poppins'] font-normal text-xs text-[#717171]">
+                    {interview.time}
+                  </span>
+                </div>
+
+                {/* Interviewer Row */}
+                <div className="flex items-center gap-2">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.3333 14V12.6667C13.3333 11.9594 13.0524 11.2811 12.5523 10.781C12.0522 10.281 11.3739 10 10.6667 10H5.33333C4.62609 10 3.94781 10.281 3.44772 10.781C2.94762 11.2811 2.66667 11.9594 2.66667 12.6667V14"
+                      stroke="#717171"
+                      strokeWidth="1.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M8 7.33333C9.47276 7.33333 10.6667 6.13943 10.6667 4.66667C10.6667 3.19391 9.47276 2 8 2C6.52724 2 5.33333 3.19391 5.33333 4.66667C5.33333 6.13943 6.52724 7.33333 8 7.33333Z"
+                      stroke="#717171"
+                      strokeWidth="1.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="font-['Poppins'] font-normal text-xs text-[#717171]">
+                    {interview.interviewer}
+                  </span>
+                </div>
               </div>
+            </button>
+          );
+        })}
 
-              <div className="mt-2 text-xs text-slate-500 flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>{it.time}</span>
-              </div>
-
-              <div className="mt-2 text-xs text-slate-500 flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.121 17.804A13.937 13.937 0 0112 15c2.485 0 4.795.69 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span>{it.interviewer}</span>
-              </div>
-            </div>
-          </button>
-        ))}
-
-        {/* empty state if no items */}
+        {/* Empty State */}
         {items.length === 0 && (
-          <div className="w-full h-[320px] flex flex-col items-center justify-center text-slate-400">
+          <div className="flex flex-col items-center justify-center py-16 text-center">
             <div className="mb-4 opacity-60">
-              {/* simple calendar svg */}
-              <svg width="96" height="72" viewBox="0 0 96 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="6" y="10" width="84" height="56" rx="6" stroke="#E6EEF8" strokeWidth="2" fill="#F9FBFF" />
+              <svg
+                width="96"
+                height="72"
+                viewBox="0 0 96 72"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="6"
+                  y="10"
+                  width="84"
+                  height="56"
+                  rx="6"
+                  stroke="#E6EEF8"
+                  strokeWidth="2"
+                  fill="#F9FBFF"
+                />
                 <rect x="6" y="22" width="84" height="6" rx="2" fill="#EEF6FF" />
                 <circle cx="30" cy="40" r="4" fill="#D9EEF9" />
                 <circle cx="48" cy="40" r="4" fill="#D9EEF9" />
                 <circle cx="66" cy="40" r="4" fill="#D9EEF9" />
               </svg>
             </div>
-            <div className="text-sm">No scheduled interviews. Add a job to proceed in interview creation.</div>
+            <p className="text-sm text-[#626262]">
+              No scheduled interviews.
+              <br />
+              Add a job to proceed in interview creation.
+            </p>
           </div>
         )}
       </div>

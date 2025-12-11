@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Topbar from "@/components/Topbar";
 
 // Import SVG icons from assets
 import CloseSrc from "@/assets/icons/sidebar_close.svg";
@@ -404,13 +405,19 @@ export default function MainNavigation({ children }: { children: React.ReactNode
 
       {/* Page Content - Full width after sidebar */}
       <div
-        className="flex-1 overflow-auto min-h-0 w-full"
+        className="flex-1 overflow-auto min-h-0 w-full flex flex-col"
         style={{
-          marginLeft: isNavExpanded ? "334px" : "80px",
+          marginLeft: isNavExpanded ? "366px" : "80px",
           transition: "margin-left 0.3s ease"
         }}
       >
-        {children}
+        {/* Global Topbar */}
+        <Topbar />
+        
+        {/* Page Content */}
+        <div className="flex-1">
+          {children}
+        </div>
       </div>
     </div>
   );
