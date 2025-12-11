@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import JobDescriptionStepNew from "./JobDescriptionStepNew";
 import HiringPipelineStep from "./HiringPipelineStep";
-import PreviewStep from "./PreviewStep";
+import PreviewAndPostStep from "./PreviewAndPostStep";
+import { useJobs } from "@/context/JobContext";
 
 type FormStep = "job-description" | "hiring-pipeline" | "preview";
 
@@ -58,6 +60,8 @@ const formSteps = [
 ];
 
 export default function JobFormLayoutNew() {
+  const navigate = useNavigate();
+  const { addJob } = useJobs();
   const [currentStep, setCurrentStep] = useState<FormStep>("job-description");
 
   const [formData, setFormData] = useState<FormData>({
@@ -146,19 +150,17 @@ export default function JobFormLayoutNew() {
                     <div className="flex items-center gap-2">
                       {/* Circle with number */}
                       <div
-                        className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold ${
-                          isActive || isCompleted
-                            ? "bg-[#0857A1] text-white"
-                            : "bg-[#D0E8FF] text-[#0857A1]"
-                        }`}
+                        className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold ${isActive || isCompleted
+                          ? "bg-[#0857A1] text-white"
+                          : "bg-[#D0E8FF] text-[#0857A1]"
+                          }`}
                       >
                         {step.step}
                       </div>
                       {/* Label */}
                       <span
-                        className={`text-sm font-medium whitespace-nowrap ${
-                          isActive ? "text-[#0857A1]" : "text-[#344054]"
-                        }`}
+                        className={`text-sm font-medium whitespace-nowrap ${isActive ? "text-[#0857A1]" : "text-[#344054]"
+                          }`}
                       >
                         {step.label}
                       </span>
@@ -167,9 +169,8 @@ export default function JobFormLayoutNew() {
                     {/* Connector Line */}
                     {index < formSteps.length - 1 && (
                       <div
-                        className={`flex-1 h-[2px] mx-6 rounded-full ${
-                          currentStepIndex > index ? "bg-[#0857A1]" : "bg-[#E4E7EC]"
-                        }`}
+                        className={`flex-1 h-[2px] mx-6 rounded-full ${currentStepIndex > index ? "bg-[#0857A1]" : "bg-[#E4E7EC]"
+                          }`}
                       />
                     )}
                   </div>
@@ -194,7 +195,20 @@ export default function JobFormLayoutNew() {
             )}
 
             {currentStep === "preview" && (
-              <PreviewStep formData={formData} onPrevious={handlePrevious} />
+              <PreviewAndPostStep
+                onPrevious={handlePrevious}
+                onPost={() => {
+                  // Save the job to context
+                  addJob({
+                    title: formData.jobTitle,
+                    department: formData.department,
+                    status: "open",
+                    icon: "people",
+                  });
+                  // Navigate to job dashboard
+                  navigate("/job-dashboard");
+                }}
+              />
             )}
           </div>
         </div>

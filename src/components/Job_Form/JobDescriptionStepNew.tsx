@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import JobDescriptionPreviewModal from "./JobDescriptionPreviewModal";
 
 type SectionId =
   | "overview"
@@ -321,9 +322,8 @@ const SidebarItem = ({
 }) => (
   <button
     onClick={onClick}
-    className={`flex items-center gap-3 px-3 py-2.5 w-full transition-colors relative ${
-      active ? "bg-[#F0F9FF]" : "hover:bg-[#F9FAFB]"
-    }`}
+    className={`flex items-center gap-3 px-3 py-2.5 w-full transition-colors relative ${active ? "bg-[#F0F9FF]" : "hover:bg-[#F9FAFB]"
+      }`}
   >
     {/* Left border indicator for active state */}
     {active && (
@@ -331,9 +331,8 @@ const SidebarItem = ({
     )}
     <LoaderIcon active={active} />
     <span
-      className={`text-sm leading-5 ${
-        active ? "font-medium text-[#0857A1]" : "font-normal text-[#344054]"
-      }`}
+      className={`text-sm leading-5 ${active ? "font-medium text-[#0857A1]" : "font-normal text-[#344054]"
+        }`}
     >
       {label}
     </span>
@@ -356,7 +355,18 @@ export default function JobDescriptionStepNew({
     ...propFormData,
   });
   const [activeSection, setActiveSection] = useState<SectionId>("overview");
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+
+  // Sync formData with propFormData when it changes from parent
+  useEffect(() => {
+    if (propFormData) {
+      setLocalFormData(prev => ({
+        ...prev,
+        ...propFormData,
+      }));
+    }
+  }, [propFormData]);
 
   const updateFormData = (updates: Partial<FormData>) => {
     const newData = { ...formData, ...updates };
@@ -398,7 +408,10 @@ export default function JobDescriptionStepNew({
         <h2 className="text-xl font-medium text-[#181D27] leading-7">
           Complete Job Description
         </h2>
-        <button className="text-base font-medium text-[#0857A1] opacity-80 leading-6">
+        <button
+          onClick={() => setIsPreviewOpen(true)}
+          className="text-base font-medium text-[#0857A1] opacity-80 leading-6 hover:opacity-100 transition-opacity"
+        >
           Show Preview
         </button>
       </div>
@@ -671,6 +684,13 @@ export default function JobDescriptionStepNew({
           <span className="text-sm font-medium text-white">Next</span>
         </button>
       </div>
+
+      {/* Preview Modal */}
+      <JobDescriptionPreviewModal
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+        formData={formData}
+      />
     </div>
   );
 }

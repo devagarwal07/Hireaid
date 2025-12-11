@@ -18,7 +18,7 @@ const JobDashboardPage: React.FC = () => {
                 <div className="flex items-start gap-6">
                   <div className="flex-1">
                     <div className="text-xs uppercase text-[#0857A1] font-semibold mb-1 tracking-wide">
-                      AI Powered
+                      AI POWERED
                     </div>
 
                     <h2 className="font-['Poppins'] font-semibold text-2xl text-[#181D27] mb-2 leading-tight">
