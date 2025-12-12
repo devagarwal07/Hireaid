@@ -9,6 +9,7 @@ import WorkSrc from "@/assets/icons/sidebar_work.svg";
 import InterviewSrc from "@/assets/icons/sidebar_interview.svg";
 import CameraSrc from "@/assets/icons/sidebar_camera.svg";
 import ProfileSrc from "@/assets/icons/sidebar_profile.svg";
+import WorkSrc2 from "@/assets/icons/sidebar_work.svg"; // Using work icon for companies
 
 interface NavItem {
   id: string;
@@ -29,6 +30,12 @@ const navItems: NavItem[] = [
     label: "Jobs",
     iconSrc: WorkSrc,
     path: "/job-dashboard",
+  },
+  {
+    id: "companies",
+    label: "Companies",
+    iconSrc: WorkSrc2,
+    path: "/companies",
   },
   {
     id: "interviews",
@@ -56,6 +63,9 @@ export default function MainNavigation({ children }: { children: React.ReactNode
     if (location.pathname === "/interview" || location.pathname.startsWith("/interview")) {
       return "interviews";
     }
+    if (location.pathname === "/companies" || location.pathname.startsWith("/company")) {
+      return "companies";
+    }
     if (location.pathname === "/job-dashboard" || location.pathname.startsWith("/job")) {
       return "dashboard";
     }
@@ -68,9 +78,9 @@ export default function MainNavigation({ children }: { children: React.ReactNode
     navigate(path);
   };
 
-  // Icon sizes - dashboard/jobs are smaller, others are standard
+  // Icon sizes - dashboard/jobs/companies are smaller, others are standard
   const getIconSize = (itemId: string) => {
-    if (itemId === "dashboard" || itemId === "jobs") return 12;
+    if (itemId === "dashboard" || itemId === "jobs" || itemId === "companies") return 12;
     return 37; // interviews & candidates (22 + 15)
   };
 
