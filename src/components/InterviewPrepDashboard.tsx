@@ -1,5 +1,4 @@
 import React from "react";
-import Topbar from "@/components/Topbar";
 import PageHeader from "@/components/ui/PageHeader";
 import { useAppContext } from "@/context/AppContext";
 
@@ -15,8 +14,14 @@ export interface TagProps {
   color?: string;
 }
 
-export const Tag: React.FC<TagProps> = ({ children, bg = "bg-green-50", color = "text-green-700" }) => (
-  <span className={`px-3 py-1 text-sm rounded-full ${bg} ${color} shadow-sm`}>{children}</span>
+export const Tag: React.FC<TagProps> = ({
+  children,
+  bg = "bg-green-50",
+  color = "text-green-700",
+}) => (
+  <span className={`px-3 py-1 text-sm rounded-full ${bg} ${color} shadow-sm`}>
+    {children}
+  </span>
 );
 
 export interface ScorePillProps {
@@ -37,7 +42,10 @@ export interface QuestionCardProps {
   score?: string | number;
 }
 
-export const QuestionCard: React.FC<QuestionCardProps> = ({ question, score = "8.4" }) => (
+export const QuestionCard: React.FC<QuestionCardProps> = ({
+  question,
+  score = "8.4",
+}) => (
   <div className="border border-gray-100 rounded-lg p-3">
     <div className="flex items-start gap-4">
       <div className="w-36 flex-shrink-0">
@@ -47,26 +55,75 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, score = "8
       <div className="flex-1">
         <div className="flex items-center justify-between">
           <div className="text-sm font-medium">{question.title}</div>
-          <button className="text-gray-400" aria-label={`toggle-${question.id}`}>▾</button>
+          <button
+            className="text-gray-400"
+            aria-label={`toggle-${question.id}`}
+          >
+            ▾
+          </button>
         </div>
 
         <div className="border-l border-gray-100 pl-4 mt-3">
           <ul className="text-sm text-gray-700 space-y-2">
             {question.bullets.map((b, idx) => (
               <li key={idx} className="flex items-start gap-2">
-                <span className={`flex items-center justify-center w-5 h-5 rounded-full ${idx === question.bullets.length - 1 ? 'text-red-500' : 'text-emerald-600'}`}>
+                <span
+                  className={`flex items-center justify-center w-5 h-5 rounded-full ${
+                    idx === question.bullets.length - 1
+                      ? "text-red-500"
+                      : "text-emerald-600"
+                  }`}
+                >
                   {idx === question.bullets.length - 1 ? (
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
-                      <path d="M12 9v4" stroke="#ef4444" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M12 17h.01" stroke="#ef4444" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden
+                    >
+                      <path
+                        d="M12 9v4"
+                        stroke="#ef4444"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M12 17h.01"
+                        stroke="#ef4444"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   ) : (
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
-                      <path d="M20 6L9 17l-5-5" stroke="#10B981" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden
+                    >
+                      <path
+                        d="M20 6L9 17l-5-5"
+                        stroke="#10B981"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   )}
                 </span>
-                <span className={`${idx === question.bullets.length - 1 ? 'text-red-600' : 'text-gray-700'}`}>{b}</span>
+                <span
+                  className={`${
+                    idx === question.bullets.length - 1
+                      ? "text-red-600"
+                      : "text-gray-700"
+                  }`}
+                >
+                  {b}
+                </span>
               </li>
             ))}
           </ul>
@@ -93,22 +150,14 @@ const defaultQuestions = Array.from({ length: 4 }, (_, i) => ({
   ],
 })) as Question[];
 
-const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({ score = "8.4", questions = defaultQuestions }) => {
+const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({
+  score = "8.4",
+  questions = defaultQuestions,
+}) => {
   const { user, currentInterview } = useAppContext();
 
   return (
     <div className="w-full min-h-screen bg-[#F0F4FF]">
-      {/* Top greeting bar */}
-      <Topbar
-        userName={user.firstName}
-        initials={user.initials}
-        fullName={`${user.firstName} ${user.lastName}`}
-        role={user.role}
-        notificationsCount={user.notificationsCount}
-        onNotifications={() => console.log("notifications")}
-        onProfile={() => console.log("profile clicked")}
-      />
-
       {/* Main content area */}
       <div className="w-full px-6 pb-6">
         {/* Page Header */}
@@ -126,7 +175,17 @@ const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({ score =
               buttons: [
                 {
                   label: "Go to Candidates List",
-                  icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+                  icon: (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M9 18l6-6-6-6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ),
                   variant: "secondary",
                   onClick: () => console.log("Go to Candidates List"),
                 },
@@ -136,7 +195,9 @@ const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({ score =
         </div>
 
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-lg font-semibold text-[#1a1f36]">Interview Prep Dashboard - Interview Completed</h1>
+          <h1 className="text-lg font-semibold text-[#1a1f36]">
+            Interview Prep Dashboard - Interview Completed
+          </h1>
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-4">
@@ -152,10 +213,19 @@ const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({ score =
 
                   <div className="flex flex-wrap gap-2 mt-2 max-w-[680px]">
                     <Tag>Showed clear technical knowledge</Tag>
-                    <Tag bg="bg-sky-50" color="text-sky-700">Brilliant communication skills</Tag>
-                    <Tag bg="bg-yellow-50" color="text-amber-700">Leadership</Tag>
-                    <Tag bg="bg-violet-50" color="text-violet-700">Provided examples of prior work experience which fits job description</Tag>
-                    <Tag bg="bg-red-50" color="text-red-700">Some answers believed to use AI assistance</Tag>
+                    <Tag bg="bg-sky-50" color="text-sky-700">
+                      Brilliant communication skills
+                    </Tag>
+                    <Tag bg="bg-yellow-50" color="text-amber-700">
+                      Leadership
+                    </Tag>
+                    <Tag bg="bg-violet-50" color="text-violet-700">
+                      Provided examples of prior work experience which fits job
+                      description
+                    </Tag>
+                    <Tag bg="bg-red-50" color="text-red-700">
+                      Some answers believed to use AI assistance
+                    </Tag>
                   </div>
                 </div>
               </div>
@@ -185,29 +255,65 @@ const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({ score =
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div className="bg-white rounded-lg border border-gray-100 p-4 shadow-sm">
             <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2 text-sm font-semibold"> Strengths</div>
+              <div className="flex items-center gap-2 text-sm font-semibold">
+                {" "}
+                Strengths
+              </div>
             </div>
 
             <ul className="text-sm text-gray-700 list-disc pl-5 space-y-2">
-              <li>The candidate articulated their thoughts and experiences clearly and confidently.</li>
-              <li>Their background aligned well with the role's requirements and responsibilities.</li>
-              <li>They demonstrated structured thinking and logical reasoning during technical/problem-solving questions.</li>
-              <li>The candidate showed values, attitude, and mindset aligned with the team and company culture.</li>
-              <li>They were genuinely interested in the role and asked insightful questions about the team, product, or mission.</li>
+              <li>
+                The candidate articulated their thoughts and experiences clearly
+                and confidently.
+              </li>
+              <li>
+                Their background aligned well with the role's requirements and
+                responsibilities.
+              </li>
+              <li>
+                They demonstrated structured thinking and logical reasoning
+                during technical/problem-solving questions.
+              </li>
+              <li>
+                The candidate showed values, attitude, and mindset aligned with
+                the team and company culture.
+              </li>
+              <li>
+                They were genuinely interested in the role and asked insightful
+                questions about the team, product, or mission.
+              </li>
             </ul>
           </div>
 
           <div className="bg-white rounded-lg border border-gray-100 p-4 shadow-sm">
             <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2 text-sm font-semibold"> What Needs Improvement</div>
+              <div className="flex items-center gap-2 text-sm font-semibold">
+                {" "}
+                What Needs Improvement
+              </div>
             </div>
 
             <ul className="text-sm text-gray-700 list-disc pl-5 space-y-2">
-              <li>Some answers could improve clarity and structure when explaining their past work or problem-solving approach.</li>
-              <li>They lacked depth in certain technical areas relevant to the role.</li>
-              <li>Some responses were generic and didn't showcase specific examples or outcomes.</li>
-              <li>There was limited engagement or curiosity shown through follow-up questions.</li>
-              <li>Time management during answers could be improved to cover more ground efficiently.</li>
+              <li>
+                Some answers could improve clarity and structure when explaining
+                their past work or problem-solving approach.
+              </li>
+              <li>
+                They lacked depth in certain technical areas relevant to the
+                role.
+              </li>
+              <li>
+                Some responses were generic and didn't showcase specific
+                examples or outcomes.
+              </li>
+              <li>
+                There was limited engagement or curiosity shown through
+                follow-up questions.
+              </li>
+              <li>
+                Time management during answers could be improved to cover more
+                ground efficiently.
+              </li>
             </ul>
           </div>
         </div>
