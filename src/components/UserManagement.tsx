@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AddNewUser from "@/components/AddNewUser";
+import RoleManagement from "@/components/RoleManagement";
 
 interface User {
   id: string;
@@ -22,9 +23,14 @@ const UserManagement: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [showAddNewUser, setShowAddNewUser] = useState(false);
+  const [showRoleManagement, setShowRoleManagement] = useState(false);
 
   if (showAddNewUser) {
     return <AddNewUser onBack={() => setShowAddNewUser(false)} />;
+  }
+
+  if (showRoleManagement) {
+    return <RoleManagement onBack={() => setShowRoleManagement(false)} />;
   }
 
   return (
@@ -81,7 +87,10 @@ const UserManagement: React.FC = () => {
         </button>
 
         {/* Manage Access Privileges Card */}
-        <button className="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors text-left group">
+        <button
+          onClick={() => setShowRoleManagement(true)}
+          className="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors text-left group"
+        >
           <div className="w-12 h-12 rounded-full bg-[#EBF2FF] flex items-center justify-center flex-shrink-0">
             <svg
               width="24"
