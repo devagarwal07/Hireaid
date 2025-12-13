@@ -3,6 +3,7 @@ import PageHeader from "@/components/ui/PageHeader";
 import SettingsSidebar from "@/components/SettingsSidebar";
 import AdminSettings from "@/components/AdminSettings";
 import UserManagement from "@/components/UserManagement";
+import Integrations from "@/components/Integrations";
 import type { SettingsSection } from "@/components/SettingsSidebar";
 
 const CreateAccount: React.FC = () => {
@@ -40,19 +41,7 @@ const CreateAccount: React.FC = () => {
           </div>
         );
       case "integrations":
-        return (
-          <div
-            className="bg-white rounded-lg p-8 border border-gray-200"
-            style={{ boxShadow: "0 2px 11px rgba(0,0,0,0.08)" }}
-          >
-            <h2 className="text-2xl font-semibold text-[#181D27]">
-              Integrations
-            </h2>
-            <p className="text-[#626262] mt-4">
-              Integrations content coming soon...
-            </p>
-          </div>
-        );
+        return <Integrations />;
       case "help":
         return (
           <div
