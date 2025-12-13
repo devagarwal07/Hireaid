@@ -1,5 +1,6 @@
 // src/components/interview_screen/Topbar.tsx
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NotificationDropdown from "@/components/ui/NotificationDropdown";
 
 type Props = {
@@ -22,10 +23,16 @@ export default function Topbar({
   onProfile,
 }: Props) {
   const [showNotifications, setShowNotifications] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggleNotifications = () => {
     setShowNotifications((prev) => !prev);
     onNotifications?.();
+  };
+
+  const handleProfileClick = () => {
+    navigate("/companies");
+    onProfile?.();
   };
 
   const hour = new Date().getHours();
@@ -79,7 +86,7 @@ export default function Topbar({
           </div>
 
           <button
-            onClick={onProfile}
+            onClick={handleProfileClick}
             className="flex items-center gap-3 rounded-full px-3 py-1.5 hover:bg-gray-50 cursor-pointer"
             type="button"
           >
