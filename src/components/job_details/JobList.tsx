@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CreateJobModal from "./CreateJobModal";
 import { useJobs, type Job } from "@/context/JobContext";
 
@@ -104,6 +105,7 @@ const StatusBadge = ({ status }: { status: Job["status"] }) => {
 };
 
 export default function JobList() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -254,7 +256,10 @@ export default function JobList() {
               <div className="flex flex-col gap-3">
                 <div className="w-full h-px bg-[#F0F0F0]" />
                 <div className="flex justify-between items-center">
-                  <button className="font-['Poppins'] font-normal text-xs text-[#0857A1] hover:underline transition-all">
+                  <button
+                    onClick={() => navigate(`/job/${job.id}/candidates`)}
+                    className="font-['Poppins'] font-normal text-xs text-[#0857A1] hover:underline transition-all"
+                  >
                     View Details
                   </button>
                   <StatusBadge status={job.status} />

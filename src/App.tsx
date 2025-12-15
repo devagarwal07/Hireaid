@@ -5,9 +5,12 @@ import InterviewUI from "./components/InterviewUI";
 import InterviewPrepDashboard from "./components/InterviewPrepDashboard";
 import JobDashboardPage from "@/pages/job_details/job_details";
 import JobFormPage from "@/pages/job_details/Job_Form";
+import JobCandidates from "@/pages/JobCandidates";
+import CandidateDetails from "@/pages/CandidateDetails";
 import CompaniesList from "./components/CompaniesList";
 import CompanyDetails from "./components/CompanyDetails";
 import CreateAccount from "@/pages/CreateAccount";
+import ScheduleInterviewDemo from "@/pages/ScheduleInterviewDemo";
 import { JobProvider } from "./context/JobContext";
 import { CompanyProvider } from "./context/CompanyContext";
 
@@ -28,12 +31,24 @@ export default function App(): React.ReactElement {
             {/* NEW job creation route */}
             <Route path="/job-form" element={<JobFormPage />} />
 
+            {/* Job Candidates route - dynamic based on job ID */}
+            <Route path="/job/:id/candidates" element={<JobCandidates />} />
+
+            {/* Candidate Details route */}
+            <Route path="/job/:jobId/candidate/:candidateId" element={<CandidateDetails />} />
+
             {/* Companies routes */}
             <Route path="/companies" element={<CompaniesList />} />
             <Route path="/company/:id" element={<CompanyDetails />} />
             <Route
               path="/companies/create-account"
               element={<CreateAccount />}
+            />
+
+            {/* Schedule Interview Demo */}
+            <Route
+              path="/schedule-interview"
+              element={<ScheduleInterviewDemo />}
             />
 
             <Route

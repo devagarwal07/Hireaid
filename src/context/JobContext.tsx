@@ -85,6 +85,7 @@ const sampleJobs: Job[] = [
 
 interface JobContextType {
     jobs: Job[];
+    getJobById: (id: string | number) => Job | undefined;
     addJob: (job: Omit<Job, "id" | "date" | "applied" | "inProcess" | "qualified">) => void;
     removeJob: (id: string | number) => void;
     updateJob: (id: string | number, updates: Partial<Job>) => void;
@@ -94,6 +95,12 @@ const JobContext = createContext<JobContextType | undefined>(undefined);
 
 export function JobProvider({ children }: { children: ReactNode }) {
     const [jobs, setJobs] = useState<Job[]>(sampleJobs);
+
+    const getJobById = (id: string | number): Job | undefined => {
+        // Convert to number for comparison if it's a string
+        const numId = typeof id === 'string' ? parseInt(id, 10) : id;
+        return jobs.find((job) => job.id === numId || job.id === id);
+    };
 
     const addJob = (jobData: Omit<Job, "id" | "date" | "applied" | "inProcess" | "qualified">) => {
         const today = new Date();
@@ -120,7 +127,7 @@ export function JobProvider({ children }: { children: ReactNode }) {
     };
 
     return (
-        <JobContext.Provider value={{ jobs, addJob, removeJob, updateJob }}>
+        <JobContext.Provider value={{ jobs, getJobById, addJob, removeJob, updateJob }}>
             {children}
         </JobContext.Provider>
     );
