@@ -7,6 +7,7 @@ import JobDashboardPage from "@/pages/job_details/job_details";
 import JobFormPage from "@/pages/job_details/Job_Form";
 import JobCandidates from "@/pages/JobCandidates";
 import CandidateDetails from "@/pages/CandidateDetails";
+import PostInterviewReportPage from "@/pages/PostInterviewReportPage";
 import CompaniesList from "./components/CompaniesList";
 import CompanyDetails from "./components/CompanyDetails";
 import CreateAccount from "@/pages/CreateAccount";
@@ -36,6 +37,9 @@ export default function App(): React.ReactElement {
 
             {/* Candidate Details route */}
             <Route path="/job/:jobId/candidate/:candidateId" element={<CandidateDetails />} />
+
+            {/* Post Interview Report - for completed interviews */}
+            <Route path="/job/:jobId/candidate/:candidateId/report" element={<PostInterviewReportPage />} />
 
             {/* Companies routes */}
             <Route path="/companies" element={<CompaniesList />} />

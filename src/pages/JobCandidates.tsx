@@ -15,7 +15,7 @@ interface Candidate {
     name: string;
     email: string;
     evaluation360: number | string | null;
-    interviewStatus: "schedule" | "not-recommended" | "none";
+    interviewStatus: "schedule" | "not-recommended" | "none" | "completed";
     status: "pending-interview" | "pending-evaluation" | "cancelled" | "completed";
     skills: CandidateSkill[];
 }
@@ -41,8 +41,8 @@ const sampleCandidates: Candidate[] = [
         name: "Samuel Baker",
         email: "samuel.baker@email.com",
         evaluation360: 8.4,
-        interviewStatus: "schedule",
-        status: "pending-interview",
+        interviewStatus: "completed",
+        status: "completed",
         skills: [
             { label: "3-5 Years", type: "experience" },
             { label: "Communication Skills", type: "skill" },
@@ -487,7 +487,13 @@ export default function JobCandidates(): React.ReactElement {
                             >
                                 {/* Candidate Name - clickable to go to details */}
                                 <span
-                                    onClick={() => navigate(`/job/${id}/candidate/${candidate.id}`)}
+                                    onClick={() => {
+                                        if (candidate.status === "completed") {
+                                            navigate(`/job/${id}/candidate/${candidate.id}/report`);
+                                        } else {
+                                            navigate(`/job/${id}/candidate/${candidate.id}`);
+                                        }
+                                    }}
                                     className="text-sm font-medium text-[#0857A1] cursor-pointer hover:underline"
                                 >
                                     {candidate.name}
@@ -507,18 +513,30 @@ export default function JobCandidates(): React.ReactElement {
 
                                 {/* Interview */}
                                 <div className="flex items-center gap-2">
-                                    <ClockIcon />
-                                    {candidate.interviewStatus === "schedule" ? (
-                                        <button
-                                            onClick={() => handleScheduleInterview(candidate)}
-                                            className="text-sm text-[#0857A1] hover:underline"
-                                        >
-                                            Schedule Interview
-                                        </button>
-                                    ) : candidate.interviewStatus === "not-recommended" ? (
-                                        <span className="text-sm text-red-500">Not Recommended</span>
+                                    {candidate.interviewStatus === "completed" ? (
+                                        <>
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                                <circle cx="12" cy="12" r="10" fill="#22C55E" />
+                                                <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                            <span className="text-sm text-green-600 font-medium">Interview Completed</span>
+                                        </>
                                     ) : (
-                                        <span className="text-sm text-gray-400">-</span>
+                                        <>
+                                            <ClockIcon />
+                                            {candidate.interviewStatus === "schedule" ? (
+                                                <button
+                                                    onClick={() => handleScheduleInterview(candidate)}
+                                                    className="text-sm text-[#0857A1] hover:underline"
+                                                >
+                                                    Schedule Interview
+                                                </button>
+                                            ) : candidate.interviewStatus === "not-recommended" ? (
+                                                <span className="text-sm text-red-500">Not Recommended</span>
+                                            ) : (
+                                                <span className="text-sm text-gray-400">-</span>
+                                            )}
+                                        </>
                                     )}
                                 </div>
 
@@ -547,7 +565,11 @@ export default function JobCandidates(): React.ReactElement {
                                         onClose={() => setTooltipOpenFor(null)}
                                         onViewDetails={() => {
                                             setTooltipOpenFor(null);
-                                            navigate(`/job/${id}/candidate/${candidate.id}`);
+                                            if (candidate.status === "completed") {
+                                                navigate(`/job/${id}/candidate/${candidate.id}/report`);
+                                            } else {
+                                                navigate(`/job/${id}/candidate/${candidate.id}`);
+                                            }
                                         }}
                                     />
                                 </div>

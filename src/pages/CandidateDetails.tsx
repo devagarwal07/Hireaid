@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ScheduleInterviewModal from "@/components/ScheduleInterviewModal";
+import PostInterviewReport from "@/components/PostInterviewReport";
 import HeaderBanner from "@/assets/images/header_banner.png";
 
 // Sample candidate data
@@ -91,10 +92,82 @@ const candidateData = {
     ],
     hiringSteps: [
         { label: "360 Resume Evaluation", score: 8.4, status: "completed" },
-        { label: "Interview Round 1", score: null, status: "current" },
-        { label: "Technical Test", score: null, status: "pending" },
+        { label: "Interview Round 1", score: 8.4, status: "completed" },
+        { label: "Technical Test", score: null, status: "current" },
         { label: "Interview Round 2", score: null, status: "pending" },
     ],
+    interviewCompleted: true,
+    interviewData: {
+        conductedBy: "John Doe",
+        date: "8-07-25",
+        time: "10:00 am - 12:30 pm",
+        duration: "4 hours",
+        evaluationTags: [
+            "Showed clear technical knowledge",
+            "Brilliant communication skills",
+            "Leadership",
+        ],
+        strengths: [
+            "The candidate articulated their thoughts and experiences clearly and confidently.",
+            "Their background aligned well with the role's requirements and responsibilities.",
+            "They demonstrated structured thinking and logical reasoning during technical/problem-solving questions.",
+            "The candidate showed values, attitude, and mindset aligned with the team and company culture.",
+            "They were genuinely interested in the role and asked insightful questions about the team, product, or mission.",
+        ],
+        improvements: [
+            "The candidate could improve clarity and structure when explaining their past work or problem-solving approach.",
+            "They lacked depth in certain technical areas relevant to the role.",
+            "Some responses were generic and didn't showcase specific examples or outcomes.",
+            "There was limited engagement or curiosity shown through follow-up questions.",
+            "Time management during answers could be improved to cover more ground efficiently.",
+        ],
+        questions: [
+            {
+                question: "Can you tell me a bit about yourself",
+                score: 8.4,
+                criteria: [
+                    { text: "The candidate articulated their thoughts and experiences clearly and confidently.", checked: true },
+                    { text: "Their background aligned well with the role's requirements and responsibilities.", checked: true },
+                    { text: "They demonstrated structured thinking and logical reasoning during technical/problem-solving questions.", checked: true },
+                    { text: "The candidate showed values, attitude, and mindset aligned with the team and company culture.", checked: true },
+                    { text: "Time management during answers could be improved to cover more ground efficiently.", checked: false },
+                ],
+            },
+            {
+                question: "Can you tell me a bit about yourself",
+                score: 8.4,
+                criteria: [
+                    { text: "The candidate articulated their thoughts and experiences clearly and confidently.", checked: true },
+                    { text: "Their background aligned well with the role's requirements and responsibilities.", checked: true },
+                    { text: "They demonstrated structured thinking and logical reasoning during technical/problem-solving questions.", checked: true },
+                    { text: "The candidate showed values, attitude, and mindset aligned with the team and company culture.", checked: true },
+                    { text: "Time management during answers could be improved to cover more ground efficiently.", checked: false },
+                ],
+            },
+            {
+                question: "Can you tell me a bit about yourself",
+                score: 8.4,
+                criteria: [
+                    { text: "The candidate articulated their thoughts and experiences clearly and confidently.", checked: true },
+                    { text: "Their background aligned well with the role's requirements and responsibilities.", checked: true },
+                    { text: "They demonstrated structured thinking and logical reasoning during technical/problem-solving questions.", checked: true },
+                    { text: "The candidate showed values, attitude, and mindset aligned with the team and company culture.", checked: true },
+                    { text: "Time management during answers could be improved to cover more ground efficiently.", checked: false },
+                ],
+            },
+            {
+                question: "Can you tell me a bit about yourself",
+                score: 8.4,
+                criteria: [
+                    { text: "The candidate articulated their thoughts and experiences clearly and confidently.", checked: true },
+                    { text: "Their background aligned well with the role's requirements and responsibilities.", checked: true },
+                    { text: "They demonstrated structured thinking and logical reasoning during technical/problem-solving questions.", checked: true },
+                    { text: "The candidate showed values, attitude, and mindset aligned with the team and company culture.", checked: true },
+                    { text: "Time management during answers could be improved to cover more ground efficiently.", checked: false },
+                ],
+            },
+        ],
+    },
 };
 
 // Icons
@@ -631,14 +704,23 @@ export default function CandidateDetails(): React.ReactElement {
                         )}
 
                         {activeTab === "interview" && (
-                            <div className="py-8 text-center">
-                                <p className="text-gray-500 mb-4">Interview not scheduled</p>
-                                <button
-                                    onClick={() => setShowScheduleModal(true)}
-                                    className="px-6 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
-                                >
-                                    Schedule Interview
-                                </button>
+                            <div>
+                                {candidate.interviewCompleted ? (
+                                    <PostInterviewReport
+                                        candidateName={candidate.name}
+                                        interviewData={candidate.interviewData}
+                                    />
+                                ) : (
+                                    <div className="py-8 text-center">
+                                        <p className="text-gray-500 mb-4">Interview not scheduled</p>
+                                        <button
+                                            onClick={() => setShowScheduleModal(true)}
+                                            className="px-6 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
+                                        >
+                                            Schedule Interview
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
