@@ -10,6 +10,7 @@ import InterviewSrc from "@/assets/icons/sidebar_interview.svg";
 import CameraSrc from "@/assets/icons/sidebar_camera.svg";
 import ProfileSrc from "@/assets/icons/sidebar_profile.svg";
 import WorkSrc2 from "@/assets/icons/sidebar_work.svg"; // Using work icon for companies
+import HiraideLogo from "@/assets/icons/hireaid.svg";
 
 interface NavItem {
   id: string;
@@ -78,10 +79,12 @@ export default function MainNavigation({ children }: { children: React.ReactNode
     navigate(path);
   };
 
-  // Icon sizes - dashboard/jobs/companies are smaller, others are standard
+  // Icon sizes - interviews and candidates icons are larger
   const getIconSize = (itemId: string) => {
-    if (itemId === "dashboard" || itemId === "jobs" || itemId === "companies") return 12;
-    return 37; // interviews & candidates (22 + 15)
+    if (itemId === "interviews" || itemId === "candidates") {
+      return 24; // Larger size for interview and profile icons
+    }
+    return 15; // Default size for other icons
   };
 
   const renderCollapsedItem = (item: NavItem) => {
@@ -248,65 +251,8 @@ export default function MainNavigation({ children }: { children: React.ReactNode
             }}
           >
             <div>
-              <div
-                style={{
-                  fontFamily: "Poppins, sans-serif",
-                  fontSize: "24px",
-                  fontWeight: "bold",
-                  color: "#000000",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "4px",
-                }}
-              >
-                <span>H</span>
-                <span>I</span>
-                <span>R</span>
-                <svg
-                  style={{ width: "28px", height: "28px" }}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g
-                    stroke="#2DD4BD"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeDasharray="2 2"
-                  >
-                    <line x1="12" y1="2" x2="12" y2="4" />
-                    <line x1="8.5" y1="3.5" x2="9.5" y2="5" />
-                    <line x1="15.5" y1="3.5" x2="14.5" y2="5" />
-                  </g>
-                  <circle cx="12" cy="7" r="3" fill="#2DD4BD" />
-                  <path
-                    d="M8 14c0-2.21 1.79-4 4-4s4 1.79 4 4v6H8v-6z"
-                    fill="#2DD4BD"
-                  />
-                  <path
-                    d="M5 10l3-2 2 2M19 10l-3-2-2 2"
-                    stroke="#2DD4BD"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                  />
-                </svg>
-                <span style={{ color: "#2DD4BD" }}>A</span>
-                <span style={{ color: "#2DD4BD" }}>I</span>
-                <span>D</span>
-                <span>E</span>
-              </div>
-              <p
-                style={{
-                  fontSize: "12px",
-                  color: "#666666",
-                  marginTop: "4px",
-                  fontFamily: "Poppins, sans-serif",
-                }}
-              >
-                POWERED BY AI, GUIDED BY PEOPLE
-              </p>
+              <img src={HiraideLogo} alt="HIRAIDE" style={{ width: "180px", height: "auto" }} />
+
             </div>
 
             <button
@@ -380,18 +326,31 @@ export default function MainNavigation({ children }: { children: React.ReactNode
                     transition: "background 0.2s",
                   }}
                 >
-                  <img
-                    src={item.iconSrc}
-                    alt={item.label}
+                  <div
                     style={{
                       width: `${iconSize}px`,
                       height: `${iconSize}px`,
-                      objectFit: "contain",
-                      filter: isActive ? "none" : "grayscale(1) brightness(0.55)",
-                      opacity: isActive ? 1 : 0.7,
-                      transition: "filter 0.2s, opacity 0.2s",
+                      minWidth: "24px",
+                      minHeight: "24px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
                     }}
-                  />
+                  >
+                    <img
+                      src={item.iconSrc}
+                      alt={item.label}
+                      style={{
+                        width: `${iconSize}px`,
+                        height: `${iconSize}px`,
+                        objectFit: "contain",
+                        filter: isActive ? "none" : "grayscale(1) brightness(0.55)",
+                        opacity: isActive ? 1 : 0.7,
+                        transition: "filter 0.2s, opacity 0.2s",
+                      }}
+                    />
+                  </div>
                   <span
                     style={{
                       fontFamily: "Poppins, sans-serif",
@@ -423,7 +382,7 @@ export default function MainNavigation({ children }: { children: React.ReactNode
       >
         {/* Global Topbar */}
         <Topbar />
-        
+
         {/* Page Content */}
         <div className="flex-1">
           {children}

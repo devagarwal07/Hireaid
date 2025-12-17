@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PageHeader from "@/components/ui/PageHeader";
 import { useAppContext } from "@/context/AppContext";
 
@@ -68,11 +69,10 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             {question.bullets.map((b, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 <span
-                  className={`flex items-center justify-center w-5 h-5 rounded-full ${
-                    idx === question.bullets.length - 1
-                      ? "text-red-500"
-                      : "text-emerald-600"
-                  }`}
+                  className={`flex items-center justify-center w-5 h-5 rounded-full ${idx === question.bullets.length - 1
+                    ? "text-red-500"
+                    : "text-emerald-600"
+                    }`}
                 >
                   {idx === question.bullets.length - 1 ? (
                     <svg
@@ -116,11 +116,10 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                   )}
                 </span>
                 <span
-                  className={`${
-                    idx === question.bullets.length - 1
-                      ? "text-red-600"
-                      : "text-gray-700"
-                  }`}
+                  className={`${idx === question.bullets.length - 1
+                    ? "text-red-600"
+                    : "text-gray-700"
+                    }`}
                 >
                   {b}
                 </span>
@@ -155,6 +154,7 @@ const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({
   questions = defaultQuestions,
 }) => {
   const { user, currentInterview } = useAppContext();
+  const navigate = useNavigate();
 
   return (
     <div className="w-full min-h-screen bg-[#F0F4FF]">
@@ -187,7 +187,7 @@ const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({
                     </svg>
                   ),
                   variant: "secondary",
-                  onClick: () => console.log("Go to Candidates List"),
+                  onClick: () => navigate("/job/1/candidates"),
                 },
               ],
             }}

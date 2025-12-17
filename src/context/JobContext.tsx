@@ -89,6 +89,7 @@ interface JobContextType {
     addJob: (job: Omit<Job, "id" | "date" | "applied" | "inProcess" | "qualified">) => void;
     removeJob: (id: string | number) => void;
     updateJob: (id: string | number, updates: Partial<Job>) => void;
+    duplicateJob: (id: string | number) => void;
 }
 
 const JobContext = createContext<JobContextType | undefined>(undefined);
@@ -126,8 +127,27 @@ export function JobProvider({ children }: { children: ReactNode }) {
         setJobs(jobs.map((job) => (job.id === id ? { ...job, ...updates } : job)));
     };
 
+    const duplicateJob = (id: string | number) => {
+        const jobToDuplicate = getJobById(id);
+        if (jobToDuplicate) {
+            const today = new Date();
+            const dateStr = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear().toString().slice(-2)}`;
+
+            const duplicatedJob: Job = {
+                ...jobToDuplicate,
+                id: Math.max(...jobs.map(j => typeof j.id === 'number' ? j.id : 0)) + 1,
+                title: `${jobToDuplicate.title} (Copy)`,
+                date: dateStr,
+                applied: 0,
+                inProcess: 0,
+                qualified: 0,
+            };
+            setJobs([duplicatedJob, ...jobs]);
+        }
+    };
+
     return (
-        <JobContext.Provider value={{ jobs, getJobById, addJob, removeJob, updateJob }}>
+        <JobContext.Provider value={{ jobs, getJobById, addJob, removeJob, updateJob, duplicateJob }}>
             {children}
         </JobContext.Provider>
     );

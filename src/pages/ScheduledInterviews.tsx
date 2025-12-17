@@ -333,7 +333,7 @@ export default function ScheduledInterviews(): React.ReactElement {
                                 Edit
                             </button>
                             <button
-                                onClick={() => navigate(`/job/1/candidate/${selectedInterview.candidateId}/interview-prep`)}
+                                onClick={() => navigate(`/job/1/candidate/${selectedInterview.candidateId}`)}
                                 className="flex-1 px-4 py-2.5 bg-[#1e3a5f] text-white rounded-lg font-medium hover:bg-[#162d4d] transition-colors"
                             >
                                 Interview Prep

@@ -16,12 +16,12 @@ const ITEMS: SidebarItem[] = [
   { id: "profile", label: "Profile", src: ProfileSrc },
 ];
 
-export default function Sidebar({ 
-  active = "interview", 
+export default function Sidebar({
+  active = "interview",
   className = "",
   onSelect
-}: { 
-  active?: string; 
+}: {
+  active?: string;
   className?: string;
   onSelect?: (id: string) => void;
 }) {
@@ -52,17 +52,16 @@ export default function Sidebar({
             >
               {/* Rounded square background */}
               <div
-                className={`absolute inset-0 rounded-xl transition-colors ${
-                  isActive ? "bg-teal-100" : "bg-sky-100/25 hover:bg-sky-100/40"
-                }`}
+                className={`absolute inset-0 rounded-xl transition-colors ${isActive ? "bg-teal-100" : "bg-sky-100/25 hover:bg-sky-100/40"
+                  }`}
               />
 
               <img
                 src={it.src}
                 alt={it.label}
-                className={`w-5 h-5 object-contain z-10 transition-opacity ${
-                  isActive ? "opacity-100" : "opacity-70"
-                }`}
+                className={`${it.id === "interview" || it.id === "profile" ? "w-7 h-7" : "w-5 h-5"
+                  } object-contain z-10 transition-opacity ${isActive ? "opacity-100" : "opacity-70"
+                  }`}
                 style={{
                   filter: isActive ? "saturate(1) brightness(1)" : "grayscale(1) brightness(0.55)",
                 }}

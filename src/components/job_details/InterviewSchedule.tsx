@@ -127,6 +127,14 @@ export default function InterviewSchedule({
           return (
             <button
               key={interview.id}
+              onClick={() => {
+                // Navigate to candidate details page
+                if (interview.candidateId) {
+                  navigate(`/job/1/candidate/${interview.candidateId}`);
+                } else {
+                  navigate('/scheduled-interviews');
+                }
+              }}
               className="flex items-center gap-3 p-3 bg-white border border-[#EBEBEB] rounded-lg hover:shadow-sm transition-shadow w-full text-left"
               style={{ height: "112px" }}
             >

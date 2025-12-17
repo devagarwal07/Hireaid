@@ -266,7 +266,7 @@ const StatusBadge = ({ status }: { status: Candidate["status"] }) => {
 export default function JobCandidates(): React.ReactElement {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
-    const { getJobById } = useJobs();
+    const { getJobById, duplicateJob, updateJob, removeJob } = useJobs();
 
     // Get job data from context based on URL param
     const job = id ? getJobById(id) : undefined;
@@ -279,6 +279,11 @@ export default function JobCandidates(): React.ReactElement {
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [candidates] = useState<Candidate[]>(sampleCandidates);
+    const [showViewJDModal, setShowViewJDModal] = useState(false);
+    const [showViewDetails, setShowViewDetails] = useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [candidateMenuOpen, setCandidateMenuOpen] = useState<string | null>(null);
+    const [showToast, setShowToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
     const totalPages = 10; // Mocked as per design
 
@@ -323,7 +328,7 @@ export default function JobCandidates(): React.ReactElement {
         <div className="min-h-screen w-full bg-[#F0F4FF]">
             <div className="w-full px-6 py-6">
                 {/* Header Section */}
-                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-[#E2E8F0] overflow-hidden">
+                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-[#E2E8F0]">
                     {/* Background banner image */}
                     <div
                         className="absolute top-0 right-0 h-full w-1/2 bg-no-repeat bg-right bg-contain pointer-events-none"
@@ -353,19 +358,47 @@ export default function JobCandidates(): React.ReactElement {
                                     <PencilIcon />
                                 </button>
                             </div>
-                            <button className="flex items-center gap-1 text-sm text-[#0857A1] hover:underline">
+                            <button
+                                onClick={() => setShowViewDetails(!showViewDetails)}
+                                className="flex items-center gap-1 text-sm text-[#0857A1] hover:underline"
+                            >
                                 View Details
                                 <ChevronDownIcon />
                             </button>
+                            {/* View Details Dropdown */}
+                            {showViewDetails && (
+                                <>
+                                    <div className="fixed inset-0 z-40" onClick={() => setShowViewDetails(false)} />
+                                    <div className="absolute left-0 top-full mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
+                                        <div className="text-sm text-gray-600 space-y-2">
+                                            <p><strong>Department:</strong> {job.department}</p>
+                                            <p><strong>Created:</strong> {job.date}</p>
+                                            <p><strong>Status:</strong> <span className="capitalize">{job.status}</span></p>
+                                            <p><strong>Applied:</strong> {job.applied}</p>
+                                            <p><strong>In Process:</strong> {job.inProcess}</p>
+                                            <p><strong>Qualified:</strong> {job.qualified}</p>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
                         </div>
 
                         {/* Action Buttons */}
                         <div className="flex items-center gap-3">
-                            <button className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#0857A1] text-[#0857A1] text-sm font-medium hover:bg-[#f0f7ff] transition-colors">
+                            <button
+                                onClick={() => setShowViewJDModal(true)}
+                                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#0857A1] text-[#0857A1] text-sm font-medium hover:bg-[#f0f7ff] transition-colors"
+                            >
                                 <EyeIcon />
                                 View JD
                             </button>
-                            <button className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#0857A1] text-[#0857A1] text-sm font-medium hover:bg-[#f0f7ff] transition-colors">
+                            <button
+                                onClick={() => {
+                                    setShowToast({ message: "Hiring process editor will open here", type: "success" });
+                                    setTimeout(() => setShowToast(null), 3000);
+                                }}
+                                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#0857A1] text-[#0857A1] text-sm font-medium hover:bg-[#f0f7ff] transition-colors"
+                            >
                                 <EditIcon />
                                 Edit Hiring Process
                             </button>
@@ -382,15 +415,40 @@ export default function JobCandidates(): React.ReactElement {
 
                                 {showMoreActions && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10">
-                                        <button className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                        <button
+                                            onClick={() => {
+                                                setShowMoreActions(false);
+                                                if (id) duplicateJob(id);
+                                                setShowToast({ message: "Job duplicated successfully!", type: "success" });
+                                                setTimeout(() => {
+                                                    setShowToast(null);
+                                                    navigate("/job-dashboard");
+                                                }, 1500);
+                                            }}
+                                            className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                        >
                                             <DuplicateIcon />
                                             Duplicate JD
                                         </button>
-                                        <button className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                        <button
+                                            onClick={() => {
+                                                setShowMoreActions(false);
+                                                if (id) updateJob(id, { status: 'closed' });
+                                                setShowToast({ message: "Job opening closed", type: "success" });
+                                                setTimeout(() => setShowToast(null), 3000);
+                                            }}
+                                            className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                        >
                                             <CloseOpeningIcon />
                                             Close Opening
                                         </button>
-                                        <button className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                                        <button
+                                            onClick={() => {
+                                                setShowMoreActions(false);
+                                                setShowDeleteConfirm(true);
+                                            }}
+                                            className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                                        >
                                             <DeleteIcon />
                                             Delete Job
                                         </button>
@@ -487,13 +545,7 @@ export default function JobCandidates(): React.ReactElement {
                             >
                                 {/* Candidate Name - clickable to go to details */}
                                 <span
-                                    onClick={() => {
-                                        if (candidate.status === "completed") {
-                                            navigate(`/job/${id}/candidate/${candidate.id}/report`);
-                                        } else {
-                                            navigate(`/job/${id}/candidate/${candidate.id}`);
-                                        }
-                                    }}
+                                    onClick={() => navigate(`/job/${id}/candidate/${candidate.id}`)}
                                     className="text-sm font-medium text-[#0857A1] cursor-pointer hover:underline"
                                 >
                                     {candidate.name}
@@ -554,9 +606,52 @@ export default function JobCandidates(): React.ReactElement {
                                     >
                                         <ViewIcon />
                                     </button>
-                                    <button className="p-1.5 rounded hover:bg-gray-100 transition-colors">
+                                    <button
+                                        onClick={() => setCandidateMenuOpen(candidateMenuOpen === candidate.id ? null : candidate.id)}
+                                        className="p-1.5 rounded hover:bg-gray-100 transition-colors"
+                                    >
                                         <DotsIcon />
                                     </button>
+
+                                    {/* Candidate Actions Dropdown */}
+                                    {candidateMenuOpen === candidate.id && (
+                                        <>
+                                            <div className="fixed inset-0 z-40" onClick={() => setCandidateMenuOpen(null)} />
+                                            <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+                                                <button
+                                                    onClick={() => {
+                                                        setCandidateMenuOpen(null);
+                                                        navigate(`/job/${id}/candidate/${candidate.id}`);
+                                                    }}
+                                                    className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                                >
+                                                    <ViewIcon />
+                                                    View Details
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setCandidateMenuOpen(null);
+                                                        handleScheduleInterview(candidate);
+                                                    }}
+                                                    className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                                >
+                                                    <ClockIcon />
+                                                    Schedule Interview
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setCandidateMenuOpen(null);
+                                                        setShowToast({ message: `${candidate.name} removed from candidates`, type: "error" });
+                                                        setTimeout(() => setShowToast(null), 3000);
+                                                    }}
+                                                    className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                                                >
+                                                    <DeleteIcon />
+                                                    Remove Candidate
+                                                </button>
+                                            </div>
+                                        </>
+                                    )}
 
                                     {/* Tooltip - positioned relative to this cell */}
                                     <CandidateTooltip
@@ -565,11 +660,7 @@ export default function JobCandidates(): React.ReactElement {
                                         onClose={() => setTooltipOpenFor(null)}
                                         onViewDetails={() => {
                                             setTooltipOpenFor(null);
-                                            if (candidate.status === "completed") {
-                                                navigate(`/job/${id}/candidate/${candidate.id}/report`);
-                                            } else {
-                                                navigate(`/job/${id}/candidate/${candidate.id}`);
-                                            }
+                                            navigate(`/job/${id}/candidate/${candidate.id}`);
                                         }}
                                     />
                                 </div>
@@ -632,6 +723,100 @@ export default function JobCandidates(): React.ReactElement {
                 candidateName={selectedCandidate?.name}
                 candidateEmail={selectedCandidate?.email}
             />
+
+            {/* View JD Modal */}
+            {showViewJDModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/50" onClick={() => setShowViewJDModal(false)} />
+                    <div className="relative bg-white rounded-xl shadow-2xl w-[600px] max-w-[90vw] max-h-[80vh] overflow-y-auto">
+                        <div className="sticky top-0 bg-white p-6 border-b border-gray-200 flex items-center justify-between">
+                            <h2 className="text-xl font-semibold text-[#181D27]">Job Description</h2>
+                            <button onClick={() => setShowViewJDModal(false)} className="p-1 hover:bg-gray-100 rounded-lg">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <div>
+                                <h3 className="text-lg font-semibold text-[#181D27] mb-2">{job?.title}</h3>
+                                <p className="text-sm text-gray-600"><strong>Department:</strong> {job?.department}</p>
+                                <p className="text-sm text-gray-600"><strong>Posted:</strong> {job?.date}</p>
+                            </div>
+                            <div>
+                                <h4 className="font-medium text-[#181D27] mb-2">Description</h4>
+                                <p className="text-sm text-gray-600">We are looking for a talented {job?.title} to join our {job?.department} team. This role requires strong analytical skills and the ability to work in a fast-paced environment.</p>
+                            </div>
+                            <div>
+                                <h4 className="font-medium text-[#181D27] mb-2">Requirements</h4>
+                                <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
+                                    <li>3+ years of relevant experience</li>
+                                    <li>Strong communication skills</li>
+                                    <li>Bachelor's degree or equivalent</li>
+                                    <li>Proficiency in industry tools</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Delete Confirmation Modal */}
+            {showDeleteConfirm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/50" onClick={() => setShowDeleteConfirm(false)} />
+                    <div className="relative bg-white rounded-xl shadow-2xl w-[400px] max-w-[90vw] p-6">
+                        <div className="flex justify-center mb-4">
+                            <div className="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" y1="8" x2="12" y2="12" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 className="text-lg font-semibold text-[#181D27] text-center mb-2">Delete Job</h3>
+                        <p className="text-sm text-gray-500 text-center mb-6">
+                            Are you sure you want to delete <span className="font-medium text-[#181D27]">"{job?.title}"</span>? This action cannot be undone.
+                        </p>
+                        <div className="flex gap-3">
+                            <button onClick={() => setShowDeleteConfirm(false)} className="flex-1 px-4 py-2.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                Cancel
+                            </button>
+                            <button
+                                onClick={() => {
+                                    if (id) removeJob(id);
+                                    setShowDeleteConfirm(false);
+                                    navigate("/job-dashboard");
+                                }}
+                                className="flex-1 px-4 py-2.5 bg-red-600 rounded-lg text-sm font-medium text-white hover:bg-red-700"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Toast Notification */}
+            {showToast && (
+                <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg ${showToast.type === "success" ? "bg-green-600" : "bg-red-600"} text-white`}>
+                    {showToast.type === "success" ? (
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22,4 12,14.01 9,11.01" />
+                        </svg>
+                    ) : (
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="15" y1="9" x2="9" y2="15" />
+                            <line x1="9" y1="9" x2="15" y2="15" />
+                        </svg>
+                    )}
+                    <span className="text-sm font-medium">{showToast.message}</span>
+                </div>
+            )}
         </div>
     );
 }

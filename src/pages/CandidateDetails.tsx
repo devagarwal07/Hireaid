@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ScheduleInterviewModal from "@/components/ScheduleInterviewModal";
 import PostInterviewReport from "@/components/PostInterviewReport";
@@ -259,6 +259,11 @@ export default function CandidateDetails(): React.ReactElement {
     const [activeTab, setActiveTab] = useState<"overview" | "evaluation" | "interview">("overview");
     const [showDetails, setShowDetails] = useState(false);
     const [showScheduleModal, setShowScheduleModal] = useState(false);
+    const [showLinksModal, setShowLinksModal] = useState(false);
+    const [showNotesModal, setShowNotesModal] = useState(false);
+    const [noteText, setNoteText] = useState("");
+    const [qualificationStatus, setQualificationStatus] = useState<"pending" | "qualified" | "not-qualified">("pending");
+    const [showToast, setShowToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
     // Get candidate data dynamically from shared data source
     const dynamicCandidate = getCandidateById(candidateId || "1");
@@ -390,11 +395,25 @@ export default function CandidateDetails(): React.ReactElement {
 
                         {/* Action Buttons */}
                         <div className="flex items-center gap-3 self-start mt-1">
-                            <button className="flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-red-400 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors bg-white">
+                            <button
+                                onClick={() => {
+                                    setQualificationStatus("not-qualified");
+                                    setShowToast({ message: `${candidate.name} marked as Not Qualified`, type: "error" });
+                                    setTimeout(() => setShowToast(null), 3000);
+                                }}
+                                className={`flex items-center gap-2 px-5 py-2.5 rounded-full border-2 text-sm font-medium transition-colors ${qualificationStatus === "not-qualified" ? "border-red-600 bg-red-600 text-white" : "border-red-400 text-red-500 hover:bg-red-50 bg-white"}`}
+                            >
                                 <BanIcon />
                                 Not Qualified
                             </button>
-                            <button className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#22C55E] text-white text-sm font-medium hover:bg-[#16a34a] transition-colors">
+                            <button
+                                onClick={() => {
+                                    setQualificationStatus("qualified");
+                                    setShowToast({ message: `${candidate.name} marked as Qualified!`, type: "success" });
+                                    setTimeout(() => setShowToast(null), 3000);
+                                }}
+                                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${qualificationStatus === "qualified" ? "bg-[#16a34a] text-white ring-2 ring-green-300" : "bg-[#22C55E] text-white hover:bg-[#16a34a]"}`}
+                            >
                                 <CheckIcon />
                                 Qualified
                             </button>
@@ -475,7 +494,10 @@ export default function CandidateDetails(): React.ReactElement {
                                         <UserIcon />
                                         <h3 className="text-base font-semibold text-[#181D27]">Candidate Overview</h3>
                                     </div>
-                                    <button className="flex items-center gap-2 text-sm text-[#0857A1] hover:underline">
+                                    <button
+                                        onClick={() => setShowNotesModal(true)}
+                                        className="flex items-center gap-2 text-sm text-[#0857A1] hover:underline"
+                                    >
                                         <NoteIcon />
                                         Add Notes
                                     </button>
@@ -545,7 +567,10 @@ export default function CandidateDetails(): React.ReactElement {
                                         </div>
                                     </div>
                                     <div className="flex justify-end mt-4">
-                                        <button className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 bg-gray-100 px-4 py-2 rounded-lg">
+                                        <button
+                                            onClick={() => setShowLinksModal(true)}
+                                            className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 bg-gray-100 px-4 py-2 rounded-lg"
+                                        >
                                             View All links
                                             <ChevronRightIcon />
                                         </button>
@@ -797,6 +822,208 @@ export default function CandidateDetails(): React.ReactElement {
                 candidateName={candidate.name}
                 candidateEmail={candidate.email}
             />
+
+            {/* View All Links Modal */}
+            {showLinksModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    {/* Backdrop */}
+                    <div
+                        className="absolute inset-0 bg-black/50"
+                        onClick={() => setShowLinksModal(false)}
+                    />
+
+                    {/* Modal Content */}
+                    <div className="relative bg-white rounded-xl shadow-2xl w-[600px] max-w-[90vw] p-6">
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-lg font-semibold text-[#181D27]">Candidate Overview</h2>
+                            <button
+                                onClick={() => setShowLinksModal(false)}
+                                className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                            >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        {/* Grid of info */}
+                        <div className="grid grid-cols-3 gap-x-8 gap-y-5">
+                            {/* Row 1 */}
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Application Date</div>
+                                <div className="text-sm font-medium text-[#181D27]">{candidate.applicationDate}</div>
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Email Address</div>
+                                <div className="text-sm font-medium text-[#181D27]">{candidate.email}</div>
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Current Location</div>
+                                <div className="text-sm font-medium text-[#181D27]">{candidate.location}</div>
+                            </div>
+
+                            {/* Row 2 */}
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Status</div>
+                                <div className="text-sm font-medium text-[#181D27]">{candidate.status}</div>
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Contact Number</div>
+                                <div className="text-sm font-medium text-[#181D27]">{candidate.phone}</div>
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">LinkedIn Profile</div>
+                                <a href={`https://${candidate.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                    {candidate.linkedin}
+                                </a>
+                            </div>
+
+                            {/* Row 3 - Links */}
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Github Link</div>
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                    johndoeworks.xyz
+                                </a>
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Website Link</div>
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                    johndoeworks.xyz
+                                </a>
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Website Link 1</div>
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                    johndoeworks.xyz
+                                </a>
+                            </div>
+
+                            {/* Row 4 - More Links */}
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Website Link 2</div>
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                    johndoeworks.xyz
+                                </a>
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Website Link 3</div>
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                    johndoeworks.xyz
+                                </a>
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Website Link 4</div>
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                    johndoeworks.xyz
+                                </a>
+                            </div>
+
+                            {/* Resume */}
+                            <div>
+                                <div className="text-xs text-gray-400 mb-1">Resume</div>
+                                <a href="#" className="text-sm font-medium text-[#0857A1] hover:underline flex items-center gap-1">
+                                    View Resume
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15,3 21,3 21,9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Close Button */}
+                        <div className="flex justify-center mt-6">
+                            <button
+                                onClick={() => setShowLinksModal(false)}
+                                className="px-8 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-lg hover:bg-[#162d4d] transition-colors"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Notes Modal */}
+            {showNotesModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    {/* Backdrop */}
+                    <div
+                        className="absolute inset-0 bg-black/50"
+                        onClick={() => setShowNotesModal(false)}
+                    />
+
+                    {/* Modal Content */}
+                    <div className="relative bg-white rounded-xl shadow-2xl w-[500px] max-w-[90vw] p-6">
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-4">
+                            <h2 className="text-lg font-semibold text-[#181D27]">Add Note for {candidate.name}</h2>
+                            <button
+                                onClick={() => setShowNotesModal(false)}
+                                className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                            >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        {/* Note Input */}
+                        <textarea
+                            value={noteText}
+                            onChange={(e) => setNoteText(e.target.value)}
+                            placeholder="Enter your notes about this candidate..."
+                            className="w-full h-32 p-3 border border-gray-200 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#0857A1] focus:border-transparent"
+                        />
+
+                        {/* Buttons */}
+                        <div className="flex justify-end gap-3 mt-4">
+                            <button
+                                onClick={() => setShowNotesModal(false)}
+                                className="px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={() => {
+                                    if (noteText.trim()) {
+                                        setShowToast({ message: "Note added successfully!", type: "success" });
+                                        setTimeout(() => setShowToast(null), 3000);
+                                        setNoteText("");
+                                        setShowNotesModal(false);
+                                    }
+                                }}
+                                className="px-4 py-2 bg-[#0857A1] text-white rounded-lg text-sm font-medium hover:bg-[#074a8a] transition-colors"
+                            >
+                                Save Note
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Toast Notification */}
+            {showToast && (
+                <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg transition-all ${showToast.type === "success" ? "bg-green-600" : "bg-red-600"} text-white`}>
+                    {showToast.type === "success" ? (
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22,4 12,14.01 9,11.01" />
+                        </svg>
+                    ) : (
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="15" y1="9" x2="9" y2="15" />
+                            <line x1="9" y1="9" x2="15" y2="15" />
+                        </svg>
+                    )}
+                    <span className="text-sm font-medium">{showToast.message}</span>
+                </div>
+            )}
         </div>
     );
 }

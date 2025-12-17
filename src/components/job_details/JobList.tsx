@@ -108,10 +108,13 @@ export default function JobList() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [openMenuId, setOpenMenuId] = useState<string | number | null>(null);
+  const [jobToDelete, setJobToDelete] = useState<string | number | null>(null);
 
   // Use jobs from context
-  const { jobs } = useJobs();
+  const { jobs, duplicateJob, updateJob, removeJob } = useJobs();
   const hasJobs = jobs.length > 0;
+  const jobToDeleteData = jobToDelete ? jobs.find(j => j.id === jobToDelete) : null;
 
   const filteredJobs = jobs.filter((job) =>
     job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -215,13 +218,83 @@ export default function JobList() {
                   </div>
                 </div>
                 {/* Options Menu */}
-                <button className="p-1 hover:bg-gray-100 rounded transition-colors">
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="9" cy="4" r="1.5" fill="#989898" />
-                    <circle cx="9" cy="9" r="1.5" fill="#989898" />
-                    <circle cx="9" cy="14" r="1.5" fill="#989898" />
-                  </svg>
-                </button>
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenMenuId(openMenuId === job.id ? null : job.id)}
+                    className="p-1 hover:bg-gray-100 rounded transition-colors"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="9" cy="4" r="1.5" fill="#989898" />
+                      <circle cx="9" cy="9" r="1.5" fill="#989898" />
+                      <circle cx="9" cy="14" r="1.5" fill="#989898" />
+                    </svg>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {openMenuId === job.id && (
+                    <>
+                      {/* Backdrop */}
+                      <div
+                        className="fixed inset-0 z-10"
+                        onClick={() => setOpenMenuId(null)}
+                      />
+                      <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-20">
+                        <button
+                          onClick={() => {
+                            setOpenMenuId(null);
+                            navigate(`/job/${job.id}/candidates`);
+                          }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                          </svg>
+                          Edit Job
+                        </button>
+                        <button
+                          onClick={() => {
+                            setOpenMenuId(null);
+                            duplicateJob(job.id);
+                          }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                          </svg>
+                          Duplicate JD
+                        </button>
+                        <button
+                          onClick={() => {
+                            setOpenMenuId(null);
+                            updateJob(job.id, { status: 'closed' });
+                          }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M15 9l-6 6M9 9l6 6" />
+                          </svg>
+                          Close Opening
+                        </button>
+                        <button
+                          onClick={() => {
+                            setOpenMenuId(null);
+                            setJobToDelete(job.id);
+                          }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="3,6 5,6 21,6" />
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                          </svg>
+                          Delete Job
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
 
               {/* Stats Row */}
@@ -293,6 +366,60 @@ export default function JobList() {
       )}
 
       {open && <CreateJobModal onClose={() => setOpen(false)} />}
+
+      {/* Delete Confirmation Modal */}
+      {jobToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setJobToDelete(null)}
+          />
+
+          {/* Modal Content */}
+          <div className="relative bg-white rounded-xl shadow-2xl w-[400px] max-w-[90vw] p-6">
+            {/* Warning Icon */}
+            <div className="flex justify-center mb-4">
+              <div className="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Title */}
+            <h3 className="text-lg font-semibold text-[#181D27] text-center mb-2">
+              Delete Job
+            </h3>
+
+            {/* Message */}
+            <p className="text-sm text-gray-500 text-center mb-6">
+              Are you sure you want to delete <span className="font-medium text-[#181D27]">"{jobToDeleteData?.title}"</span>? This action cannot be undone.
+            </p>
+
+            {/* Buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={() => setJobToDelete(null)}
+                className="flex-1 px-4 py-2.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  removeJob(jobToDelete);
+                  setJobToDelete(null);
+                }}
+                className="flex-1 px-4 py-2.5 bg-red-600 rounded-lg text-sm font-medium text-white hover:bg-red-700 transition-colors"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

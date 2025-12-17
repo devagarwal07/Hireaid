@@ -1,0 +1,32 @@
+<svg width="160" height="32" viewBox="0 0 160 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- H -->
+  <text x="0" y="24" font-family="Poppins, sans-serif" font-size="24" font-weight="bold" fill="#000000">H</text>
+  <!-- I -->
+  <text x="18" y="24" font-family="Poppins, sans-serif" font-size="24" font-weight="bold" fill="#000000">I</text>
+  <!-- R -->
+  <text x="30" y="24" font-family="Poppins, sans-serif" font-size="24" font-weight="bold" fill="#000000">R</text>
+  
+  <!-- Robot Icon -->
+  <g transform="translate(50, 2)">
+    <!-- Head/circle -->
+    <circle cx="14" cy="10" r="6" fill="#2DD4BD"/>
+    <!-- Antenna lines -->
+    <line x1="14" y1="0" x2="14" y2="4" stroke="#2DD4BD" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="10" y1="2" x2="11" y2="5" stroke="#2DD4BD" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="18" y1="2" x2="17" y2="5" stroke="#2DD4BD" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Body -->
+    <path d="M8 20c0-3.31 2.69-6 6-6s6 2.69 6 6v8H8v-8z" fill="#2DD4BD"/>
+    <!-- Arms -->
+    <path d="M4 14l4-3 3 3" stroke="#2DD4BD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M24 14l-4-3-3 3" stroke="#2DD4BD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  
+  <!-- A -->
+  <text x="82" y="24" font-family="Poppins, sans-serif" font-size="24" font-weight="bold" fill="#2DD4BD">A</text>
+  <!-- I -->
+  <text x="100" y="24" font-family="Poppins, sans-serif" font-size="24" font-weight="bold" fill="#2DD4BD">I</text>
+  <!-- D -->
+  <text x="112" y="24" font-family="Poppins, sans-serif" font-size="24" font-weight="bold" fill="#000000">D</text>
+  <!-- E -->
+  <text x="132" y="24" font-family="Poppins, sans-serif" font-size="24" font-weight="bold" fill="#000000">E</text>
+</svg>
