@@ -629,6 +629,8 @@ export default function JobCandidates(): React.ReactElement {
                 onSchedule={(data) => {
                     console.log("Scheduling interview:", data, "for candidate:", selectedCandidate);
                 }}
+                candidateName={selectedCandidate?.name}
+                candidateEmail={selectedCandidate?.email}
             />
         </div>
     );

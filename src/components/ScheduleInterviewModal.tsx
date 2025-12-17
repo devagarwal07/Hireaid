@@ -5,6 +5,8 @@ interface ScheduleInterviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSchedule?: (data: ScheduleData) => void;
+  candidateName?: string;
+  candidateEmail?: string;
 }
 
 interface ScheduleData {
@@ -200,12 +202,15 @@ export default function ScheduleInterviewModal({
   isOpen,
   onClose,
   onSchedule,
+  candidateName = "Samuel Baker",
+  candidateEmail = "SamBaker@hotmail.com",
 }: ScheduleInterviewModalProps): React.ReactElement | null {
   const navigate = useNavigate();
 
-  const [candidateSearch, setCandidateSearch] = useState(
-    "Samuel Baker (SamBaker@hotmail.com)"
-  );
+  // Use the passed candidate info or default
+  const candidateDisplay = `${candidateName} (${candidateEmail})`;
+
+  const [candidateSearch, setCandidateSearch] = useState(candidateDisplay);
   const [selectedInterviewers, setSelectedInterviewers] = useState<
     Interviewer[]
   >([sampleInterviewers[0]]);
@@ -229,8 +234,9 @@ export default function ScheduleInterviewModal({
     if (isOpen) {
       setShowConfirmation(false);
       setCalendarView('days');
+      setCandidateSearch(candidateDisplay);
     }
-  }, [isOpen]);
+  }, [isOpen, candidateDisplay]);
 
   if (!isOpen) return null;
 

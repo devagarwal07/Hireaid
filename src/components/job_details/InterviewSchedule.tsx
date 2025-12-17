@@ -4,7 +4,12 @@ export type Interview = {
   time: string; // e.g. "11:30 am - 12:30 pm"
   interviewer: string;
   accentColor: "blue" | "purple" | "orange" | "teal" | "yellow" | "pink";
+  candidateId?: string;
 };
+
+// Import useNavigate from react-router-dom
+import { useNavigate } from "react-router-dom";
+import { getScheduledInterviews } from "@/data/candidatesData";
 
 // Accent color configurations matching Figma
 const accentColors = {
@@ -34,58 +39,66 @@ const accentColors = {
   },
 };
 
-const sampleInterviews: Interview[] = [
+// Color palette for dynamic candidates
+const colorPalette: Array<"blue" | "purple" | "orange" | "teal" | "yellow" | "pink"> = [
+  "blue", "purple", "orange", "teal", "yellow", "pink"
+];
+
+// Generate interviews from dynamic candidate data
+const generateInterviewsFromCandidates = (): Interview[] => {
+  const scheduledCandidates = getScheduledInterviews();
+  return scheduledCandidates.map((candidate, index) => ({
+    id: candidate.id,
+    title: `${candidate.name} Interview`,
+    time: candidate.scheduledTime || "TBD",
+    interviewer: "John Doe",
+    accentColor: colorPalette[index % colorPalette.length],
+    candidateId: candidate.id,
+  }));
+};
+
+// Static fallback interviews
+const staticInterviews: Interview[] = [
   {
-    id: 1,
+    id: "static-1",
     title: "Product Design Interview",
     time: "11:30 am - 12:30 pm",
     interviewer: "Tony Smith",
     accentColor: "blue",
   },
   {
-    id: 2,
+    id: "static-2",
     title: "Fullstack Engineer Interview",
     time: "11:30 am - 12:30 pm",
     interviewer: "Tony Smith",
     accentColor: "purple",
   },
   {
-    id: 3,
+    id: "static-3",
     title: "Accountant Interview",
     time: "11:30 am - 12:30 pm",
     interviewer: "Tony Smith",
     accentColor: "orange",
   },
-  {
-    id: 4,
-    title: "HR Manager Interview",
-    time: "11:30 am - 12:30 pm",
-    interviewer: "Tony Smith",
-    accentColor: "teal",
-  },
-  {
-    id: 5,
-    title: "Data Analyst Interview",
-    time: "11:30 am - 12:30 pm",
-    interviewer: "Tony Smith",
-    accentColor: "yellow",
-  },
-  {
-    id: 6,
-    title: "Frontend Developer Interview",
-    time: "11:30 am - 12:30 pm",
-    interviewer: "Tony Smith",
-    accentColor: "pink",
-  },
 ];
 
+// Get combined interviews - dynamic + static
+const getInterviews = (): Interview[] => {
+  const dynamicInterviews = generateInterviewsFromCandidates();
+  // If we have dynamic interviews, use them; otherwise fallback to static
+  return dynamicInterviews.length > 0 ? dynamicInterviews : staticInterviews;
+};
+
 export default function InterviewSchedule({
-  items = sampleInterviews,
+  items,
   className = "",
 }: {
   items?: Interview[];
   className?: string;
 }) {
+  const navigate = useNavigate();
+  const displayItems = items || getInterviews();
+
   return (
     <div
       className={`flex flex-col bg-white rounded-2xl p-4 ${className}`}
@@ -96,7 +109,10 @@ export default function InterviewSchedule({
         <h3 className="font-['Poppins'] font-semibold text-lg text-[#181D27]">
           Interview Schedule
         </h3>
-        <button className="font-['Poppins'] font-normal text-sm text-[#0857A1] hover:underline">
+        <button
+          onClick={() => navigate("/scheduled-interviews")}
+          className="font-['Poppins'] font-normal text-sm text-[#0857A1] hover:underline"
+        >
           View All
         </button>
       </div>
@@ -106,7 +122,7 @@ export default function InterviewSchedule({
 
       {/* Interview Cards */}
       <div className="flex flex-col gap-4 overflow-y-auto max-h-[600px] pr-1">
-        {items.map((interview) => {
+        {displayItems.map((interview) => {
           const colors = accentColors[interview.accentColor];
           return (
             <button
@@ -208,7 +224,7 @@ export default function InterviewSchedule({
         })}
 
         {/* Empty State */}
-        {items.length === 0 && (
+        {displayItems.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <div className="mb-4 opacity-60">
               <svg

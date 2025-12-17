@@ -12,6 +12,8 @@ import CompaniesList from "./components/CompaniesList";
 import CompanyDetails from "./components/CompanyDetails";
 import CreateAccount from "@/pages/CreateAccount";
 import ScheduleInterviewDemo from "@/pages/ScheduleInterviewDemo";
+import ScheduledInterviews from "@/pages/ScheduledInterviews";
+import InterviewPrepPending from "@/pages/InterviewPrepPending";
 import { JobProvider } from "./context/JobContext";
 import { CompanyProvider } from "./context/CompanyContext";
 
@@ -40,6 +42,12 @@ export default function App(): React.ReactElement {
 
             {/* Post Interview Report - for completed interviews */}
             <Route path="/job/:jobId/candidate/:candidateId/report" element={<PostInterviewReportPage />} />
+
+            {/* Interview Prep - for pending interviews */}
+            <Route path="/job/:jobId/candidate/:candidateId/interview-prep" element={<InterviewPrepPending />} />
+
+            {/* Scheduled Interviews - calendar view */}
+            <Route path="/scheduled-interviews" element={<ScheduledInterviews />} />
 
             {/* Companies routes */}
             <Route path="/companies" element={<CompaniesList />} />

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ScheduleInterviewModal from "@/components/ScheduleInterviewModal";
 import PostInterviewReport from "@/components/PostInterviewReport";
 import HeaderBanner from "@/assets/images/header_banner.png";
+import { getCandidateById } from "@/data/candidatesData";
 
 // Sample candidate data
 const candidateData = {
@@ -254,18 +255,52 @@ const CheckIcon = () => (
 
 export default function CandidateDetails(): React.ReactElement {
     const navigate = useNavigate();
-    const { jobId } = useParams<{ jobId: string; candidateId: string }>();
+    const { jobId, candidateId } = useParams<{ jobId: string; candidateId: string }>();
     const [activeTab, setActiveTab] = useState<"overview" | "evaluation" | "interview">("overview");
     const [showDetails, setShowDetails] = useState(false);
     const [showScheduleModal, setShowScheduleModal] = useState(false);
 
-    const candidate = candidateData;
+    // Get candidate data dynamically from shared data source
+    const dynamicCandidate = getCandidateById(candidateId || "1");
+
+    // Merge with default structure (fallback to static data if not found)
+    const candidate = dynamicCandidate ? {
+        ...candidateData,
+        id: dynamicCandidate.id,
+        name: dynamicCandidate.name,
+        role: dynamicCandidate.role,
+        photo: dynamicCandidate.photo,
+        applicationDate: dynamicCandidate.applicationDate,
+        status: dynamicCandidate.status,
+        email: dynamicCandidate.email,
+        phone: dynamicCandidate.phone,
+        location: dynamicCandidate.location,
+        linkedin: dynamicCandidate.linkedin,
+        isRecommendedByAI: dynamicCandidate.isRecommendedByAI,
+        isTop10Rated: dynamicCandidate.isTop10Rated,
+        resumeScore: dynamicCandidate.resumeScore || candidateData.resumeScore,
+        overallScore: dynamicCandidate.overallScore || candidateData.overallScore,
+        aiScore: dynamicCandidate.aiScore || candidateData.aiScore,
+        evaluationTags: dynamicCandidate.evaluationTags.length > 0 ? dynamicCandidate.evaluationTags : candidateData.evaluationTags,
+        skills: dynamicCandidate.skills.length > 0 ? dynamicCandidate.skills : candidateData.skills,
+        statistics: dynamicCandidate.statistics.length > 0 ? dynamicCandidate.statistics : candidateData.statistics,
+        aiRecommendation: dynamicCandidate.aiRecommendation.points.length > 0 ? dynamicCandidate.aiRecommendation : candidateData.aiRecommendation,
+        strengths: dynamicCandidate.strengths.length > 0 ? dynamicCandidate.strengths : candidateData.strengths,
+        improvements: dynamicCandidate.improvements.length > 0 ? dynamicCandidate.improvements : candidateData.improvements,
+        careerOverview: dynamicCandidate.careerOverview.length > 0 ? dynamicCandidate.careerOverview : candidateData.careerOverview,
+        currentWork: dynamicCandidate.currentWork.length > 0 ? dynamicCandidate.currentWork : candidateData.currentWork,
+        previousRoles: dynamicCandidate.previousRoles.length > 0 ? dynamicCandidate.previousRoles : candidateData.previousRoles,
+        hiringSteps: dynamicCandidate.hiringSteps,
+        interviewCompleted: dynamicCandidate.interviewCompleted,
+        interviewData: dynamicCandidate.interviewData || candidateData.interviewData,
+    } : candidateData;
 
     const getTagColor = (color: string) => {
         switch (color) {
             case "orange": return "bg-orange-100 text-orange-600";
             case "green": return "bg-green-100 text-green-600";
             case "blue": return "bg-blue-100 text-blue-600";
+            case "red": return "bg-red-100 text-red-600";
             default: return "bg-gray-100 text-gray-600";
         }
     };
@@ -386,12 +421,20 @@ export default function CandidateDetails(): React.ReactElement {
                                         {step.score}<span className="text-sm font-normal text-gray-400">/10</span>
                                     </div>
                                 ) : step.status === "current" ? (
-                                    <button
-                                        onClick={() => setShowScheduleModal(true)}
-                                        className="px-5 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors mb-2"
-                                    >
-                                        Schedule Interview
-                                    </button>
+                                    <div className="flex flex-col items-center gap-2 mb-2">
+                                        <button
+                                            onClick={() => setShowScheduleModal(true)}
+                                            className="px-5 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
+                                        >
+                                            Schedule Interview
+                                        </button>
+                                        <button
+                                            onClick={() => navigate(`/job/${jobId}/candidate/${candidateId}/interview-prep`)}
+                                            className="text-[#0857A1] text-sm font-medium hover:underline"
+                                        >
+                                            Interview Prep →
+                                        </button>
+                                    </div>
                                 ) : (
                                     <div className="text-2xl font-semibold text-gray-300 mb-2">NA</div>
                                 )}
@@ -751,6 +794,8 @@ export default function CandidateDetails(): React.ReactElement {
                 onSchedule={(data) => {
                     console.log("Scheduling interview:", data);
                 }}
+                candidateName={candidate.name}
+                candidateEmail={candidate.email}
             />
         </div>
     );
