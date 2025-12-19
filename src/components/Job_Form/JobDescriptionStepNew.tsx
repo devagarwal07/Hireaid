@@ -103,28 +103,58 @@ const CalendarIcon = () => (
   </svg>
 );
 
-// Loader/Progress Icon Component
-const LoaderIcon = ({ active }: { active?: boolean }) => (
-  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-    <circle
-      cx="9"
-      cy="9"
-      r="7.5"
-      stroke={active ? "#0857A1" : "#D0D5DD"}
-      strokeWidth="1.5"
-      fill="none"
-    />
-    {active && (
-      <path
-        d="M9 1.5 A 7.5 7.5 0 0 1 16.5 9"
-        stroke="#0857A1"
+// Loader/Progress Icon Component with fill based on completion
+const LoaderIcon = ({ active, progress = 0 }: { active?: boolean; progress?: number }) => {
+  const radius = 7.5;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (progress / 100) * circumference;
+  const isComplete = progress >= 100;
+
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      {/* Background circle */}
+      <circle
+        cx="9"
+        cy="9"
+        r={radius}
+        stroke="#D0D5DD"
         strokeWidth="1.5"
-        strokeLinecap="round"
         fill="none"
       />
-    )}
-  </svg>
-);
+      {/* Progress arc */}
+      {progress > 0 && (
+        <circle
+          cx="9"
+          cy="9"
+          r={radius}
+          stroke={isComplete ? "#22C55E" : "#0857A1"}
+          strokeWidth="1.5"
+          fill="none"
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+          strokeLinecap="round"
+          transform="rotate(-90 9 9)"
+          className="transition-all duration-300"
+        />
+      )}
+      {/* Checkmark when complete */}
+      {isComplete && (
+        <path
+          d="M6 9L8 11L12 7"
+          stroke="#22C55E"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      )}
+      {/* Active indicator dot when not complete */}
+      {active && !isComplete && progress < 100 && (
+        <circle cx="9" cy="9" r="2" fill="#0857A1" />
+      )}
+    </svg>
+  );
+};
 
 // AI Sparkle Icon
 const AISparkleIcon = () => (
@@ -313,11 +343,13 @@ const SidebarItem = ({
   label,
   active,
   count,
+  progress = 0,
   onClick,
 }: {
   label: string;
   active: boolean;
   count?: number;
+  progress?: number;
   onClick: () => void;
 }) => (
   <button
@@ -329,7 +361,7 @@ const SidebarItem = ({
     {active && (
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 bg-[#0857A1] rounded-r-full" />
     )}
-    <LoaderIcon active={active} />
+    <LoaderIcon active={active} progress={progress} />
     <span
       className={`text-sm leading-5 ${active ? "font-medium text-[#0857A1]" : "font-normal text-[#344054]"
         }`}
@@ -401,6 +433,29 @@ export default function JobDescriptionStepNew({
     }
   };
 
+  // Calculate section completion percentages
+  const getSectionProgress = (sectionId: SectionId): number => {
+    const sectionFields: Record<SectionId, (keyof FormData)[]> = {
+      "overview": ["jobTitle", "jobId", "department", "areaOfWork"],
+      "manager-location": ["hiringManager", "hiringLocation"],
+      "workplace": ["workType", "travelRequirement"],
+      "employment-details": ["employerClient", "employmentType", "startDate", "endDate", "jobExpirationDate"],
+      "job-description": ["jobSummary", "keyResponsibilities", "requiredQualifications", "preferredQualifications"],
+      "experience-skills": ["yearsOfExperience", "bestFitScore", "skills"],
+      "compensation-legal": ["salaryRange", "workAuthorization"],
+    };
+
+    const fields = sectionFields[sectionId] || [];
+    if (fields.length === 0) return 0;
+
+    const filledCount = fields.filter(field => {
+      const value = formData[field];
+      return value && value.trim() !== "" && value !== "NA";
+    }).length;
+
+    return Math.round((filledCount / fields.length) * 100);
+  };
+
   return (
     <div className="flex flex-col gap-4">
       {/* Header */}
@@ -427,6 +482,7 @@ export default function JobDescriptionStepNew({
                 label={section.label}
                 active={activeSection === section.id}
                 count={section.count}
+                progress={getSectionProgress(section.id as SectionId)}
                 onClick={() => scrollToSection(section.id as SectionId)}
               />
             ))}

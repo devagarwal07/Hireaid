@@ -32,6 +32,7 @@ export default function Sidebar({
     if (id === "close") window.location.href = "/";
     if (id === "interview") window.location.href = "/interview";
     if (id === "dashboard") window.location.href = "/job-dashboard";
+    if (id === "profile") window.location.href = "/companies";
   };
 
   return (

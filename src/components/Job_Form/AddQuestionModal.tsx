@@ -45,6 +45,15 @@ export default function AddQuestionModal({
     const [questionType, setQuestionType] = useState<"Descriptive" | "MCQ" | "Presentation">("Descriptive");
     const [questionText, setQuestionText] = useState("");
 
+    // MCQ state
+    const [mcqOptions, setMcqOptions] = useState<string[]>(["1st Option", "2nd Option"]);
+    const [correctOptionIndex, setCorrectOptionIndex] = useState<number | null>(null);
+    const [isEditingOptions, setIsEditingOptions] = useState(true);
+
+    // Presentation state
+    const [presentationImages, setPresentationImages] = useState<File[]>([]);
+    const presentationFileInputRef = useRef<HTMLInputElement>(null);
+
     // Upload tab state
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -70,6 +79,10 @@ export default function AddQuestionModal({
         setCurrentView("create");
         setQuestionType("Descriptive");
         setQuestionText("");
+        setMcqOptions(["1st Option", "2nd Option"]);
+        setCorrectOptionIndex(null);
+        setIsEditingOptions(true);
+        setPresentationImages([]);
         setUploadedFile(null);
         setAiPrompt("");
         setNumQuestions("5");
@@ -100,6 +113,55 @@ export default function AddQuestionModal({
         setUploadedFile(null);
     };
 
+    // MCQ helper functions
+    const handleAddOption = () => {
+        setMcqOptions([...mcqOptions, `${mcqOptions.length + 1}${getOrdinalSuffix(mcqOptions.length + 1)} Option`]);
+    };
+
+    const getOrdinalSuffix = (n: number): string => {
+        const s = ["th", "st", "nd", "rd"];
+        const v = n % 100;
+        return s[(v - 20) % 10] || s[v] || s[0];
+    };
+
+    const handleRemoveOption = (index: number) => {
+        if (mcqOptions.length <= 2) return; // Minimum 2 options
+        const newOptions = mcqOptions.filter((_, i) => i !== index);
+        setMcqOptions(newOptions);
+        // Adjust correct option index if needed
+        if (correctOptionIndex !== null) {
+            if (correctOptionIndex === index) {
+                setCorrectOptionIndex(null);
+            } else if (correctOptionIndex > index) {
+                setCorrectOptionIndex(correctOptionIndex - 1);
+            }
+        }
+    };
+
+    const handleOptionChange = (index: number, value: string) => {
+        const newOptions = [...mcqOptions];
+        newOptions[index] = value;
+        setMcqOptions(newOptions);
+    };
+
+    // Presentation helper functions
+    const handlePresentationImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setPresentationImages([...presentationImages, e.target.files[0]]);
+        }
+    };
+
+    const handlePresentationImageDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            setPresentationImages([...presentationImages, e.dataTransfer.files[0]]);
+        }
+    };
+
+    const removePresentationImage = (index: number) => {
+        setPresentationImages(presentationImages.filter((_, i) => i !== index));
+    };
+
     // Handle adding question from Manual tab
     const handleAddQuestion = () => {
         if (!questionText.trim()) return;
@@ -109,6 +171,10 @@ export default function AddQuestionModal({
             text: questionText,
             type: questionType,
             aiGenerated: false,
+            ...(questionType === "MCQ" && {
+                options: mcqOptions.filter(opt => opt.trim() !== ""),
+                correctOption: correctOptionIndex ?? undefined,
+            }),
         };
 
         // Add to generated questions and switch to review
@@ -332,8 +398,73 @@ export default function AddQuestionModal({
                                         ))}
                                     </div>
 
+                                    {/* Presentation - Upload Images Section */}
+                                    {questionType === "Presentation" && (
+                                        <>
+                                            <div className="flex items-center justify-between mb-2">
+                                                <label className="text-sm font-medium text-gray-700">Upload Images</label>
+                                                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                            </div>
+
+                                            <div
+                                                className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center mb-4"
+                                                onDragOver={(e) => e.preventDefault()}
+                                                onDrop={handlePresentationImageDrop}
+                                            >
+                                                <input
+                                                    ref={presentationFileInputRef}
+                                                    type="file"
+                                                    accept=".jpg,.jpeg,.png"
+                                                    onChange={handlePresentationImageSelect}
+                                                    className="hidden"
+                                                />
+                                                <button
+                                                    onClick={() => presentationFileInputRef.current?.click()}
+                                                    className="inline-flex items-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors text-sm"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                                    </svg>
+                                                    Upload Document
+                                                </button>
+                                                <p className="text-xs text-gray-500 mt-3">
+                                                    Upload file formats to be in JPG or PNG format
+                                                </p>
+                                                <p className="text-xs text-gray-400">
+                                                    Maximum file size: 5MB
+                                                </p>
+                                            </div>
+
+                                            {/* Uploaded Images List */}
+                                            {presentationImages.length > 0 && (
+                                                <div className="space-y-2 mb-4">
+                                                    {presentationImages.map((file, index) => (
+                                                        <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                                            <div className="flex items-center gap-3">
+                                                                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                                </svg>
+                                                                <div>
+                                                                    <p className="text-sm font-medium text-gray-700">{file.name}</p>
+                                                                    <p className="text-xs text-gray-500">{Math.round(file.size / 1024)}KB</p>
+                                                                </div>
+                                                            </div>
+                                                            <button onClick={() => removePresentationImage(index)} className="text-gray-400 hover:text-gray-600">
+                                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+
                                     <div className="flex items-center justify-between mb-2">
-                                        <label className="text-sm font-medium text-gray-700">Enter Questions</label>
+                                        <label className="text-sm font-medium text-gray-700">Enter Question</label>
                                         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
@@ -341,10 +472,104 @@ export default function AddQuestionModal({
                                     <textarea
                                         value={questionText}
                                         onChange={(e) => setQuestionText(e.target.value)}
-                                        placeholder="Enter Question"
-                                        rows={4}
+                                        placeholder={questionType === "Presentation"
+                                            ? "1. How do you ensure a recruitment process is both efficient and fair while still attracting top talent?"
+                                            : "Which of the following acts is a violation of employee privacy ?"}
+                                        rows={questionType === "Presentation" ? 2 : 3}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-sm"
                                     />
+
+                                    {/* MCQ Options Section */}
+                                    {questionType === "MCQ" && (
+                                        <div className="mt-4">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <label className="text-sm font-medium text-gray-700">
+                                                    Enter MCQ Options <span className="text-gray-400 font-normal">(Manually Select on Correct Option)</span>
+                                                </label>
+                                                <div className="flex items-center gap-2">
+                                                    <button
+                                                        onClick={() => setIsEditingOptions(!isEditingOptions)}
+                                                        className="text-blue-600 text-sm hover:underline"
+                                                    >
+                                                        {isEditingOptions ? "Apply Changes" : "Edit"}
+                                                    </button>
+                                                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                {mcqOptions.map((option, index) => (
+                                                    <div key={index} className="flex items-center gap-2">
+                                                        {/* Drag handle */}
+                                                        <div className="flex flex-col gap-0.5 cursor-grab text-gray-400">
+                                                            <div className="flex gap-0.5">
+                                                                <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                                                                <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                                                            </div>
+                                                            <div className="flex gap-0.5">
+                                                                <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                                                                <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                                                            </div>
+                                                            <div className="flex gap-0.5">
+                                                                <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                                                                <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Radio button for correct answer */}
+                                                        <input
+                                                            type="radio"
+                                                            name="correctOption"
+                                                            checked={correctOptionIndex === index}
+                                                            onChange={() => setCorrectOptionIndex(index)}
+                                                            className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                                                        />
+
+                                                        {/* Option input or text */}
+                                                        {isEditingOptions ? (
+                                                            <input
+                                                                type="text"
+                                                                value={option}
+                                                                onChange={(e) => handleOptionChange(index, e.target.value)}
+                                                                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                                            />
+                                                        ) : (
+                                                            <div className={`flex-1 px-3 py-2 rounded-lg text-sm ${correctOptionIndex === index
+                                                                    ? "bg-blue-50 border border-blue-200"
+                                                                    : "bg-gray-50 border border-gray-200"
+                                                                }`}>
+                                                                {option}
+                                                            </div>
+                                                        )}
+
+                                                        {/* Delete button */}
+                                                        {isEditingOptions && mcqOptions.length > 2 && (
+                                                            <button
+                                                                onClick={() => handleRemoveOption(index)}
+                                                                className="text-gray-400 hover:text-red-500 transition-colors"
+                                                            >
+                                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                                </svg>
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {/* Add Option button */}
+                                            {isEditingOptions && (
+                                                <button
+                                                    onClick={handleAddOption}
+                                                    className="flex items-center gap-1 text-blue-600 text-sm mt-3 hover:underline"
+                                                >
+                                                    <span className="text-lg leading-none">+</span> Add Option
+                                                </button>
+                                            )}
+                                        </div>
+                                    )}
 
                                     <div className="flex justify-end mt-6">
                                         <button
@@ -473,8 +698,8 @@ export default function AddQuestionModal({
                                         <div
                                             key={index}
                                             className={`p-3 border rounded-lg cursor-pointer transition-colors ${currentQuestion.correctOption === index
-                                                    ? "border-teal-500 bg-teal-50"
-                                                    : "border-gray-200 hover:border-gray-300"
+                                                ? "border-teal-500 bg-teal-50"
+                                                : "border-gray-200 hover:border-gray-300"
                                                 }`}
                                         >
                                             <span className="text-sm text-gray-700">{option}</span>

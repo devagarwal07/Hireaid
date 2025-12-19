@@ -9,7 +9,6 @@ import WorkSrc from "@/assets/icons/sidebar_work.svg";
 import InterviewSrc from "@/assets/icons/sidebar_interview.svg";
 import CameraSrc from "@/assets/icons/sidebar_camera.svg";
 import ProfileSrc from "@/assets/icons/sidebar_profile.svg";
-import WorkSrc2 from "@/assets/icons/sidebar_work.svg"; // Using work icon for companies
 import HiraideLogo from "@/assets/icons/hireaid.svg";
 
 interface NavItem {
@@ -33,12 +32,6 @@ const navItems: NavItem[] = [
     path: "/job-dashboard",
   },
   {
-    id: "companies",
-    label: "Companies",
-    iconSrc: WorkSrc2,
-    path: "/companies",
-  },
-  {
     id: "interviews",
     label: "Interviews",
     iconSrc: InterviewSrc,
@@ -48,7 +41,7 @@ const navItems: NavItem[] = [
     id: "candidates",
     label: "Candidates",
     iconSrc: ProfileSrc,
-    path: "/job-dashboard",
+    path: "/companies",
   },
 ];
 

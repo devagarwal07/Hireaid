@@ -1,6 +1,7 @@
 ﻿import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ScheduleInterviewModal from "@/components/ScheduleInterviewModal";
+import ScheduleTestModal from "@/components/ScheduleTestModal";
 import PostInterviewReport from "@/components/PostInterviewReport";
 import HeaderBanner from "@/assets/images/header_banner.png";
 import { getCandidateById } from "@/data/candidatesData";
@@ -259,6 +260,7 @@ export default function CandidateDetails(): React.ReactElement {
     const [activeTab, setActiveTab] = useState<"overview" | "evaluation" | "interview">("overview");
     const [showDetails, setShowDetails] = useState(false);
     const [showScheduleModal, setShowScheduleModal] = useState(false);
+    const [showScheduleTestModal, setShowScheduleTestModal] = useState(false);
     const [showLinksModal, setShowLinksModal] = useState(false);
     const [showNotesModal, setShowNotesModal] = useState(false);
     const [noteText, setNoteText] = useState("");
@@ -441,18 +443,37 @@ export default function CandidateDetails(): React.ReactElement {
                                     </div>
                                 ) : step.status === "current" ? (
                                     <div className="flex flex-col items-center gap-2 mb-2">
-                                        <button
-                                            onClick={() => setShowScheduleModal(true)}
-                                            className="px-5 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
-                                        >
-                                            Schedule Interview
-                                        </button>
-                                        <button
-                                            onClick={() => navigate(`/job/${jobId}/candidate/${candidateId}/interview-prep`)}
-                                            className="text-[#0857A1] text-sm font-medium hover:underline"
-                                        >
-                                            Interview Prep →
-                                        </button>
+                                        {step.label.toLowerCase().includes("test") ? (
+                                            <>
+                                                <button
+                                                    onClick={() => setShowScheduleTestModal(true)}
+                                                    className="px-5 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
+                                                >
+                                                    Schedule Test
+                                                </button>
+                                                <button
+                                                    onClick={() => navigate(`/job/${jobId}/candidate/${candidateId}/test-prep`)}
+                                                    className="text-[#0857A1] text-sm font-medium hover:underline"
+                                                >
+                                                    Test Prep →
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <button
+                                                    onClick={() => setShowScheduleModal(true)}
+                                                    className="px-5 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
+                                                >
+                                                    Schedule Interview
+                                                </button>
+                                                <button
+                                                    onClick={() => navigate(`/job/${jobId}/candidate/${candidateId}/interview-prep`)}
+                                                    className="text-[#0857A1] text-sm font-medium hover:underline"
+                                                >
+                                                    Interview Prep →
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
                                 ) : (
                                     <div className="text-2xl font-semibold text-gray-300 mb-2">NA</div>
@@ -800,15 +821,22 @@ export default function CandidateDetails(): React.ReactElement {
                         <CalendarIcon />
                         <h3 className="text-base font-semibold text-[#181D27]">Interview</h3>
                     </div>
-                    <div className="text-center py-8">
-                        <p className="text-sm text-gray-500 mb-4">Interview not scheduled</p>
-                        <button
-                            onClick={() => setShowScheduleModal(true)}
-                            className="px-6 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
-                        >
-                            Schedule Interview
-                        </button>
-                    </div>
+                    {candidate.interviewCompleted ? (
+                        <PostInterviewReport
+                            candidateName={candidate.name}
+                            interviewData={candidate.interviewData}
+                        />
+                    ) : (
+                        <div className="text-center py-8">
+                            <p className="text-sm text-gray-500 mb-4">Interview not scheduled</p>
+                            <button
+                                onClick={() => setShowScheduleModal(true)}
+                                className="px-6 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
+                            >
+                                Schedule Interview
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -818,6 +846,17 @@ export default function CandidateDetails(): React.ReactElement {
                 onClose={() => setShowScheduleModal(false)}
                 onSchedule={(data) => {
                     console.log("Scheduling interview:", data);
+                }}
+                candidateName={candidate.name}
+                candidateEmail={candidate.email}
+            />
+
+            {/* Schedule Test Modal */}
+            <ScheduleTestModal
+                isOpen={showScheduleTestModal}
+                onClose={() => setShowScheduleTestModal(false)}
+                onSchedule={(data) => {
+                    console.log("Scheduling test:", data);
                 }}
                 candidateName={candidate.name}
                 candidateEmail={candidate.email}
