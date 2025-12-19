@@ -17,12 +17,19 @@ interface Permission {
   children?: Permission[];
 }
 
+interface FormErrors {
+  roleName?: string;
+  permissions?: string;
+}
+
 const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
   const [roleName, setRoleName] = useState("");
   const [activeTab, setActiveTab] = useState<PermissionTab>("Job Description");
   const [selectedPermissions, setSelectedPermissions] = useState<Set<string>>(
     new Set()
   );
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const permissions: Record<PermissionTab, Permission[]> = {
     "Job Description": [
@@ -73,6 +80,34 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
     "Reports",
   ];
 
+  const validateRoleName = (name: string): string | undefined => {
+    if (!name.trim()) return "Role name is required";
+    if (name.trim().length < 2) return "Role name must be at least 2 characters";
+    return undefined;
+  };
+
+  const validatePermissions = (): string | undefined => {
+    if (selectedPermissions.size === 0) return "Please select at least one permission";
+    return undefined;
+  };
+
+  const isFormValid = (): boolean => {
+    return roleName.trim().length >= 2 && selectedPermissions.size > 0;
+  };
+
+  const handleRoleNameChange = (value: string) => {
+    setRoleName(value);
+    if (errors.roleName) {
+      setErrors((prev) => ({ ...prev, roleName: undefined }));
+    }
+  };
+
+  const handleRoleNameBlur = () => {
+    setTouched((prev) => ({ ...prev, roleName: true }));
+    const error = validateRoleName(roleName);
+    setErrors((prev) => ({ ...prev, roleName: error }));
+  };
+
   const handleCheckboxChange = (permissionId: string, parent?: Permission) => {
     const newSelected = new Set(selectedPermissions);
 
@@ -87,6 +122,10 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
     }
 
     setSelectedPermissions(newSelected);
+    // Clear permission error when user selects something
+    if (errors.permissions && newSelected.size > 0) {
+      setErrors((prev) => ({ ...prev, permissions: undefined }));
+    }
   };
 
   const isParentChecked = (parent: Permission): boolean => {
@@ -103,6 +142,24 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
       checkedChildren.length > 0 &&
       checkedChildren.length < parent.children.length
     );
+  };
+
+  const handleCreateRole = () => {
+    // Mark fields as touched
+    setTouched({ roleName: true, permissions: true });
+
+    const roleNameError = validateRoleName(roleName);
+    const permissionsError = validatePermissions();
+
+    setErrors({
+      roleName: roleNameError,
+      permissions: permissionsError,
+    });
+
+    if (!roleNameError && !permissionsError) {
+      console.log("Creating role:", roleName, "with permissions:", Array.from(selectedPermissions));
+      // Proceed with role creation
+    }
   };
 
   return (
@@ -147,9 +204,13 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
           <input
             type="text"
             value={roleName}
-            onChange={(e) => setRoleName(e.target.value)}
+            onChange={(e) => handleRoleNameChange(e.target.value)}
+            onBlur={handleRoleNameBlur}
             placeholder="Not Selected"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm text-[#181D27] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className={`w-full px-4 py-3 border rounded-lg text-sm text-[#181D27] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:border-transparent ${touched.roleName && errors.roleName
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-300 focus:ring-blue-500"
+              }`}
           />
           <div className="absolute right-4 top-1/2 -translate-y-1/2">
             <svg
@@ -165,28 +226,37 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
             </svg>
           </div>
         </div>
-        <p className="text-xs text-[#626262] mt-1">Required</p>
+        {touched.roleName && errors.roleName ? (
+          <p className="text-xs text-red-500 mt-1">{errors.roleName}</p>
+        ) : (
+          <p className="text-xs text-[#626262] mt-1">Required</p>
+        )}
       </div>
 
       {/* Permissions Section */}
       <div className="mb-6">
-        <h3 className="text-base font-semibold text-[#181D27] mb-4">
-          Permissions
-        </h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-base font-semibold text-[#181D27]">
+            Permissions
+          </h3>
+          {touched.permissions && errors.permissions && (
+            <span className="text-xs text-red-500">{errors.permissions}</span>
+          )}
+        </div>
 
         {/* Grey Bordered Container */}
-        <div className="border border-gray-200 rounded-lg overflow-hidden">
+        <div className={`border rounded-lg overflow-hidden ${touched.permissions && errors.permissions ? "border-red-300" : "border-gray-200"
+          }`}>
           {/* Tabs */}
           <div className="flex items-center gap-6 border-b border-gray-200 bg-[#F9FAFB] px-4">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-1 py-3 text-sm font-medium transition-colors relative ${
-                  activeTab === tab
+                className={`px-1 py-3 text-sm font-medium transition-colors relative ${activeTab === tab
                     ? "text-[#0038CE]"
                     : "text-[#626262] hover:text-[#181D27]"
-                }`}
+                  }`}
               >
                 {tab}
                 {activeTab === tab && (
@@ -272,7 +342,14 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
 
       {/* Create Role Button */}
       <div className="flex justify-end">
-        <button className="px-6 py-3 bg-[#0857A1] text-white text-sm font-medium rounded-lg hover:bg-[#064680] transition-colors">
+        <button
+          onClick={handleCreateRole}
+          disabled={!isFormValid()}
+          className={`px-6 py-3 text-sm font-medium rounded-lg transition-colors ${isFormValid()
+              ? "bg-[#0857A1] text-white hover:bg-[#064680]"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }`}
+        >
           Create Role
         </button>
       </div>
@@ -281,3 +358,4 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
 };
 
 export default CreateNewRole;
+

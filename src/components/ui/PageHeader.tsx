@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import type { BreadcrumbItem } from "@/components/ui/Breadcrumb";
+import { type BreadcrumbItem } from "@/routes";
 import HeaderBanner from "@/assets/images/header_banner.png";
 
 // Icons for buttons
@@ -54,13 +54,9 @@ export interface PageHeaderConfig {
     buttons?: PageHeaderButton[];
 }
 
-// Route-based header configurations
+// Route-based header configurations (for UI-specific settings like buttons, icons)
 const routeHeaderConfigs: Record<string, PageHeaderConfig> = {
     "/interview": {
-        breadcrumbs: [
-            { label: "Interview Schedule", path: "/job-dashboard" },
-            { label: "Interview" },
-        ],
         title: "Samuel Baker",
         showPersonIcon: true,
         showTime: true,
@@ -72,23 +68,14 @@ const routeHeaderConfigs: Record<string, PageHeaderConfig> = {
         ],
     },
     "/job-dashboard": {
-        breadcrumbs: [{ label: "Dashboard" }],
         title: "Jobs Dashboard",
         buttons: [],
     },
     "/job-form": {
-        breadcrumbs: [
-            { label: "Jobs List", path: "/job-dashboard" },
-            { label: "Create new Job" },
-        ],
         title: "HR Talent Acquisition Specialist",
         buttons: [],
     },
     "/interview-prep-dashboard": {
-        breadcrumbs: [
-            { label: "Interview Schedule", path: "/job-dashboard" },
-            { label: "Interview Summary" },
-        ],
         title: "Interview Complete",
         buttons: [],
     },
@@ -97,6 +84,7 @@ const routeHeaderConfigs: Record<string, PageHeaderConfig> = {
 interface PageHeaderProps {
     config?: PageHeaderConfig;
 }
+
 
 export default function PageHeader({ config }: PageHeaderProps) {
     const location = useLocation();

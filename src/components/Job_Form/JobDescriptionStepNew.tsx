@@ -456,6 +456,16 @@ export default function JobDescriptionStepNew({
     return Math.round((filledCount / fields.length) * 100);
   };
 
+  // Check if minimum required fields are filled for Next button
+  const isFormValid = (): boolean => {
+    return (
+      formData.jobTitle.trim() !== "" &&
+      formData.hiringManager.trim() !== "" &&
+      formData.employmentType.trim() !== "" &&
+      formData.jobSummary.trim() !== ""
+    );
+  };
+
   return (
     <div className="flex flex-col gap-4">
       {/* Header */}
@@ -735,9 +745,13 @@ export default function JobDescriptionStepNew({
         </button>
         <button
           onClick={onNext}
-          className="flex items-center justify-center px-6 py-3 bg-[#0857A1] rounded-full min-w-[100px] hover:bg-[#074785] transition-colors"
+          disabled={!isFormValid()}
+          className={`flex items-center justify-center px-6 py-3 rounded-full min-w-[100px] transition-colors ${isFormValid()
+              ? "bg-[#0857A1] hover:bg-[#074785]"
+              : "bg-gray-300 cursor-not-allowed"
+            }`}
         >
-          <span className="text-sm font-medium text-white">Next</span>
+          <span className={`text-sm font-medium ${isFormValid() ? "text-white" : "text-gray-500"}`}>Next</span>
         </button>
       </div>
 

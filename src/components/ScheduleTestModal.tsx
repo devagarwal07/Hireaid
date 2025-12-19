@@ -237,6 +237,19 @@ export default function ScheduleTestModal({
         }
     }, [isOpen, candidateDisplay]);
 
+    // Form validation
+    const isFormValid = (): boolean => {
+        return (
+            candidateSearch.trim() !== "" &&
+            selectedProctors.length > 0 &&
+            testType !== "Select Test Type" &&
+            timeZone !== "Select Timezone" &&
+            duration !== "Select Duration" &&
+            selectedDate !== null &&
+            fromTime !== "Select Time"
+        );
+    };
+
     if (!isOpen) return null;
 
     const removeProctor = (id: string) => {
@@ -812,7 +825,11 @@ export default function ScheduleTestModal({
                     </button>
                     <button
                         onClick={handleSchedule}
-                        className="px-6 py-2.5 bg-[#1e3a5f] hover:bg-[#162d4d] text-white text-sm font-medium rounded-lg transition-colors"
+                        disabled={!isFormValid()}
+                        className={`px-6 py-2.5 text-sm font-medium rounded-lg transition-colors ${isFormValid()
+                                ? "bg-[#1e3a5f] hover:bg-[#162d4d] text-white"
+                                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                            }`}
                     >
                         Schedule Test
                     </button>

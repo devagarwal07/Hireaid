@@ -1,38 +1,18 @@
 import { useLocation, Link } from "react-router-dom";
+import { getBreadcrumbsForPath, type BreadcrumbItem } from "@/routes";
 
-export interface BreadcrumbItem {
-    label: string;
-    path?: string;
-}
+// Re-export BreadcrumbItem for backwards compatibility
+export type { BreadcrumbItem };
 
 interface BreadcrumbProps {
     items?: BreadcrumbItem[];
 }
 
-// Route to breadcrumb mapping
-const routeBreadcrumbs: Record<string, BreadcrumbItem[]> = {
-    "/interview": [
-        { label: "Interview Schedule", path: "/job-dashboard" },
-        { label: "Interview" },
-    ],
-    "/job-dashboard": [
-        { label: "Dashboard", path: "/job-dashboard" },
-    ],
-    "/job-form": [
-        { label: "Jobs List", path: "/job-dashboard" },
-        { label: "Create new Job" },
-    ],
-    "/interview-prep-dashboard": [
-        { label: "Interview Schedule", path: "/job-dashboard" },
-        { label: "Interview Summary" },
-    ],
-};
-
 export default function Breadcrumb({ items }: BreadcrumbProps) {
     const location = useLocation();
 
-    // Use provided items or get from route mapping
-    const breadcrumbItems = items || routeBreadcrumbs[location.pathname] || [];
+    // Use provided items or get from centralized route config
+    const breadcrumbItems = items || getBreadcrumbsForPath(location.pathname);
 
     if (breadcrumbItems.length === 0) return null;
 
@@ -56,3 +36,4 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         </nav>
     );
 }
+

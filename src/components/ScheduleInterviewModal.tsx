@@ -238,6 +238,18 @@ export default function ScheduleInterviewModal({
     }
   }, [isOpen, candidateDisplay]);
 
+  // Form validation
+  const isFormValid = (): boolean => {
+    return (
+      candidateSearch.trim() !== "" &&
+      selectedInterviewers.length > 0 &&
+      timeZone !== "Select Timezone" &&
+      duration !== "Select Duration" &&
+      selectedDate !== null &&
+      (fromTime !== "Select Time" || selectedTimeSlot !== null)
+    );
+  };
+
   if (!isOpen) return null;
 
   const removeInterviewer = (id: string) => {
@@ -951,7 +963,11 @@ export default function ScheduleInterviewModal({
         <div className="flex justify-end px-6 py-4 border-t border-gray-100">
           <button
             onClick={handleSchedule}
-            className="px-6 py-2.5 bg-[#1e3a5f] hover:bg-[#162d4d] text-white text-sm font-medium rounded-full transition-colors"
+            disabled={!isFormValid()}
+            className={`px-6 py-2.5 text-sm font-medium rounded-full transition-colors ${isFormValid()
+                ? "bg-[#1e3a5f] hover:bg-[#162d4d] text-white"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+              }`}
           >
             Schedule Interview
           </button>

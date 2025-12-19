@@ -11,20 +11,99 @@ interface UserFormData {
   role: string;
 }
 
+interface FormErrors {
+  username?: string;
+  email?: string;
+  role?: string;
+}
+
 const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
   const [formData, setFormData] = useState<UserFormData>({
     username: "",
     email: "",
     role: "",
   });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateField = (field: keyof UserFormData, value: string): string | undefined => {
+    switch (field) {
+      case "username":
+        if (!value.trim()) return "Username is required";
+        if (value.trim().length < 2) return "Username must be at least 2 characters";
+        return undefined;
+      case "email":
+        if (!value.trim()) return "Email is required";
+        if (!validateEmail(value)) return "Please enter a valid email address";
+        return undefined;
+      case "role":
+        if (!value) return "Please select a role";
+        return undefined;
+      default:
+        return undefined;
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+    let isValid = true;
+
+    (Object.keys(formData) as (keyof UserFormData)[]).forEach((field) => {
+      const error = validateField(field, formData[field]);
+      if (error) {
+        newErrors[field] = error;
+        isValid = false;
+      }
+    });
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const isFormValid = (): boolean => {
+    return (
+      formData.username.trim().length >= 2 &&
+      validateEmail(formData.email) &&
+      formData.role !== ""
+    );
+  };
 
   const handleInputChange = (field: keyof UserFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const handleBlur = (field: keyof UserFormData) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    const error = validateField(field, formData[field]);
+    setErrors((prev) => ({ ...prev, [field]: error }));
   };
 
   const handleInvite = () => {
-    console.log("Inviting user:", formData);
-    if (onInvite) onInvite(formData);
+    // Mark all fields as touched
+    setTouched({ username: true, email: true, role: true });
+
+    if (validateForm()) {
+      console.log("Inviting user:", formData);
+      if (onInvite) onInvite(formData);
+    }
+  };
+
+  const getInputClassName = (field: keyof UserFormData) => {
+    const baseClass = "w-full px-4 py-3 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent bg-white";
+    const hasError = touched[field] && errors[field];
+    return `${baseClass} ${hasError
+      ? "border-red-500 text-red-700 focus:ring-red-500"
+      : "border-[#E5E7EB] text-[#9CA3AF] focus:ring-blue-500"
+      }`;
   };
 
   return (
@@ -82,8 +161,9 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
               type="text"
               value={formData.username}
               onChange={(e) => handleInputChange("username", e.target.value)}
+              onBlur={() => handleBlur("username")}
               placeholder="Enter Username"
-              className="w-full px-4 py-3 pr-10 border border-[#E5E7EB] rounded-lg text-[#9CA3AF] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+              className={getInputClassName("username")}
             />
             <svg
               className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#9CA3AF]"
@@ -99,7 +179,11 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
               />
             </svg>
           </div>
-          <p className="text-xs text-[#9CA3AF] mt-1">Required</p>
+          {touched.username && errors.username ? (
+            <p className="text-xs text-red-500 mt-1">{errors.username}</p>
+          ) : (
+            <p className="text-xs text-[#9CA3AF] mt-1">Required</p>
+          )}
         </div>
 
         {/* Enter Email */}
@@ -128,8 +212,9 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
               type="email"
               value={formData.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
+              onBlur={() => handleBlur("email")}
               placeholder="Enter Email"
-              className="w-full px-4 py-3 pr-10 border border-[#E5E7EB] rounded-lg text-[#9CA3AF] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+              className={getInputClassName("email")}
             />
             <svg
               className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#9CA3AF]"
@@ -145,7 +230,11 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
               />
             </svg>
           </div>
-          <p className="text-xs text-[#9CA3AF] mt-1">Required</p>
+          {touched.email && errors.email ? (
+            <p className="text-xs text-red-500 mt-1">{errors.email}</p>
+          ) : (
+            <p className="text-xs text-[#9CA3AF] mt-1">Required</p>
+          )}
         </div>
 
         {/* Select Role */}
@@ -178,7 +267,11 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                   dropdown.classList.toggle("hidden");
                 }
               }}
-              className="w-full px-4 py-3 pr-10 border border-[#E5E7EB] rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white min-h-[48px] flex items-center"
+              onBlur={() => handleBlur("role")}
+              className={`w-full px-4 py-3 pr-10 border rounded-lg text-left focus:outline-none focus:ring-2 focus:border-transparent bg-white min-h-[48px] flex items-center ${touched.role && errors.role
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-[#E5E7EB] focus:ring-blue-500"
+                }`}
             >
               {formData.role ? (
                 <span className="inline-flex items-center px-3 py-1 bg-[#EBF2FF] text-[#0857A1] text-sm font-medium rounded-full">
@@ -214,13 +307,14 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                   type="button"
                   onClick={() => {
                     handleInputChange("role", "superadmin");
+                    setTouched((prev) => ({ ...prev, role: true }));
+                    setErrors((prev) => ({ ...prev, role: undefined }));
                     document
                       .getElementById("role-dropdown")
                       ?.classList.add("hidden");
                   }}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${
-                    formData.role === "superadmin" ? "bg-[#EBF2FF]" : ""
-                  }`}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "superadmin" ? "bg-[#EBF2FF]" : ""
+                    }`}
                 >
                   <div className="w-4 h-4 rounded-full border-2 border-[#9CA3AF] flex items-center justify-center flex-shrink-0">
                     {formData.role === "superadmin" && (
@@ -235,13 +329,14 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                   type="button"
                   onClick={() => {
                     handleInputChange("role", "recruiter");
+                    setTouched((prev) => ({ ...prev, role: true }));
+                    setErrors((prev) => ({ ...prev, role: undefined }));
                     document
                       .getElementById("role-dropdown")
                       ?.classList.add("hidden");
                   }}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${
-                    formData.role === "recruiter" ? "bg-[#EBF2FF]" : ""
-                  }`}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "recruiter" ? "bg-[#EBF2FF]" : ""
+                    }`}
                 >
                   <div className="w-4 h-4 rounded-full border-2 border-[#9CA3AF] flex items-center justify-center flex-shrink-0">
                     {formData.role === "recruiter" && (
@@ -256,13 +351,14 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                   type="button"
                   onClick={() => {
                     handleInputChange("role", "interviewer");
+                    setTouched((prev) => ({ ...prev, role: true }));
+                    setErrors((prev) => ({ ...prev, role: undefined }));
                     document
                       .getElementById("role-dropdown")
                       ?.classList.add("hidden");
                   }}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${
-                    formData.role === "interviewer" ? "bg-[#EBF2FF]" : ""
-                  }`}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "interviewer" ? "bg-[#EBF2FF]" : ""
+                    }`}
                 >
                   <div className="w-4 h-4 rounded-full border-2 border-[#9CA3AF] flex items-center justify-center flex-shrink-0">
                     {formData.role === "interviewer" && (
@@ -295,7 +391,11 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
               </div>
             </div>
           </div>
-          <p className="text-xs text-[#9CA3AF] mt-1">Required</p>
+          {touched.role && errors.role ? (
+            <p className="text-xs text-red-500 mt-1">{errors.role}</p>
+          ) : (
+            <p className="text-xs text-[#9CA3AF] mt-1">Required</p>
+          )}
         </div>
       </div>
 
@@ -303,7 +403,11 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
       <div className="flex justify-end mt-8">
         <button
           onClick={handleInvite}
-          className="px-6 py-2.5 bg-[#0857A1] hover:bg-[#176CBA] text-white rounded-full font-medium text-sm transition-colors"
+          disabled={!isFormValid()}
+          className={`px-6 py-2.5 rounded-full font-medium text-sm transition-colors ${isFormValid()
+              ? "bg-[#0857A1] hover:bg-[#176CBA] text-white"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }`}
         >
           Invite User
         </button>
@@ -313,3 +417,4 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
 };
 
 export default AddNewUser;
+
