@@ -59,32 +59,68 @@ type ButtonVariant = "primary" | "secondary" | "tertiary";
 
 ## Styling Approach
 
-### Tailwind-First with CSS Variables
+### Design System (IMPORTANT)
 
-- **Primary**: Use Tailwind utility classes directly in JSX
-- **Custom values**: CSS variables in `src/styles/global.css` (e.g., `--bg`, `--card`, `--accent: #3b82f6`, `--radius: 10px`)
-- **Component-specific**: Inline styles for dynamic values (hover states, computed sizes)
+The application uses a centralized design system defined in:
+- **`src/styles/variables.css`**: All CSS custom properties (design tokens)
+- **`src/styles/global.css`**: Global styles and utility classes
+- **`tailwind.config.js`**: Extended Tailwind classes matching the design system
 
-**Example Pattern**:
+**ALWAYS use design system tokens instead of hardcoded values:**
 
 ```tsx
-// Prefer Tailwind classes
-<div className="min-h-screen bg-[#F0F4FF] px-6 pb-6">
+// ✅ CORRECT - Use Tailwind classes with design tokens
+<div className="min-h-screen bg-page-bg">  // Page background
+<button className="bg-primary hover:bg-primary-hover text-white"> // Primary button
+<p className="text-text-primary">  // Primary text color
+<p className="text-text-secondary">  // Secondary text color
+<div className="shadow-card rounded-2xl">  // Card styling
 
-// Use CSS vars for theme-consistent values
-<button style={{ background: 'var(--accent)' }}>
-
-// Inline styles for computed/dynamic values
-<img style={{ width: `${iconSize}px`, height: `${iconSize}px` }} />
+// ❌ WRONG - Don't hardcode colors
+<div className="bg-[#F0F4FF]">  // Use bg-page-bg instead
+<button className="bg-[#0857A1]">  // Use bg-primary instead
+<p className="text-[#181D27]">  // Use text-text-primary instead
 ```
 
-### Design System Colors
+### Available Tailwind Design Tokens
 
-- Background: `#F0F4FF` (pale blue) for app canvas
-- Cards: `#FFFFFF` with shadow `0 2px 11px rgba(0,0,0,0.08)`
-- Primary action: `#0857A1` (blue)
-- Gradient accents: `from-[#19B9A3] to-[#6990F9]` (teal to blue)
-- Text: `#181D27` (dark), `#626262` (muted)
+**Colors:**
+- `bg-page-bg` - Page background (#F0F4FF)
+- `bg-primary`, `bg-primary-hover`, `bg-primary-light` - Primary colors
+- `text-text-primary` - Main text (#181D27)
+- `text-text-secondary` - Secondary text (#626262)
+- `text-text-muted` - Muted text (#717171)
+- `border-border-light`, `border-border-default` - Border colors
+
+**Shadows:**
+- `shadow-card` - Standard card shadow
+- `shadow-sidebar` - Sidebar shadow
+
+### Typography
+
+**Font**: Poppins is the default font (loaded via Google Fonts in global.css). No need to specify `font-['Poppins']` as it's inherited globally.
+
+**Font weights**: Use Tailwind classes `font-normal`, `font-medium`, `font-semibold`, `font-bold`
+
+### CSS Variables (for inline styles when needed)
+
+```tsx
+// When Tailwind classes aren't sufficient, use CSS variables
+<div style={{ background: 'var(--color-primary)' }}>
+<div style={{ boxShadow: 'var(--shadow-card)' }}>
+```
+
+### Design System Colors Reference
+
+- Primary: `#0857A1` (buttons, links, accents)
+- Primary Hover: `#176CBA`
+- Page Background: `#F0F4FF` (use everywhere)
+- Card Background: `#FFFFFF`
+- Text Primary: `#181D27`
+- Text Secondary: `#626262`
+- Text Muted: `#717171`
+- Border Light: `#E5E5E5`
+- Border Default: `#D1D5DB`
 
 ## Key Development Workflows
 
@@ -143,11 +179,21 @@ import Button from "@/components/Button";
 
 ### Button Component
 
-Custom `Button` component (`src/components/Button.tsx`) wraps native `<button>` with three variants:
+Custom `Button` component (`src/components/Button.tsx`) wraps native `<button>` with variants and sizes:
 
-- `primary`: Blue background (`#0857A1`), white text
-- `secondary`: Gray background (`#EFEFEF`), dark text
-- `tertiary`: Transparent background, blue text
+**Variants:**
+- `primary`: Primary color background, white text
+- `secondary`: Gray background, dark text
+- `tertiary`: Transparent background, primary text
+
+**Sizes:**
+- `sm`: Small (32px height)
+- `md`: Medium (40px height, default)
+- `lg`: Large (48px height)
+
+```tsx
+<Button variant="primary" size="md" onClick={handleSave}>Save</Button>
+```
 
 Usage: `<Button variant="primary" onClick={handleSave}>Save</Button>`
 

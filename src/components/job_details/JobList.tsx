@@ -95,7 +95,7 @@ const StatusBadge = ({ status }: { status: Job["status"] }) => {
         />
       )}
       <span
-        className="text-xs font-medium font-['Poppins']"
+        className="text-xs font-medium"
         style={{ color: config.color, lineHeight: "140%" }}
       >
         {config.label}
@@ -124,30 +124,30 @@ export default function JobList() {
   return (
     <div className="flex flex-col w-full px-4 py-0">
       {/* Header Section */}
-      <div className="flex justify-between items-center py-3 border-b border-[#E2E2E2]">
-        <h2 className="font-['Poppins'] font-semibold text-xl text-[#181D27]">
+      <div className="flex justify-between items-center py-3 border-b border-border-light">
+        <h2 className="font-semibold text-xl text-text-primary">
           Job List
         </h2>
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center justify-center gap-1.5 px-3 h-10 bg-[#0857A1] rounded-[35px] hover:bg-[#074a8a] transition-colors"
+          className="flex items-center justify-center gap-1.5 px-3 h-10 bg-primary rounded-[35px] hover:bg-primary-dark transition-colors"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 3.33334V12.6667" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M3.33334 8H12.6667" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span className="font-['Poppins'] font-medium text-sm text-white">Create Job</span>
+          <span className="font-medium text-sm text-white">Create Job</span>
         </button>
       </div>
 
       {/* Filter Bar */}
       <div className="flex justify-between items-center py-4">
-        <span className="font-['Poppins'] font-normal text-sm text-[#717171]">
+        <span className="font-normal text-sm text-text-muted">
           Showing {filteredJobs.length} created jobs
         </span>
         <div className="flex items-center gap-3">
           {/* Search Input */}
-          <div className="flex items-center gap-2 px-3 h-10 bg-white border border-[#D5D7DA] rounded-[45px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] w-[208px]">
+          <div className="flex items-center gap-2 px-3 h-10 bg-white border border-border-input rounded-[45px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] w-[208px]">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#989898" strokeWidth="1.67" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -156,15 +156,15 @@ export default function JobList() {
               placeholder="Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 font-['Poppins'] text-sm text-[#181D27] bg-transparent outline-none placeholder:text-[#989898]"
+              className="flex-1 text-sm text-text-primary bg-transparent outline-none placeholder:text-[#989898]"
             />
           </div>
           {/* Filter Button */}
-          <button className="flex items-center justify-center gap-1 px-3.5 h-10 bg-[#F2F2F2] border border-[#D5D7DA] rounded-[36px] hover:bg-[#E8E8E8] transition-colors">
+          <button className="flex items-center justify-center gap-1 px-3.5 h-10 bg-[#F2F2F2] border border-border-input rounded-[36px] hover:bg-[#E8E8E8] transition-colors">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="#989898" strokeWidth="1.67" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="font-['Poppins'] font-medium text-sm text-[#626262]">Filters</span>
+            <span className="font-medium text-sm text-text-secondary">Filters</span>
           </button>
         </div>
       </div>
@@ -175,7 +175,7 @@ export default function JobList() {
           {filteredJobs.map((job) => (
             <div
               key={job.id}
-              className="flex flex-col p-4 gap-4 w-full h-[206px] bg-white border border-[#EBEBEB] rounded-lg"
+              className="flex flex-col p-4 gap-4 w-full h-[206px] bg-white border border-border-light rounded-lg"
             >
               {/* Card Header */}
               <div className="flex justify-between items-start">
@@ -186,7 +186,7 @@ export default function JobList() {
                   </div>
                   {/* Job Info */}
                   <div className="flex flex-col gap-1">
-                    <span className="font-['Poppins'] font-semibold text-sm text-[#181D27]">
+                    <span className="font-semibold text-sm text-text-primary">
                       {job.title}
                     </span>
                     <div className="flex items-center gap-2">
@@ -196,7 +196,7 @@ export default function JobList() {
                           <path d="M13.3333 4.66667H2.66667C1.93029 4.66667 1.33334 5.26362 1.33334 6V12.6667C1.33334 13.403 1.93029 14 2.66667 14H13.3333C14.0697 14 14.6667 13.403 14.6667 12.6667V6C14.6667 5.26362 14.0697 4.66667 13.3333 4.66667Z" stroke="#717171" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                           <path d="M10.6667 14V3.33333C10.6667 2.97971 10.5262 2.64057 10.2761 2.39052C10.0261 2.14048 9.68696 2 9.33334 2H6.66667C6.31305 2 5.97391 2.14048 5.72386 2.39052C5.47381 2.64057 5.33334 2.97971 5.33334 3.33333V14" stroke="#717171" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        <span className="font-['Poppins'] font-normal text-xs text-[#717171]">
+                        <span className="font-normal text-xs text-text-muted">
                           {job.department}
                         </span>
                       </div>
@@ -210,7 +210,7 @@ export default function JobList() {
                           <path d="M5.33334 1.33334V4.00001" stroke="#717171" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                           <path d="M2 6.66667H14" stroke="#717171" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        <span className="font-['Poppins'] font-normal text-xs text-[#717171]">
+                        <span className="font-normal text-xs text-text-muted">
                           {job.date}
                         </span>
                       </div>
@@ -300,26 +300,26 @@ export default function JobList() {
               {/* Stats Row */}
               <div className="flex justify-between items-center">
                 <div className="flex flex-col gap-1">
-                  <span className="font-['Poppins'] font-semibold text-xl text-[#181D27]">
+                  <span className="font-semibold text-xl text-text-primary">
                     {job.applied}
                   </span>
-                  <span className="font-['Poppins'] font-normal text-xs text-[#717171]">
+                  <span className="font-normal text-xs text-text-muted">
                     Applied
                   </span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="font-['Poppins'] font-semibold text-xl text-[#181D27]">
+                  <span className="font-semibold text-xl text-text-primary">
                     {job.inProcess}
                   </span>
-                  <span className="font-['Poppins'] font-normal text-xs text-[#717171]">
+                  <span className="font-normal text-xs text-text-muted">
                     In Process
                   </span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="font-['Poppins'] font-semibold text-xl text-[#181D27]">
+                  <span className="font-semibold text-xl text-text-primary">
                     {job.qualified}
                   </span>
-                  <span className="font-['Poppins'] font-normal text-xs text-[#717171]">
+                  <span className="font-normal text-xs text-text-muted">
                     Qualified
                   </span>
                 </div>
@@ -331,7 +331,7 @@ export default function JobList() {
                 <div className="flex justify-between items-center">
                   <button
                     onClick={() => navigate(`/job/${job.id}/candidates`)}
-                    className="font-['Poppins'] font-normal text-xs text-[#0857A1] hover:underline transition-all"
+                    className="font-normal text-xs text-primary hover:underline transition-all"
                   >
                     View Details
                   </button>
@@ -354,7 +354,7 @@ export default function JobList() {
           </p>
           <button
             onClick={() => setOpen(true)}
-            className="flex items-center gap-1.5 px-5 py-2.5 bg-[#0857A1] text-white rounded-[35px] hover:bg-[#074a8a] transition-colors"
+            className="flex items-center gap-1.5 px-5 py-2.5 bg-primary text-white rounded-[35px] hover:bg-primary-dark transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8 3.33334V12.6667" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -390,13 +390,13 @@ export default function JobList() {
             </div>
 
             {/* Title */}
-            <h3 className="text-lg font-semibold text-[#181D27] text-center mb-2">
+            <h3 className="text-lg font-semibold text-text-primary text-center mb-2">
               Delete Job
             </h3>
 
             {/* Message */}
             <p className="text-sm text-gray-500 text-center mb-6">
-              Are you sure you want to delete <span className="font-medium text-[#181D27]">"{jobToDeleteData?.title}"</span>? This action cannot be undone.
+              Are you sure you want to delete <span className="font-medium text-text-primary">"{jobToDeleteData?.title}"</span>? This action cannot be undone.
             </p>
 
             {/* Buttons */}

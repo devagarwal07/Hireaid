@@ -7,7 +7,7 @@ export default function JobFormPage() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB]">
+    <div className="min-h-screen bg-page-bg">
       <div className="w-full px-6">
         {/* Dynamic Page Header with breadcrumbs */}
         <div className="pb-4">

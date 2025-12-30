@@ -39,7 +39,7 @@ export default function AISuggestionsCard({
                 "linear-gradient(155.56deg,#2DD4BD 4.69%,#6990F9 94.79%)",
             }}
           />
-          <span className="text-[12px] font-medium text-[#181D27]">
+          <span className="text-[12px] font-medium text-text-primary">
             HireAide AI
           </span>
         </div>

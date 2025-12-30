@@ -32,10 +32,10 @@ const CreateAccount: React.FC = () => {
             className="bg-white rounded-lg p-8 border border-gray-200"
             style={{ boxShadow: "0 2px 11px rgba(0,0,0,0.08)" }}
           >
-            <h2 className="text-2xl font-semibold text-[#181D27]">
+            <h2 className="text-2xl font-semibold text-text-primary">
               Account Management
             </h2>
-            <p className="text-[#626262] mt-4">
+            <p className="text-text-secondary mt-4">
               Account management content coming soon...
             </p>
           </div>
@@ -48,10 +48,10 @@ const CreateAccount: React.FC = () => {
             className="bg-white rounded-lg p-8 border border-gray-200"
             style={{ boxShadow: "0 2px 11px rgba(0,0,0,0.08)" }}
           >
-            <h2 className="text-2xl font-semibold text-[#181D27]">
+            <h2 className="text-2xl font-semibold text-text-primary">
               Help & Support
             </h2>
-            <p className="text-[#626262] mt-4">
+            <p className="text-text-secondary mt-4">
               Help and support content coming soon...
             </p>
           </div>
@@ -62,7 +62,7 @@ const CreateAccount: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F4FF] p-6">
+    <div className="min-h-screen bg-page-bg p-6">
       {/* Breadcrumb and Title Section */}
       <PageHeader
         config={{
@@ -80,7 +80,7 @@ const CreateAccount: React.FC = () => {
         className="bg-white rounded-lg p-6 mt-6"
         style={{ boxShadow: "0 2px 11px rgba(0,0,0,0.08)" }}
       >
-        <h2 className="text-xl font-semibold text-[#626262] mb-4">
+        <h2 className="text-xl font-semibold text-text-secondary mb-4">
           All Settings
         </h2>
 

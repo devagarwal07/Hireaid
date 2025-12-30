@@ -41,7 +41,7 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
       className="bg-white rounded-lg p-6 border border-gray-200"
       style={{ boxShadow: "0 2px 11px rgba(0,0,0,0.08)" }}
     >
-      <h2 className="text-2xl font-semibold text-[#181D27] mb-4">
+      <h2 className="text-2xl font-semibold text-text-primary mb-4">
         Admin Settings
       </h2>
       <hr className="border-t border-gray-200 mb-4" />
@@ -68,7 +68,7 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
 
       {/* Theme Selection */}
       <div className="mb-6">
-        <label className="block text-sm font-medium text-[#626262] mb-2">
+        <label className="block text-sm font-medium text-text-secondary mb-2">
           Select Theme
         </label>
         <div className="flex gap-4">
@@ -109,11 +109,11 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
         {/* Company Name */}
         <div>
           <div className="relative">
-            <label className="block text-sm font-medium text-[#626262] mb-2">
+            <label className="block text-sm font-medium text-text-secondary mb-2">
               Company Name
             </label>
             <svg
-              className="absolute right-0 top-0 w-4 h-4 text-[#9CA3AF]"
+              className="absolute right-0 top-0 w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -133,17 +133,17 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
             onChange={(e) => handleInputChange("companyName", e.target.value)}
             className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-[#626262] mt-1">Required</p>
+          <p className="text-xs text-text-secondary mt-1">Required</p>
         </div>
 
         {/* Company Admin Name */}
         <div>
           <div className="relative">
-            <label className="block text-sm font-medium text-[#626262] mb-2">
+            <label className="block text-sm font-medium text-text-secondary mb-2">
               Company Admin Name
             </label>
             <svg
-              className="absolute right-0 top-0 w-4 h-4 text-[#9CA3AF]"
+              className="absolute right-0 top-0 w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -163,17 +163,17 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
             onChange={(e) => handleInputChange("adminName", e.target.value)}
             className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-[#626262] mt-1">Required</p>
+          <p className="text-xs text-text-secondary mt-1">Required</p>
         </div>
 
         {/* Email Address */}
         <div>
           <div className="relative">
-            <label className="block text-sm font-medium text-[#626262] mb-2">
+            <label className="block text-sm font-medium text-text-secondary mb-2">
               Email Address
             </label>
             <svg
-              className="absolute right-0 top-0 w-4 h-4 text-[#9CA3AF]"
+              className="absolute right-0 top-0 w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -193,17 +193,17 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
             onChange={(e) => handleInputChange("email", e.target.value)}
             className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-[#626262] mt-1">Required</p>
+          <p className="text-xs text-text-secondary mt-1">Required</p>
         </div>
 
         {/* Designation */}
         <div>
           <div className="relative">
-            <label className="block text-sm font-medium text-[#626262] mb-2">
+            <label className="block text-sm font-medium text-text-secondary mb-2">
               Designation
             </label>
             <svg
-              className="absolute right-0 top-0 w-4 h-4 text-[#9CA3AF]"
+              className="absolute right-0 top-0 w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -223,17 +223,17 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
             onChange={(e) => handleInputChange("designation", e.target.value)}
             className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-[#626262] mt-1">Required</p>
+          <p className="text-xs text-text-secondary mt-1">Required</p>
         </div>
 
         {/* Location */}
         <div>
           <div className="relative">
-            <label className="block text-sm font-medium text-[#626262] mb-2">
+            <label className="block text-sm font-medium text-text-secondary mb-2">
               Location
             </label>
             <svg
-              className="absolute right-0 top-0 w-4 h-4 text-[#9CA3AF]"
+              className="absolute right-0 top-0 w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -253,17 +253,17 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
             onChange={(e) => handleInputChange("location", e.target.value)}
             className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-[#626262] mt-1">Required</p>
+          <p className="text-xs text-text-secondary mt-1">Required</p>
         </div>
 
         {/* Department */}
         <div>
           <div className="relative">
-            <label className="block text-sm font-medium text-[#626262] mb-2">
+            <label className="block text-sm font-medium text-text-secondary mb-2">
               Department
             </label>
             <svg
-              className="absolute right-0 top-0 w-4 h-4 text-[#9CA3AF]"
+              className="absolute right-0 top-0 w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -283,17 +283,17 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
             onChange={(e) => handleInputChange("department", e.target.value)}
             className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-[#626262] mt-1">Required</p>
+          <p className="text-xs text-text-secondary mt-1">Required</p>
         </div>
 
         {/* Contact Number */}
         <div>
           <div className="relative">
-            <label className="block text-sm font-medium text-[#626262] mb-2">
+            <label className="block text-sm font-medium text-text-secondary mb-2">
               Contact Number
             </label>
             <svg
-              className="absolute right-0 top-0 w-4 h-4 text-[#9CA3AF]"
+              className="absolute right-0 top-0 w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -313,17 +313,17 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
             onChange={(e) => handleInputChange("contactNumber", e.target.value)}
             className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-[#626262] mt-1">Required</p>
+          <p className="text-xs text-text-secondary mt-1">Required</p>
         </div>
 
         {/* Contact Address */}
         <div>
           <div className="relative">
-            <label className="block text-sm font-medium text-[#626262] mb-2">
+            <label className="block text-sm font-medium text-text-secondary mb-2">
               Contact Address
             </label>
             <svg
-              className="absolute right-0 top-0 w-4 h-4 text-[#9CA3AF]"
+              className="absolute right-0 top-0 w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -345,7 +345,7 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ onSave }) => {
             }
             className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-[#626262] mt-1">Required</p>
+          <p className="text-xs text-text-secondary mt-1">Required</p>
         </div>
       </div>
 

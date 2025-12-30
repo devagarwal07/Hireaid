@@ -20,7 +20,7 @@ export default function ScheduleInterviewDemo(): React.ReactElement {
     };
 
     return (
-        <div className="min-h-screen bg-[#F0F4FF] p-6">
+        <div className="min-h-screen bg-page-bg p-6">
             <div className="max-w-4xl mx-auto">
                 <h1 className="text-2xl font-semibold text-gray-900 mb-4">
                     Schedule Interview Demo
@@ -30,7 +30,7 @@ export default function ScheduleInterviewDemo(): React.ReactElement {
                 </p>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="px-6 py-3 bg-[#1e3a5f] hover:bg-[#162d4d] text-white font-medium rounded-lg transition-colors"
+                    className="px-6 py-3 bg-secondary hover:bg-secondary-hover text-white font-medium rounded-lg transition-colors"
                 >
                     Open Schedule Interview Modal
                 </button>

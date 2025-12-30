@@ -79,13 +79,13 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
         {/* Header */}
         <div className="bg-[#181D27] px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <h2 className="font-['Poppins'] font-semibold text-lg text-white">
+            <h2 className="font-semibold text-lg text-white">
               Job Description Preview
             </h2>
             <div className="flex gap-4">
               <button
                 onClick={() => setActiveTab("default")}
-                className={`pb-1 px-1 font-['Poppins'] font-medium text-sm transition-colors ${activeTab === "default"
+                className={`pb-1 px-1 font-medium text-sm transition-colors ${activeTab === "default"
                     ? "text-white border-b-2 border-white"
                     : "text-gray-300 hover:text-white"
                   }`}
@@ -94,7 +94,7 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
               </button>
               <button
                 onClick={() => setActiveTab("linkedin")}
-                className={`pb-1 px-1 font-['Poppins'] font-medium text-sm transition-colors ${activeTab === "linkedin"
+                className={`pb-1 px-1 font-medium text-sm transition-colors ${activeTab === "linkedin"
                     ? "text-white border-b-2 border-white"
                     : "text-gray-300 hover:text-white"
                   }`}
@@ -103,7 +103,7 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
               </button>
               <button
                 onClick={() => setActiveTab("indeed")}
-                className={`pb-1 px-1 font-['Poppins'] font-medium text-sm transition-colors ${activeTab === "indeed"
+                className={`pb-1 px-1 font-medium text-sm transition-colors ${activeTab === "indeed"
                     ? "text-white border-b-2 border-white"
                     : "text-gray-300 hover:text-white"
                   }`}
@@ -124,45 +124,45 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6 bg-white">
-          <div className="bg-white border border-[#EBEBEB] rounded-lg p-6">
-            <h1 className="font-['Poppins'] font-bold text-2xl text-[#181D27] mb-2">
+          <div className="bg-white border border-border-light rounded-lg p-6">
+            <h1 className="font-bold text-2xl text-text-primary mb-2">
               {previewData.title || "Job Title"}
             </h1>
-            <h2 className="font-['Poppins'] font-bold text-lg text-[#181D27] mb-6">
+            <h2 className="font-bold text-lg text-text-primary mb-6">
               Job Description
             </h2>
 
             {/* Job Details */}
             <div className="space-y-3 mb-6">
               <div>
-                <span className="font-['Poppins'] font-bold text-sm text-[#181D27]">TITLE:</span>{" "}
-                <span className="font-['Poppins'] text-sm text-[#181D27]">{previewData.title || ""}</span>
+                <span className="font-bold text-sm text-text-primary">TITLE:</span>{" "}
+                <span className="text-sm text-text-primary">{previewData.title || ""}</span>
               </div>
               <div>
-                <span className="font-['Poppins'] font-bold text-sm text-[#181D27]">JOB CODE:</span>{" "}
-                <span className="font-['Poppins'] text-sm text-[#181D27]">{previewData.jobCode || ""}</span>
+                <span className="font-bold text-sm text-text-primary">JOB CODE:</span>{" "}
+                <span className="text-sm text-text-primary">{previewData.jobCode || ""}</span>
               </div>
               <div>
-                <span className="font-['Poppins'] font-bold text-sm text-[#181D27]">EFFECTIVE DATE:</span>{" "}
-                <span className="font-['Poppins'] text-sm text-[#181D27]">{previewData.effectiveDate || ""}</span>
+                <span className="font-bold text-sm text-text-primary">EFFECTIVE DATE:</span>{" "}
+                <span className="text-sm text-text-primary">{previewData.effectiveDate || ""}</span>
               </div>
               <div>
-                <span className="font-['Poppins'] font-bold text-sm text-[#181D27]">FLSA STATUS:</span>{" "}
-                <span className="font-['Poppins'] text-sm text-[#181D27]">{previewData.flsaStatus}</span>
+                <span className="font-bold text-sm text-text-primary">FLSA STATUS:</span>{" "}
+                <span className="text-sm text-text-primary">{previewData.flsaStatus}</span>
               </div>
               <div>
-                <span className="font-['Poppins'] font-bold text-sm text-[#181D27]">EEO6 CODE:</span>{" "}
-                <span className="font-['Poppins'] text-sm text-[#181D27]">{previewData.eeo6Code}</span>
+                <span className="font-bold text-sm text-text-primary">EEO6 CODE:</span>{" "}
+                <span className="text-sm text-text-primary">{previewData.eeo6Code}</span>
               </div>
             </div>
 
             {/* PURPOSE */}
             {previewData.purpose && (
               <div className="mb-6">
-                <h3 className="font-['Poppins'] font-bold text-base text-[#181D27] mb-2">
+                <h3 className="font-bold text-base text-text-primary mb-2">
                   PURPOSE:
                 </h3>
-                <p className="font-['Poppins'] text-sm text-[#181D27] leading-relaxed">
+                <p className="text-sm text-text-primary leading-relaxed">
                   {previewData.purpose}
                 </p>
               </div>
@@ -171,10 +171,10 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
             {/* DUTIES AND RESPONSIBILITIES */}
             {previewData.dutiesAndResponsibilities && (
               <div className="mb-6">
-                <h3 className="font-['Poppins'] font-bold text-base text-[#181D27] mb-2">
+                <h3 className="font-bold text-base text-text-primary mb-2">
                   DUTIES AND RESPONSIBILITIES:
                 </h3>
-                <div className="font-['Poppins'] text-sm text-[#181D27] leading-relaxed whitespace-pre-line">
+                <div className="text-sm text-text-primary leading-relaxed whitespace-pre-line">
                   {previewData.dutiesAndResponsibilities}
                 </div>
               </div>
@@ -183,28 +183,28 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
             {/* REPORTING RELATIONSHIPS */}
             {(previewData.reportingRelationships.reportsTo || previewData.reportingRelationships.supervisionOther) && (
               <div className="mb-6">
-                <h3 className="font-['Poppins'] font-bold text-base text-[#181D27] mb-2">
+                <h3 className="font-bold text-base text-text-primary mb-2">
                   REPORTING RELATIONSHIPS:
                 </h3>
                 <div className="space-y-2">
                   {previewData.reportingRelationships.reportsTo && (
                     <div>
-                      <span className="font-['Poppins'] font-bold text-sm text-[#181D27]">REPORTS TO:</span>{" "}
-                      <span className="font-['Poppins'] text-sm text-[#181D27]">
+                      <span className="font-bold text-sm text-text-primary">REPORTS TO:</span>{" "}
+                      <span className="text-sm text-text-primary">
                         {previewData.reportingRelationships.reportsTo}
                       </span>
                     </div>
                   )}
                   <div>
-                    <span className="font-['Poppins'] font-bold text-sm text-[#181D27]">SUPERVISION:</span>{" "}
-                    <span className="font-['Poppins'] text-sm text-[#181D27]">
+                    <span className="font-bold text-sm text-text-primary">SUPERVISION:</span>{" "}
+                    <span className="text-sm text-text-primary">
                       {previewData.reportingRelationships.supervision}
                     </span>
                   </div>
                   {previewData.reportingRelationships.supervisionOther && (
                     <div>
-                      <span className="font-['Poppins'] font-bold text-sm text-[#181D27]">SUPERVISION-OTHER:</span>{" "}
-                      <span className="font-['Poppins'] text-sm text-[#181D27]">
+                      <span className="font-bold text-sm text-text-primary">SUPERVISION-OTHER:</span>{" "}
+                      <span className="text-sm text-text-primary">
                         {previewData.reportingRelationships.supervisionOther}
                       </span>
                     </div>
@@ -216,10 +216,10 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
             {/* REQUIRED EDUCATION */}
             {previewData.requiredEducation && (
               <div className="mb-6">
-                <h3 className="font-['Poppins'] font-bold text-base text-[#181D27] mb-2">
+                <h3 className="font-bold text-base text-text-primary mb-2">
                   REQUIRED EDUCATION:
                 </h3>
-                <p className="font-['Poppins'] text-sm text-[#181D27] leading-relaxed">
+                <p className="text-sm text-text-primary leading-relaxed">
                   {previewData.requiredEducation}
                 </p>
               </div>
@@ -228,10 +228,10 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
             {/* REQUIRED EDUCATION-OTHER */}
             {previewData.requiredEducationOther && (
               <div className="mb-6">
-                <h3 className="font-['Poppins'] font-bold text-base text-[#181D27] mb-2">
+                <h3 className="font-bold text-base text-text-primary mb-2">
                   REQUIRED EDUCATION-OTHER:
                 </h3>
-                <p className="font-['Poppins'] text-sm text-[#181D27] leading-relaxed">
+                <p className="text-sm text-text-primary leading-relaxed">
                   {previewData.requiredEducationOther}
                 </p>
               </div>
@@ -240,10 +240,10 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
             {/* REQUIRED EXPERIENCE/COMPETENCIES-OTHER */}
             {previewData.requiredExperience && (
               <div className="mb-6">
-                <h3 className="font-['Poppins'] font-bold text-base text-[#181D27] mb-2">
+                <h3 className="font-bold text-base text-text-primary mb-2">
                   REQUIRED EXPERIENCE/COMPETENCIES-OTHER:
                 </h3>
-                <p className="font-['Poppins'] text-sm text-[#181D27] leading-relaxed">
+                <p className="text-sm text-text-primary leading-relaxed">
                   {previewData.requiredExperience}
                 </p>
               </div>
@@ -252,10 +252,10 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end p-6 border-t border-[#E2E2E2]">
+        <div className="flex justify-end p-6 border-t border-border-light">
           <button
             onClick={onClose}
-            className="px-5 py-2.5 rounded-lg font-['Poppins'] font-medium text-sm text-white bg-[#0857A1] hover:bg-[#074a8a] transition-colors"
+            className="px-5 py-2.5 rounded-lg font-medium text-sm text-white bg-primary hover:bg-primary-dark transition-colors"
           >
             Close
           </button>

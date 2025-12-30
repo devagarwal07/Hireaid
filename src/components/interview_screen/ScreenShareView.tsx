@@ -21,7 +21,7 @@ export function ScreenShareView({ candidateName = "Samuel Baker", onSubmit }: Sc
     };
 
     return (
-        <div className="fixed top-0 right-0 bottom-0 left-[80px] z-[9999] bg-[#F0F4FF] flex flex-col overflow-hidden">
+        <div className="fixed top-0 right-0 bottom-0 left-[80px] z-[9999] bg-page-bg flex flex-col overflow-hidden">
             {/* Main Content Area */}
             <div className="flex-1 px-8 pt-6 pb-8 overflow-hidden relative">
                 {/* Header */}
@@ -60,13 +60,13 @@ export function ScreenShareView({ candidateName = "Samuel Baker", onSubmit }: Sc
                         <label
                             key={index}
                             className={`flex items-start gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedOption === index
-                                    ? "border-[#0857A1] bg-[#F0F7FF]"
-                                    : "border-[#E5E7EB] bg-white hover:border-[#D1D5DB]"
+                                    ? "border-primary bg-[#F0F7FF]"
+                                    : "border-border-card bg-white hover:border-[#D1D5DB]"
                                 }`}
                             onClick={() => setSelectedOption(index)}
                         >
                             <div className={`flex-shrink-0 w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center ${selectedOption === index
-                                    ? "border-[#0857A1] bg-[#0857A1]"
+                                    ? "border-primary bg-primary"
                                     : "border-[#9CA3AF] bg-white"
                                 }`}>
                                 {selectedOption === index && (
@@ -130,14 +130,14 @@ export function ScreenShareView({ candidateName = "Samuel Baker", onSubmit }: Sc
             </div>
 
             {/* Bottom Action Bar */}
-            <div className="border-t border-[#E5E7EB] bg-white px-8 py-4">
+            <div className="border-t border-border-card bg-white px-8 py-4">
                 <div className="flex items-center justify-end">
                     <button
                         onClick={handleSubmit}
                         disabled={selectedOption === null}
                         className={`px-8 py-3 rounded-full font-semibold text-white shadow-lg transition-all ${selectedOption === null
                                 ? "bg-gray-300 cursor-not-allowed"
-                                : "bg-[#0857A1] hover:bg-[#064684]"
+                                : "bg-primary hover:bg-primary-dark"
                             }`}
                     >
                         Submit & Next

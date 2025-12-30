@@ -62,24 +62,24 @@ export default function CompaniesList() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#F0F4FF] p-6">
+    <div className="flex flex-col h-full bg-page-bg p-6">
       {/* Main content card with white background */}
-      <div className="bg-white rounded-lg border-2 border-[#E5E5E5] shadow-sm p-6">
-        <div className="border border-[#D1D5DB] rounded-lg">
+      <div className="bg-white rounded-2xl border border-border-light shadow-card p-6">
+        <div className="border border-border-default rounded-xl overflow-hidden">
           {/* Header bar */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-[#E5E5E5]">
+          <div className="flex items-center justify-between px-6 py-5 border-b border-border-light">
             <div>
-              <h1 className="text-[24px] font-semibold text-[#181D27]">
+              <h1 className="text-2xl font-semibold text-text-primary">
                 Companies List
               </h1>
-              <p className="text-sm text-[#626262] mt-1">
+              <p className="text-sm text-text-secondary mt-1">
                 Showing {filteredCompanies.length} out of {companies.length}{" "}
                 created accounts
               </p>
             </div>
             <button
               onClick={() => navigate("/companies/create-account")}
-              className="flex items-center gap-2 px-5 py-2.5 bg-[#0857A1] hover:bg-[#176CBA] text-white rounded-full font-medium text-sm transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-full font-medium text-sm transition-all duration-200"
             >
               <svg
                 width="16"
@@ -111,7 +111,7 @@ export default function CompaniesList() {
                   setSearchQuery(e.target.value);
                   setCurrentPage(1); // Reset to first page on search
                 }}
-                className="w-full px-4 py-2 pl-10 border border-[#E2E2E2] rounded-full focus:outline-none focus:ring-2 focus:ring-[#0857A1] bg-white text-sm"
+                className="w-full px-4 py-2 pl-10 border border-border-light rounded-full focus:outline-none focus:ring-2 focus:ring-primary bg-white text-sm"
               />
               <svg
                 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -142,7 +142,7 @@ export default function CompaniesList() {
             <div className="relative">
               <button
                 onClick={() => setShowFilterMenu(!showFilterMenu)}
-                className="flex items-center gap-2 px-4 py-2 border border-[#E2E2E2] rounded-full hover:bg-gray-50 transition-colors bg-white text-sm font-medium"
+                className="flex items-center gap-2 px-4 py-2 border border-border-light rounded-full hover:bg-gray-50 transition-colors bg-white text-sm font-medium"
               >
                 <svg
                   width="16"
@@ -163,7 +163,7 @@ export default function CompaniesList() {
 
               {/* Filter dropdown menu */}
               {showFilterMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border border-[#E2E2E2] rounded-lg shadow-lg z-10">
+                <div className="absolute right-0 mt-2 w-48 bg-white border border-border-light rounded-lg shadow-lg z-10">
                   <div className="p-2">
                     <div className="text-sm font-medium text-gray-700 px-2 py-1">
                       Status
@@ -193,10 +193,10 @@ export default function CompaniesList() {
 
           {/* Table */}
           <div className="overflow-hidden px-6">
-            <div className="overflow-x-auto rounded-lg border border-[#E2E2E2]">
+            <div className="overflow-x-auto rounded-lg border border-border-light">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gray-100 border-b border-[#E2E2E2]">
+                  <tr className="bg-gray-100 border-b border-border-light">
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Sr. No.
                     </th>
@@ -233,7 +233,7 @@ export default function CompaniesList() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                           {String(startIndex + index + 1).padStart(2, "0")}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#0857A1]">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">
                           {company.companyName}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -318,14 +318,14 @@ export default function CompaniesList() {
                 <button
                   onClick={handlePreviousPage}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 text-sm font-medium border border-[#E2E2E2] rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors bg-white"
+                  className="px-4 py-2 text-sm font-medium border border-border-light rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors bg-white"
                 >
                   Previous
                 </button>
                 <button
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 text-sm font-medium border border-[#E2E2E2] rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors bg-white"
+                  className="px-4 py-2 text-sm font-medium border border-border-light rounded-full hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors bg-white"
                 >
                   Next
                 </button>

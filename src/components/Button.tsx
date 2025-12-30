@@ -1,26 +1,40 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "tertiary";
+type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	variant?: ButtonVariant;
+	size?: ButtonSize;
 	children: ReactNode;
 }
 
 const baseClasses =
-	"inline-flex items-center justify-center rounded-full font-medium text-[16px] leading-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0857A1] transition-colors disabled:cursor-not-allowed";
+	"inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50";
+
+const sizeClasses: Record<ButtonSize, string> = {
+	sm: "px-4 py-2 text-sm h-8",
+	md: "px-5 py-2.5 text-sm h-10",
+	lg: "px-6 py-3 text-base h-12",
+};
 
 const variantClasses: Record<ButtonVariant, string> = {
 	primary:
-		"px-5 py-[15px] text-white bg-[#0857A1] hover:bg-[#176CBA] focus-visible:bg-[#0E5FAA] active:bg-[#06539A] disabled:bg-[#CCCCCC]",
+		"text-white bg-primary hover:bg-primary-hover active:bg-primary-dark",
 	secondary:
-		"px-5 py-[15px] text-[#181D27] bg-[#EFEFEF] hover:bg-[#EAEAEA] focus-visible:bg-[#E2E2E2] active:bg-[#DEDEDE] disabled:bg-[#EFEFEF] disabled:text-[#767676]",
+		"text-text-primary bg-neutral hover:bg-neutral-hover active:bg-neutral-active",
 	tertiary:
-		"px-4 py-[15px] text-[#0857A1] bg-transparent hover:text-[#2B7AC3] focus-visible:text-[#2370B8] active:text-[#0A4F8F] disabled:text-[#767676]",
+		"text-primary bg-transparent hover:bg-primary-light active:text-primary-dark",
 };
 
-export function Button({ variant = "primary", className = "", children, ...rest }: ButtonProps) {
-	const classes = `${baseClasses} ${variantClasses[variant]} ${className}`.trim();
+export function Button({ 
+	variant = "primary", 
+	size = "md",
+	className = "", 
+	children, 
+	...rest 
+}: ButtonProps) {
+	const classes = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`.trim();
 
 	return (
 		<button className={classes} {...rest}>

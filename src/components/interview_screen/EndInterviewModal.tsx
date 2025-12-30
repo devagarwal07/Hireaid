@@ -62,7 +62,7 @@ export function EndInterviewModal({ open, onClose, onConfirm }: EndInterviewModa
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="px-5 py-2.5 rounded-lg bg-[#0857A1] hover:bg-[#064580] text-white font-medium transition-colors"
+                        className="px-5 py-2.5 rounded-lg bg-primary hover:bg-[#064580] text-white font-medium transition-colors"
                     >
                         End Interview
                     </button>

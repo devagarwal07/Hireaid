@@ -89,7 +89,7 @@ export default function InterviewUI(): React.ReactElement {
 
   return (
     // Full viewport background (pale bluish)
-    <div className="min-h-screen bg-[#F0F4FF] relative">
+    <div className="min-h-screen bg-page-bg relative">
       {/* Screen Share View Overlay - covers entire screen including Topbar and PageHeader */}
       {showScreenShare && (
         <ScreenShareView

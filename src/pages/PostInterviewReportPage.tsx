@@ -176,10 +176,10 @@ export default function PostInterviewReportPage(): React.ReactElement {
     };
 
     return (
-        <div className="min-h-screen w-full bg-[#F0F4FF]">
+        <div className="min-h-screen w-full bg-page-bg">
             <div className="w-full px-6 py-6">
                 {/* Header Section */}
-                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-[#E2E8F0] overflow-hidden">
+                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-border-card overflow-hidden">
                     {/* Background banner image */}
                     <div
                         className="absolute top-0 right-0 h-full w-1/2 bg-no-repeat bg-right bg-contain pointer-events-none"
@@ -204,7 +204,7 @@ export default function PostInterviewReportPage(): React.ReactElement {
                                 <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
                                     <UserIcon />
                                 </div>
-                                <h1 className="text-2xl font-semibold text-[#181D27]">{data.candidateName} Report</h1>
+                                <h1 className="text-2xl font-semibold text-text-primary">{data.candidateName} Report</h1>
                                 <span className="flex items-center gap-1 px-3 py-1 bg-green-50 text-green-600 text-xs font-medium rounded-full">
                                     <CheckCircleIcon />
                                     Interview Completed
@@ -230,7 +230,7 @@ export default function PostInterviewReportPage(): React.ReactElement {
                             </div>
                             <button
                                 onClick={() => setShowDetails(!showDetails)}
-                                className="flex items-center gap-1 text-sm text-[#0857A1] hover:underline"
+                                className="flex items-center gap-1 text-sm text-primary hover:underline"
                             >
                                 {showDetails ? "Hide Details" : "View Details"}
                                 {showDetails ? <ChevronUpIcon /> : <ChevronDownIcon />}
@@ -241,26 +241,26 @@ export default function PostInterviewReportPage(): React.ReactElement {
 
                 {/* Dashboard Title */}
                 <div className="mb-6">
-                    <h2 className="text-lg font-semibold text-[#181D27]">Interview Prep Dashboard - Interview Completed</h2>
+                    <h2 className="text-lg font-semibold text-text-primary">Interview Prep Dashboard - Interview Completed</h2>
                 </div>
 
                 {/* Interview Report Card */}
-                <div className="bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden mb-6">
+                <div className="bg-white rounded-2xl border border-border-card overflow-hidden mb-6">
                     {/* Report Header */}
-                    <div className="flex items-center justify-between p-5 border-b border-[#E5E7EB]">
+                    <div className="flex items-center justify-between p-5 border-b border-border-card">
                         <div className="flex items-center gap-3">
                             <SparkleIcon color="#0857A1" />
-                            <h3 className="text-base font-semibold text-[#181D27]">Interview Report</h3>
+                            <h3 className="text-base font-semibold text-text-primary">Interview Report</h3>
                         </div>
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={() => setShowNotesModal(true)}
-                                className="flex items-center gap-2 text-sm text-[#0857A1] hover:underline"
+                                className="flex items-center gap-2 text-sm text-primary hover:underline"
                             >
                                 <NoteIcon />
                                 Add Notes
                             </button>
-                            <button className="flex items-center gap-2 text-sm text-[#0857A1] hover:underline">
+                            <button className="flex items-center gap-2 text-sm text-primary hover:underline">
                                 <EditIcon />
                                 Edit Evaluation
                             </button>
@@ -268,10 +268,10 @@ export default function PostInterviewReportPage(): React.ReactElement {
                     </div>
 
                     {/* Score and Evaluation Tags */}
-                    <div className="p-5 border-b border-[#E5E7EB]">
+                    <div className="p-5 border-b border-border-card">
                         <div className="flex items-start gap-6">
                             <div className="text-center">
-                                <div className="text-3xl font-bold text-[#181D27]">
+                                <div className="text-3xl font-bold text-text-primary">
                                     {data.score}<span className="text-sm font-normal text-gray-400">/10</span>
                                 </div>
                                 <div className="text-xs text-gray-500">Score</div>
@@ -293,12 +293,12 @@ export default function PostInterviewReportPage(): React.ReactElement {
                     </div>
 
                     {/* Tabs */}
-                    <div className="border-b border-[#E5E7EB]">
+                    <div className="border-b border-border-card">
                         <div className="flex">
                             <button
                                 onClick={() => setActiveTab("summary")}
                                 className={`flex items-center gap-2 px-6 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === "summary"
-                                    ? "border-[#0857A1] text-[#0857A1] bg-blue-50/30"
+                                    ? "border-primary text-primary bg-blue-50/30"
                                     : "border-transparent text-gray-500 hover:text-gray-700"
                                     }`}
                             >
@@ -308,7 +308,7 @@ export default function PostInterviewReportPage(): React.ReactElement {
                             <button
                                 onClick={() => setActiveTab("transcript")}
                                 className={`flex items-center gap-2 px-6 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === "transcript"
-                                    ? "border-[#0857A1] text-[#0857A1] bg-blue-50/30"
+                                    ? "border-primary text-primary bg-blue-50/30"
                                     : "border-transparent text-gray-500 hover:text-gray-700"
                                     }`}
                             >
@@ -323,7 +323,7 @@ export default function PostInterviewReportPage(): React.ReactElement {
                             <button
                                 onClick={() => setActiveTab("notes")}
                                 className={`flex items-center gap-2 px-6 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === "notes"
-                                    ? "border-[#0857A1] text-[#0857A1] bg-blue-50/30"
+                                    ? "border-primary text-primary bg-blue-50/30"
                                     : "border-transparent text-gray-500 hover:text-gray-700"
                                     }`}
                             >
@@ -379,31 +379,31 @@ export default function PostInterviewReportPage(): React.ReactElement {
                                 {/* Transcript conversation */}
                                 <div className="space-y-3">
                                     <div>
-                                        <span className="text-sm font-semibold text-[#0857A1]">John Doe</span>
+                                        <span className="text-sm font-semibold text-primary">John Doe</span>
                                         <span className="text-sm text-gray-500"> (Interviewer)</span>
                                     </div>
                                     <p className="text-sm text-gray-700">Good Morning Sam can you hear me?</p>
 
                                     <div>
-                                        <span className="text-sm font-semibold text-[#181D27]">Samuel Baker</span>
+                                        <span className="text-sm font-semibold text-text-primary">Samuel Baker</span>
                                         <span className="text-sm text-gray-500"> (Candidate)</span>
                                     </div>
                                     <p className="text-sm text-gray-700">Yes I can</p>
 
                                     <div>
-                                        <span className="text-sm font-semibold text-[#0857A1]">John Doe</span>
+                                        <span className="text-sm font-semibold text-primary">John Doe</span>
                                         <span className="text-sm text-gray-500"> (Interviewer)</span>
                                     </div>
                                     <p className="text-sm text-gray-700">Yes I can</p>
 
                                     <div>
-                                        <span className="text-sm font-semibold text-[#0857A1]">John Doe</span>
+                                        <span className="text-sm font-semibold text-primary">John Doe</span>
                                         <span className="text-sm text-gray-500"> (Interviewer)</span>
                                     </div>
                                     <p className="text-sm text-gray-700">Good Morning Sam can you hear me?</p>
                                 </div>
 
-                                <button className="text-sm text-[#0857A1] font-medium hover:underline">
+                                <button className="text-sm text-primary font-medium hover:underline">
                                     Read More
                                 </button>
                             </div>
@@ -424,13 +424,13 @@ export default function PostInterviewReportPage(): React.ReactElement {
                 </div>
 
                 {/* Per Question Evaluation */}
-                <div className="bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden">
-                    <div className="flex items-center justify-between p-5 border-b border-[#E5E7EB]">
+                <div className="bg-white rounded-2xl border border-border-card overflow-hidden">
+                    <div className="flex items-center justify-between p-5 border-b border-border-card">
                         <div className="flex items-center gap-2">
                             <SparkleIcon color="#0857A1" />
-                            <h3 className="text-base font-semibold text-[#181D27]">Per Question Evaluation</h3>
+                            <h3 className="text-base font-semibold text-text-primary">Per Question Evaluation</h3>
                         </div>
-                        <button className="text-sm text-[#0857A1] hover:underline">
+                        <button className="text-sm text-primary hover:underline">
                             Collapse
                         </button>
                     </div>
@@ -444,13 +444,13 @@ export default function PostInterviewReportPage(): React.ReactElement {
                                 >
                                     <div className="flex items-start gap-6">
                                         <div className="text-center min-w-[60px]">
-                                            <div className="text-2xl font-bold text-[#1e3a5f]">
+                                            <div className="text-2xl font-bold text-secondary">
                                                 {q.score}<span className="text-sm font-normal text-gray-400">/10</span>
                                             </div>
                                             <div className="text-xs text-gray-500">Score</div>
                                         </div>
                                         <div>
-                                            <h5 className="text-sm font-medium text-[#181D27]">
+                                            <h5 className="text-sm font-medium text-text-primary">
                                                 Question {qIdx + 1}: {q.question}
                                             </h5>
                                         </div>
@@ -487,7 +487,7 @@ export default function PostInterviewReportPage(): React.ReactElement {
                     <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4 max-h-[80vh] flex flex-col">
                         {/* Header */}
                         <div className="flex items-center justify-between p-5 border-b border-gray-200">
-                            <h2 className="text-lg font-semibold text-[#181D27]">Candidate Overview Notes</h2>
+                            <h2 className="text-lg font-semibold text-text-primary">Candidate Overview Notes</h2>
                             <button
                                 onClick={() => setShowNotesModal(false)}
                                 className="p-1 hover:bg-gray-100 rounded transition-colors"
@@ -508,7 +508,7 @@ export default function PostInterviewReportPage(): React.ReactElement {
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-sm font-semibold text-[#181D27]">John Doe</span>
+                                        <span className="text-sm font-semibold text-text-primary">John Doe</span>
                                     </div>
                                     <p className="text-sm text-gray-600 leading-relaxed">
                                         The candidate presents a well-structured resume that highlights strong academic background, relevant professional experience, and clearly demonstrated skills. Achievements are quantified, showcasing impact and results, while the overall format is clean, concise, and easy to follow
@@ -524,7 +524,7 @@ export default function PostInterviewReportPage(): React.ReactElement {
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-sm font-semibold text-[#181D27]">Phillip Sam</span>
+                                        <span className="text-sm font-semibold text-text-primary">Phillip Sam</span>
                                     </div>
                                     <p className="text-sm text-gray-600 leading-relaxed">
                                         The candidate presents a well-structured resume that highlights strong academic background, relevant professional experience, and clearly demonstrated skills. Achievements are quantified, showcasing impact and results, while the overall format is clean, concise, and easy to follow
@@ -540,7 +540,7 @@ export default function PostInterviewReportPage(): React.ReactElement {
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-sm font-semibold text-[#181D27]">Jordan Blue</span>
+                                        <span className="text-sm font-semibold text-text-primary">Jordan Blue</span>
                                     </div>
                                     <p className="text-sm text-gray-600 leading-relaxed">
                                         The candidate presents a well-structured resume that highlights strong academic background, relevant professional experience, and clearly demonstrated skills. Achievements are quantified, showcasing impact and results, while the overall format is clean, concise, and easy to follow
@@ -575,7 +575,7 @@ export default function PostInterviewReportPage(): React.ReactElement {
                                             Upload Image
                                         </button>
                                     </div>
-                                    <button className="px-4 py-2 bg-[#0857A1] text-white text-sm font-medium rounded-lg hover:bg-[#074a8a] transition-colors">
+                                    <button className="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors">
                                         Save Comment
                                     </button>
                                 </div>

@@ -228,7 +228,7 @@ John Doe`);
                         </svg>
                     </div>
                     <div>
-                        <h4 className="font-medium text-[#181D27]">Success</h4>
+                        <h4 className="font-medium text-text-primary">Success</h4>
                         <p className="text-sm text-gray-600">{successMessage}</p>
                     </div>
                     <button onClick={() => setShowSuccessToast(false)} className="text-gray-400 hover:text-gray-600">
@@ -246,7 +246,7 @@ John Doe`);
                                 <InfoIcon />
                             </div>
                             <div>
-                                <h3 className="text-lg font-semibold text-[#181D27]">Confirmation</h3>
+                                <h3 className="text-lg font-semibold text-text-primary">Confirmation</h3>
                                 <p className="text-sm text-gray-600 mt-2">
                                     Are you sure you want to proceed ahead with the evaluation edit?
                                 </p>
@@ -264,7 +264,7 @@ John Doe`);
                             </button>
                             <button
                                 onClick={handleConfirmEdit}
-                                className="px-4 py-2 bg-[#0857A1] text-white text-sm font-medium rounded-lg hover:bg-[#064a85] transition-colors"
+                                className="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors"
                             >
                                 Proceed
                             </button>
@@ -280,7 +280,7 @@ John Doe`);
                         <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
                             <UserIcon />
                         </div>
-                        <h2 className="text-xl font-semibold text-[#181D27]">{candidateName} Report</h2>
+                        <h2 className="text-xl font-semibold text-text-primary">{candidateName} Report</h2>
                         <span className="flex items-center gap-1 px-3 py-1 bg-green-50 text-green-600 text-xs font-medium rounded-full">
                             <CheckCircleIcon />
                             Interview Completed
@@ -308,22 +308,22 @@ John Doe`);
             </div>
 
             {/* Dashboard Title */}
-            <div className="border-b border-[#E5E7EB] pb-4">
-                <h3 className="text-lg font-semibold text-[#181D27]">Interview Prep Dashboard - Interview Completed</h3>
+            <div className="border-b border-border-card pb-4">
+                <h3 className="text-lg font-semibold text-text-primary">Interview Prep Dashboard - Interview Completed</h3>
             </div>
 
             {/* Interview Report Card */}
-            <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
+            <div className="bg-white rounded-xl border border-border-card overflow-hidden">
                 {/* Report Header with Take Action or Apply Changes */}
-                <div className="flex items-center justify-between p-5 border-b border-[#E5E7EB]">
+                <div className="flex items-center justify-between p-5 border-b border-border-card">
                     <div className="flex items-center gap-2">
                         <SparkleIcon color="#0857A1" />
-                        <h4 className="text-base font-semibold text-[#181D27]">Interview Report</h4>
+                        <h4 className="text-base font-semibold text-text-primary">Interview Report</h4>
                     </div>
                     {isEditMode ? (
                         <button
                             onClick={handleApplyChanges}
-                            className="text-sm text-[#0857A1] font-medium hover:underline"
+                            className="text-sm text-primary font-medium hover:underline"
                         >
                             Apply Changes
                         </button>
@@ -331,7 +331,7 @@ John Doe`);
                         <div className="relative">
                             <button
                                 onClick={() => setShowTakeAction(!showTakeAction)}
-                                className="flex items-center gap-2 px-4 py-2 text-sm text-[#0857A1] font-medium hover:bg-blue-50 rounded-lg transition-colors"
+                                className="flex items-center gap-2 px-4 py-2 text-sm text-primary font-medium hover:bg-blue-50 rounded-lg transition-colors"
                             >
                                 Take Action
                                 <ChevronDownIcon />
@@ -359,7 +359,7 @@ John Doe`);
                                         </button>
                                         <button
                                             onClick={handleEditEvaluation}
-                                            className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-[#0857A1] bg-blue-50 hover:bg-blue-100 transition-colors"
+                                            className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-primary bg-blue-50 hover:bg-blue-100 transition-colors"
                                         >
                                             <EditIcon />
                                             Edit Evaluation
@@ -372,10 +372,10 @@ John Doe`);
                 </div>
 
                 {/* Score and Evaluation Tags */}
-                <div className="p-5 border-b border-[#E5E7EB]">
+                <div className="p-5 border-b border-border-card">
                     <div className="flex items-center gap-4">
                         <div className="text-center pr-4 border-r border-gray-200">
-                            <div className="text-3xl font-bold text-[#1e3a5f]">
+                            <div className="text-3xl font-bold text-secondary">
                                 8.4<span className="text-sm font-normal text-gray-400">/10</span>
                             </div>
                             <div className="text-xs text-gray-500">Score</div>
@@ -394,7 +394,7 @@ John Doe`);
                 </div>
 
                 {/* Tabs */}
-                <div className="border-b border-[#E5E7EB]">
+                <div className="border-b border-border-card">
                     <div className="flex">
                         {[
                             { id: "summary", label: "AI Summary", icon: "✨" },
@@ -405,7 +405,7 @@ John Doe`);
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id as typeof activeTab)}
                                 className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 ${activeTab === tab.id
-                                    ? "border-[#0857A1] text-[#0857A1] bg-blue-50/30"
+                                    ? "border-primary text-primary bg-blue-50/30"
                                     : "border-transparent text-gray-500 hover:text-gray-700"
                                     }`}
                             >
@@ -423,7 +423,7 @@ John Doe`);
                             {/* Voice Analysis and AI Analysis */}
                             <div className="grid grid-cols-2 gap-6 mb-6">
                                 {/* Voice Analysis */}
-                                <div className="bg-white rounded-xl border border-[#E5E7EB] p-5">
+                                <div className="bg-white rounded-xl border border-border-card p-5">
                                     <div className="flex items-center gap-2 mb-4">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2">
                                             <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
@@ -431,7 +431,7 @@ John Doe`);
                                             <line x1="12" y1="19" x2="12" y2="23" />
                                             <line x1="8" y1="23" x2="16" y2="23" />
                                         </svg>
-                                        <h5 className="text-sm font-semibold text-[#181D27]">Voice Analysis</h5>
+                                        <h5 className="text-sm font-semibold text-text-primary">Voice Analysis</h5>
                                     </div>
                                     <div className="flex items-start gap-6">
                                         <div className="text-center">
@@ -460,7 +460,7 @@ John Doe`);
                                 <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl border border-blue-100 p-5">
                                     <div className="flex items-center gap-2 mb-4">
                                         <SparkleIcon color="#0857A1" />
-                                        <h5 className="text-sm font-semibold text-[#0857A1]">AI Analysis</h5>
+                                        <h5 className="text-sm font-semibold text-primary">AI Analysis</h5>
                                     </div>
                                     <div className="flex items-start gap-6">
                                         <div className="text-center">
@@ -527,7 +527,7 @@ John Doe`);
                 <div className="flex items-center gap-3 px-6 pb-6">
                     <button
                         onClick={() => setActiveTab("transcript")}
-                        className="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#0857A1] text-[#0857A1] rounded-lg text-sm font-medium hover:bg-blue-50 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-white border border-primary text-primary rounded-lg text-sm font-medium hover:bg-blue-50 transition-colors"
                     >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -552,23 +552,23 @@ John Doe`);
             </div>
 
             {/* Per Question Evaluation */}
-            <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
-                <div className="flex items-center justify-between p-5 border-b border-[#E5E7EB]">
+            <div className="bg-white rounded-xl border border-border-card overflow-hidden">
+                <div className="flex items-center justify-between p-5 border-b border-border-card">
                     <div className="flex items-center gap-2">
                         <SparkleIcon color="#0857A1" />
-                        <h4 className="text-base font-semibold text-[#181D27]">Per Question Evaluation</h4>
+                        <h4 className="text-base font-semibold text-text-primary">Per Question Evaluation</h4>
                     </div>
-                    <button className="text-sm text-[#0857A1] hover:underline flex items-center gap-1">
+                    <button className="text-sm text-primary hover:underline flex items-center gap-1">
                         Collapse <ChevronUpIcon />
                     </button>
                 </div>
 
-                <div className="px-5 pt-4 border-b border-[#E5E7EB]">
+                <div className="px-5 pt-4 border-b border-border-card">
                     <div className="flex items-center gap-2 overflow-x-auto pb-3">
                         {interviewData.questions.slice(0, 10).map((_, idx) => (
                             <button
                                 key={idx}
-                                className={`px-4 py-2 text-sm font-medium rounded-lg whitespace-nowrap ${idx === 0 ? "bg-[#1e3a5f] text-white" : "text-gray-600 hover:bg-gray-100"}`}
+                                className={`px-4 py-2 text-sm font-medium rounded-lg whitespace-nowrap ${idx === 0 ? "bg-secondary text-white" : "text-gray-600 hover:bg-gray-100"}`}
                             >
                                 Question {idx + 1}
                             </button>
@@ -582,11 +582,11 @@ John Doe`);
                             <button onClick={() => toggleQuestion(qIdx)} className="w-full flex items-start justify-between text-left">
                                 <div className="flex items-start gap-4">
                                     <div className="text-center">
-                                        <div className="text-2xl font-bold text-[#1e3a5f]">{q.score}<span className="text-sm font-normal text-gray-400">/10</span></div>
+                                        <div className="text-2xl font-bold text-secondary">{q.score}<span className="text-sm font-normal text-gray-400">/10</span></div>
                                         <div className="text-xs text-gray-500">Score</div>
                                     </div>
                                     <div>
-                                        <h5 className="text-sm font-medium text-[#181D27] mb-1">Question {qIdx + 1}: {q.question}</h5>
+                                        <h5 className="text-sm font-medium text-text-primary mb-1">Question {qIdx + 1}: {q.question}</h5>
                                     </div>
                                 </div>
                                 {expandedQuestions[qIdx] ? <ChevronUpIcon /> : <ChevronDownIcon />}
@@ -607,19 +607,19 @@ John Doe`);
             </div>
 
             {/* Technical Test Section */}
-            <div className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden">
-                <div className="flex items-center gap-2 p-5 border-b border-[#E5E7EB]">
+            <div className="bg-white rounded-xl border border-border-card overflow-hidden">
+                <div className="flex items-center gap-2 p-5 border-b border-border-card">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2">
                         <rect x="3" y="3" width="18" height="18" rx="2" />
                         <path d="M8 7h8M8 12h8M8 17h4" />
                     </svg>
-                    <h4 className="text-base font-semibold text-[#181D27]">Technical Test</h4>
+                    <h4 className="text-base font-semibold text-text-primary">Technical Test</h4>
                 </div>
                 <div className="p-8 text-center">
                     <p className="text-gray-500 mb-4">Test not scheduled</p>
                     <button
                         onClick={() => setShowScheduleTestModal(true)}
-                        className="px-6 py-2.5 bg-[#1e3a5f] text-white rounded-lg font-medium hover:bg-[#162d4d] transition-colors"
+                        className="px-6 py-2.5 bg-secondary text-white rounded-lg font-medium hover:bg-secondary-hover transition-colors"
                     >
                         Schedule Test
                     </button>
@@ -638,7 +638,7 @@ John Doe`);
                                     <line x1="8" y1="2" x2="8" y2="6" />
                                     <line x1="3" y1="10" x2="21" y2="10" />
                                 </svg>
-                                <h3 className="text-lg font-semibold text-[#181D27]">Schedule Technical Test</h3>
+                                <h3 className="text-lg font-semibold text-text-primary">Schedule Technical Test</h3>
                             </div>
                             <button onClick={() => setShowScheduleTestModal(false)} className="text-gray-400 hover:text-gray-600">
                                 <CloseIcon />
@@ -699,7 +699,7 @@ John Doe`);
                                     }
                                 }}
                                 disabled={!testDate || !testTime}
-                                className="px-4 py-2 bg-[#1e3a5f] text-white text-sm font-medium rounded-lg hover:bg-[#162d4d] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="px-4 py-2 bg-secondary text-white text-sm font-medium rounded-lg hover:bg-secondary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Schedule Test
                             </button>
@@ -715,7 +715,7 @@ John Doe`);
                         <div className="flex items-center justify-between p-6 border-b border-gray-200">
                             <div className="flex items-center gap-3">
                                 <span className="text-2xl">📤</span>
-                                <h3 className="text-xl font-semibold text-[#181D27]">Preview & Share Report</h3>
+                                <h3 className="text-xl font-semibold text-text-primary">Preview & Share Report</h3>
                             </div>
                             <button onClick={() => setShowShareModal(false)} className="text-gray-400 hover:text-gray-600">
                                 <CloseIcon />
@@ -737,7 +737,7 @@ John Doe`);
                                                     type="checkbox"
                                                     checked={shareOptions[option.key as keyof typeof shareOptions]}
                                                     onChange={(e) => setShareOptions({ ...shareOptions, [option.key]: e.target.checked })}
-                                                    className="w-4 h-4 text-[#0857A1] rounded border-gray-300"
+                                                    className="w-4 h-4 text-primary rounded border-gray-300"
                                                 />
                                                 <span className="text-sm text-gray-700">{option.label}</span>
                                             </label>
@@ -793,7 +793,7 @@ John Doe`);
                                     {shareOptions.evaluatedScore && (
                                         <div className="flex items-center gap-4">
                                             <div>
-                                                <div className="text-2xl font-bold text-[#1e3a5f]">8.4<span className="text-sm text-gray-400">/10</span></div>
+                                                <div className="text-2xl font-bold text-secondary">8.4<span className="text-sm text-gray-400">/10</span></div>
                                                 <div className="text-xs text-gray-500">Score</div>
                                             </div>
                                             <div className="flex flex-wrap gap-1">
@@ -824,7 +824,7 @@ John Doe`);
                         </div>
 
                         <div className="flex justify-end p-6 border-t border-gray-200">
-                            <button onClick={handleShare} className="px-6 py-2.5 bg-[#1e3a5f] text-white rounded-lg font-medium hover:bg-[#162d4d] transition-colors flex items-center gap-2">
+                            <button onClick={handleShare} className="px-6 py-2.5 bg-secondary text-white rounded-lg font-medium hover:bg-secondary-hover transition-colors flex items-center gap-2">
                                 Share Report
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <line x1="22" y1="2" x2="11" y2="13" />

@@ -1,80 +1,12 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
-}
+/* ============================================
+   HIREAID - Index CSS
+   Note: Main styles are in global.css
+   This file only contains plugin-specific overrides
+   ============================================ */
 
 /* React DatePicker Custom Styles */
 .react-datepicker {
-  font-family: inherit !important;
+  font-family: var(--font-primary, 'Poppins', sans-serif) !important;
   border: none !important;
   background-color: transparent !important;
 }
@@ -88,7 +20,8 @@ button:focus-visible {
 .react-datepicker__current-month {
   font-size: 0.875rem !important;
   font-weight: 500 !important;
-  color: #111827 !important;
+  color: var(--color-text-primary, #181D27) !important;
+  font-family: var(--font-primary, 'Poppins', sans-serif) !important;
 }
 
 .react-datepicker__day-names {
@@ -96,40 +29,42 @@ button:focus-visible {
 }
 
 .react-datepicker__day-name {
-  color: #6b7280 !important;
+  color: var(--color-text-muted, #717171) !important;
   font-size: 0.75rem !important;
   font-weight: 500 !important;
   width: 2rem !important;
   line-height: 2rem !important;
+  font-family: var(--font-primary, 'Poppins', sans-serif) !important;
 }
 
 .react-datepicker__day {
   width: 2rem !important;
   line-height: 2rem !important;
   font-size: 0.875rem !important;
-  color: #374151 !important;
+  color: var(--color-text-primary, #181D27) !important;
   border-radius: 50% !important;
+  font-family: var(--font-primary, 'Poppins', sans-serif) !important;
 }
 
 .react-datepicker__day:hover {
-  background-color: #f3f4f6 !important;
+  background-color: var(--color-bg-hover, #F5F8FF) !important;
   border-radius: 50% !important;
 }
 
 .react-datepicker__day--selected {
-  background-color: white !important;
-  border: 2px solid #1f2937 !important;
-  color: #1f2937 !important;
+  background-color: var(--color-primary, #0857A1) !important;
+  border: none !important;
+  color: white !important;
   font-weight: 500 !important;
 }
 
 .react-datepicker__day--keyboard-selected {
-  background-color: #f3f4f6 !important;
-  color: #374151 !important;
+  background-color: var(--color-bg-selected, #E4ECFF) !important;
+  color: var(--color-text-primary, #181D27) !important;
 }
 
 .react-datepicker__day--outside-month {
-  color: #d1d5db !important;
+  color: var(--color-text-disabled, #9CA3AF) !important;
 }
 
 .react-datepicker__navigation {
@@ -137,7 +72,7 @@ button:focus-visible {
 }
 
 .react-datepicker__navigation-icon::before {
-  border-color: #374151 !important;
+  border-color: var(--color-text-primary, #181D27) !important;
 }
 
 .react-datepicker__month-dropdown-container,
@@ -148,17 +83,18 @@ button:focus-visible {
 .react-datepicker__month-select,
 .react-datepicker__year-select {
   padding: 4px 8px !important;
-  border: 1px solid #e5e7eb !important;
+  border: 1px solid var(--color-border-light, #E5E5E5) !important;
   border-radius: 6px !important;
   font-size: 0.875rem !important;
-  color: #374151 !important;
+  color: var(--color-text-primary, #181D27) !important;
   background-color: white !important;
   cursor: pointer !important;
+  font-family: var(--font-primary, 'Poppins', sans-serif) !important;
 }
 
 .react-datepicker__month-select:focus,
 .react-datepicker__year-select:focus {
   outline: none !important;
-  border-color: #3b82f6 !important;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+  border-color: var(--color-primary, #0857A1) !important;
+  box-shadow: 0 0 0 2px var(--color-primary-light, #E8F4FD) !important;
 }

@@ -10,13 +10,13 @@ export default function CompanyDetails() {
 
     if (!company) {
         return (
-            <div className="flex flex-col items-center justify-center h-full p-6 bg-[#F8F9FA]">
+            <div className="flex flex-col items-center justify-center h-full p-6 bg-page-bg">
                 <div className="text-center">
                     <h1 className="text-2xl font-semibold text-gray-900 mb-2">Company Not Found</h1>
                     <p className="text-gray-600 mb-6">The company you're looking for doesn't exist.</p>
                     <button
                         onClick={() => navigate("/companies")}
-                        className="px-5 py-2.5 bg-[#0857A1] hover:bg-[#176CBA] text-white rounded-md font-medium text-sm transition-colors"
+                        className="px-5 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-md font-medium text-sm transition-colors"
                     >
                         Back to Companies List
                     </button>
@@ -39,7 +39,7 @@ export default function CompanyDetails() {
     };
 
     return (
-        <div className="flex flex-col h-full bg-[#F8F9FA] p-6">
+        <div className="flex flex-col h-full bg-page-bg p-6">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
@@ -64,21 +64,21 @@ export default function CompanyDetails() {
                             />
                         </svg>
                     </button>
-                    <h1 className="text-[28px] font-semibold text-[#181D27]">Company Details</h1>
+                    <h1 className="text-[28px] font-semibold text-text-primary">Company Details</h1>
                 </div>
                 <button
                     onClick={() => navigate("/companies")}
-                    className="px-5 py-2.5 bg-[#EFEFEF] hover:bg-[#EAEAEA] text-[#181D27] rounded-md font-medium text-sm transition-colors"
+                    className="px-5 py-2.5 bg-neutral hover:bg-neutral-hover text-text-primary rounded-md font-medium text-sm transition-colors"
                 >
                     Back to List
                 </button>
             </div>
 
             {/* Company Info Card */}
-            <div className="bg-white rounded-md border border-[#E2E2E2] p-8 mb-6">
+            <div className="bg-white rounded-md border border-border-light p-8 mb-6">
                 <div className="flex items-start justify-between mb-6">
                     <div>
-                        <h2 className="text-2xl font-semibold text-[#181D27] mb-2">{company.companyName}</h2>
+                        <h2 className="text-2xl font-semibold text-text-primary mb-2">{company.companyName}</h2>
                         <span className={`px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full capitalize ${getStatusColor(company.status)}`}>
                             {company.status}
                         </span>
@@ -114,8 +114,8 @@ export default function CompanyDetails() {
             </div>
 
             {/* Additional sections can be added here */}
-            <div className="bg-white rounded-md border border-[#E2E2E2] p-8">
-                <h3 className="text-lg font-semibold text-[#181D27] mb-4">Additional Information</h3>
+            <div className="bg-white rounded-md border border-border-light p-8">
+                <h3 className="text-lg font-semibold text-text-primary mb-4">Additional Information</h3>
                 <p className="text-gray-600">More company details and metrics will be displayed here.</p>
             </div>
         </div>

@@ -102,7 +102,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
     const hasError = touched[field] && errors[field];
     return `${baseClass} ${hasError
       ? "border-red-500 text-red-700 focus:ring-red-500"
-      : "border-[#E5E7EB] text-[#9CA3AF] focus:ring-blue-500"
+      : "border-border-card text-text-placeholder focus:ring-blue-500"
       }`;
   };
 
@@ -115,7 +115,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
       <div className="flex items-center gap-2 mb-4">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-[#626262] hover:text-[#181D27] transition-colors"
+          className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path
@@ -128,8 +128,8 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
           </svg>
           <span className="text-sm">User Management</span>
         </button>
-        <span className="text-[#626262]">/</span>
-        <span className="text-sm font-medium text-[#181D27]">Add new User</span>
+        <span className="text-text-secondary">/</span>
+        <span className="text-sm font-medium text-text-primary">Add new User</span>
       </div>
       <hr className="border-t border-gray-200 mb-6" />
 
@@ -138,11 +138,11 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
         {/* Enter User Name */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-sm font-medium text-[#626262]">
+            <label className="text-sm font-medium text-text-secondary">
               Enter User Name
             </label>
             <svg
-              className="w-4 h-4 text-[#9CA3AF]"
+              className="w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -166,7 +166,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
               className={getInputClassName("username")}
             />
             <svg
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#9CA3AF]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -182,18 +182,18 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
           {touched.username && errors.username ? (
             <p className="text-xs text-red-500 mt-1">{errors.username}</p>
           ) : (
-            <p className="text-xs text-[#9CA3AF] mt-1">Required</p>
+            <p className="text-xs text-text-placeholder mt-1">Required</p>
           )}
         </div>
 
         {/* Enter Email */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-sm font-medium text-[#626262]">
+            <label className="text-sm font-medium text-text-secondary">
               Enter Email
             </label>
             <svg
-              className="w-4 h-4 text-[#9CA3AF]"
+              className="w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -217,7 +217,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
               className={getInputClassName("email")}
             />
             <svg
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#9CA3AF]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -233,18 +233,18 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
           {touched.email && errors.email ? (
             <p className="text-xs text-red-500 mt-1">{errors.email}</p>
           ) : (
-            <p className="text-xs text-[#9CA3AF] mt-1">Required</p>
+            <p className="text-xs text-text-placeholder mt-1">Required</p>
           )}
         </div>
 
         {/* Select Role */}
         <div className="relative">
           <div className="flex items-center justify-between mb-2">
-            <label className="text-sm font-medium text-[#626262]">
+            <label className="text-sm font-medium text-text-secondary">
               Select Role
             </label>
             <svg
-              className="w-4 h-4 text-[#9CA3AF]"
+              className="w-4 h-4 text-text-placeholder"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -270,20 +270,20 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
               onBlur={() => handleBlur("role")}
               className={`w-full px-4 py-3 pr-10 border rounded-lg text-left focus:outline-none focus:ring-2 focus:border-transparent bg-white min-h-[48px] flex items-center ${touched.role && errors.role
                   ? "border-red-500 focus:ring-red-500"
-                  : "border-[#E5E7EB] focus:ring-blue-500"
+                  : "border-border-card focus:ring-blue-500"
                 }`}
             >
               {formData.role ? (
-                <span className="inline-flex items-center px-3 py-1 bg-[#EBF2FF] text-[#0857A1] text-sm font-medium rounded-full">
+                <span className="inline-flex items-center px-3 py-1 bg-badge-blue text-primary text-sm font-medium rounded-full">
                   {formData.role.charAt(0).toUpperCase() +
                     formData.role.slice(1)}
                 </span>
               ) : (
-                <span className="text-[#9CA3AF]">Not Selected</span>
+                <span className="text-text-placeholder">Not Selected</span>
               )}
             </button>
             <svg
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#9CA3AF] pointer-events-none"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-placeholder pointer-events-none"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -299,7 +299,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
             {/* Custom Dropdown */}
             <div
               id="role-dropdown"
-              className="hidden absolute z-10 w-full mt-1 bg-white border border-[#E5E7EB] rounded-lg shadow-lg"
+              className="hidden absolute z-10 w-full mt-1 bg-white border border-border-card rounded-lg shadow-lg"
             >
               <div className="p-2">
                 {/* Superadmin Option */}
@@ -313,15 +313,15 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                       .getElementById("role-dropdown")
                       ?.classList.add("hidden");
                   }}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "superadmin" ? "bg-[#EBF2FF]" : ""
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "superadmin" ? "bg-badge-blue" : ""
                     }`}
                 >
                   <div className="w-4 h-4 rounded-full border-2 border-[#9CA3AF] flex items-center justify-center flex-shrink-0">
                     {formData.role === "superadmin" && (
-                      <div className="w-2 h-2 rounded-full bg-[#0857A1]"></div>
+                      <div className="w-2 h-2 rounded-full bg-primary"></div>
                     )}
                   </div>
-                  <span className="text-sm text-[#181D27]">Superadmin</span>
+                  <span className="text-sm text-text-primary">Superadmin</span>
                 </button>
 
                 {/* Recruiter Option */}
@@ -335,15 +335,15 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                       .getElementById("role-dropdown")
                       ?.classList.add("hidden");
                   }}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "recruiter" ? "bg-[#EBF2FF]" : ""
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "recruiter" ? "bg-badge-blue" : ""
                     }`}
                 >
                   <div className="w-4 h-4 rounded-full border-2 border-[#9CA3AF] flex items-center justify-center flex-shrink-0">
                     {formData.role === "recruiter" && (
-                      <div className="w-2 h-2 rounded-full bg-[#0857A1]"></div>
+                      <div className="w-2 h-2 rounded-full bg-primary"></div>
                     )}
                   </div>
-                  <span className="text-sm text-[#181D27]">Recruiter</span>
+                  <span className="text-sm text-text-primary">Recruiter</span>
                 </button>
 
                 {/* Interviewer Option */}
@@ -357,21 +357,21 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                       .getElementById("role-dropdown")
                       ?.classList.add("hidden");
                   }}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "interviewer" ? "bg-[#EBF2FF]" : ""
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "interviewer" ? "bg-badge-blue" : ""
                     }`}
                 >
                   <div className="w-4 h-4 rounded-full border-2 border-[#9CA3AF] flex items-center justify-center flex-shrink-0">
                     {formData.role === "interviewer" && (
-                      <div className="w-2 h-2 rounded-full bg-[#0857A1]"></div>
+                      <div className="w-2 h-2 rounded-full bg-primary"></div>
                     )}
                   </div>
-                  <span className="text-sm text-[#181D27]">Interviewer</span>
+                  <span className="text-sm text-text-primary">Interviewer</span>
                 </button>
 
                 {/* Add New Role */}
                 <button
                   type="button"
-                  className="flex items-center gap-2 px-3 py-2 text-left bg-[#F3F4F6] rounded-full hover:bg-gray-300 transition-colors mt-1 w-fit"
+                  className="flex items-center gap-2 px-3 py-2 text-left bg-muted-bg rounded-full hover:bg-gray-300 transition-colors mt-1 w-fit"
                 >
                   <svg
                     width="16"
@@ -384,7 +384,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
                   </svg>
-                  <span className="text-sm text-[#0857A1] font-medium">
+                  <span className="text-sm text-primary font-medium">
                     Add New Role
                   </span>
                 </button>
@@ -394,7 +394,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
           {touched.role && errors.role ? (
             <p className="text-xs text-red-500 mt-1">{errors.role}</p>
           ) : (
-            <p className="text-xs text-[#9CA3AF] mt-1">Required</p>
+            <p className="text-xs text-text-placeholder mt-1">Required</p>
           )}
         </div>
       </div>
@@ -405,7 +405,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
           onClick={handleInvite}
           disabled={!isFormValid()}
           className={`px-6 py-2.5 rounded-full font-medium text-sm transition-colors ${isFormValid()
-              ? "bg-[#0857A1] hover:bg-[#176CBA] text-white"
+              ? "bg-primary hover:bg-primary-hover text-white"
               : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }`}
         >

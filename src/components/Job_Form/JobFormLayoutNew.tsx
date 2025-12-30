@@ -133,10 +133,10 @@ export default function JobFormLayoutNew() {
   const currentStepIndex = formSteps.findIndex((step) => step.id === currentStep);
 
   return (
-    <div className="bg-[#F9FAFB]">
+    <div className="bg-page-bg">
       {/* Main Content */}
       <div className="w-full">
-        <div className="bg-white rounded-2xl shadow-[0px_2px_11px_rgba(0,0,0,0.08)] overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-card overflow-hidden">
           {/* Step Progress Indicator - Inside the card */}
           <div className="px-8 py-5">
             <div className="flex items-center justify-between">
@@ -151,15 +151,15 @@ export default function JobFormLayoutNew() {
                       {/* Circle with number */}
                       <div
                         className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold ${isActive || isCompleted
-                          ? "bg-[#0857A1] text-white"
-                          : "bg-[#D0E8FF] text-[#0857A1]"
+                          ? "bg-primary text-white"
+                          : "bg-primary-light text-primary"
                           }`}
                       >
                         {step.step}
                       </div>
                       {/* Label */}
                       <span
-                        className={`text-sm font-medium whitespace-nowrap ${isActive ? "text-[#0857A1]" : "text-[#344054]"
+                        className={`text-sm font-medium whitespace-nowrap ${isActive ? "text-primary" : "text-text-primary"
                           }`}
                       >
                         {step.label}
@@ -169,7 +169,7 @@ export default function JobFormLayoutNew() {
                     {/* Connector Line */}
                     {index < formSteps.length - 1 && (
                       <div
-                        className={`flex-1 h-[2px] mx-6 rounded-full ${currentStepIndex > index ? "bg-[#0857A1]" : "bg-[#E4E7EC]"
+                        className={`flex-1 h-[2px] mx-6 rounded-full ${currentStepIndex > index ? "bg-primary" : "bg-[#E4E7EC]"
                           }`}
                       />
                     )}

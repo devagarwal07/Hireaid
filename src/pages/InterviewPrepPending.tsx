@@ -89,12 +89,12 @@ export default function InterviewPrepPending(): React.ReactElement {
 
     if (!candidate) {
         return (
-            <div className="min-h-screen w-full bg-[#F0F4FF] flex items-center justify-center">
+            <div className="min-h-screen w-full bg-page-bg flex items-center justify-center">
                 <div className="text-center">
                     <h2 className="text-xl font-semibold text-gray-700 mb-2">Candidate not found</h2>
                     <button
                         onClick={() => navigate(-1)}
-                        className="text-[#0857A1] hover:underline"
+                        className="text-primary hover:underline"
                     >
                         Go back
                     </button>
@@ -104,10 +104,10 @@ export default function InterviewPrepPending(): React.ReactElement {
     }
 
     return (
-        <div className="min-h-screen w-full bg-[#F0F4FF]">
+        <div className="min-h-screen w-full bg-page-bg">
             <div className="w-full px-6 py-6">
                 {/* Header Section */}
-                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-[#E2E8F0] overflow-hidden">
+                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-border-card overflow-hidden">
                     {/* Background banner */}
                     <div
                         className="absolute top-0 right-0 h-full w-1/2 bg-no-repeat bg-right bg-contain pointer-events-none"
@@ -118,7 +118,7 @@ export default function InterviewPrepPending(): React.ReactElement {
                     <div className="relative z-10">
                         <div className="flex items-center gap-3 mb-2">
                             <PersonIcon />
-                            <h1 className="text-xl font-semibold text-[#181D27]">
+                            <h1 className="text-xl font-semibold text-text-primary">
                                 {candidate.name} Report
                             </h1>
                         </div>
@@ -141,7 +141,7 @@ export default function InterviewPrepPending(): React.ReactElement {
                             )}
                         </div>
 
-                        <button className="text-[#0857A1] text-sm font-medium flex items-center gap-1">
+                        <button className="text-primary text-sm font-medium flex items-center gap-1">
                             Check Details
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <polyline points="6,9 12,15 18,9" />
@@ -157,7 +157,7 @@ export default function InterviewPrepPending(): React.ReactElement {
                                     <ClockIcon />
                                     Reschedule Interview
                                 </button>
-                                <button className="px-4 py-2 bg-[#1e3a5f] text-white rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-[#162d4d]">
+                                <button className="px-4 py-2 bg-secondary text-white rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-secondary-hover">
                                     <PlusIcon />
                                     Join Meeting
                                 </button>
@@ -165,7 +165,7 @@ export default function InterviewPrepPending(): React.ReactElement {
                         ) : (
                             <button
                                 onClick={() => navigate(-1)}
-                                className="px-4 py-2 bg-[#0857A1] text-white rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-[#064a85]"
+                                className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-primary-dark"
                             >
                                 <CalendarIcon />
                                 Schedule Interview
@@ -175,8 +175,8 @@ export default function InterviewPrepPending(): React.ReactElement {
                 </div>
 
                 {/* Interview Prep Dashboard */}
-                <div className="bg-white rounded-2xl p-6 border border-[#E2E8F0]">
-                    <h2 className="text-lg font-semibold text-[#181D27] mb-6">Interview Prep Dashboard</h2>
+                <div className="bg-white rounded-2xl p-6 border border-border-card">
+                    <h2 className="text-lg font-semibold text-text-primary mb-6">Interview Prep Dashboard</h2>
 
                     {/* Progress Steps */}
                     <div className="flex items-center gap-4 mb-8">
@@ -185,17 +185,17 @@ export default function InterviewPrepPending(): React.ReactElement {
                                 <button
                                     onClick={() => setCurrentStep(step.id as 1 | 2)}
                                     className={`flex items-center gap-2 ${currentStep === step.id
-                                        ? "text-[#0857A1]"
+                                        ? "text-primary"
                                         : currentStep > step.id
-                                            ? "text-[#22C55E]"
+                                            ? "text-success"
                                             : "text-gray-400"
                                         }`}
                                 >
                                     <div
                                         className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-medium ${currentStep === step.id
-                                            ? "bg-[#0857A1] text-white"
+                                            ? "bg-primary text-white"
                                             : currentStep > step.id
-                                                ? "bg-[#22C55E] text-white"
+                                                ? "bg-success text-white"
                                                 : "bg-gray-200 text-gray-500"
                                             }`}
                                     >
@@ -205,7 +205,7 @@ export default function InterviewPrepPending(): React.ReactElement {
                                 </button>
                                 {index < steps.length - 1 && (
                                     <div
-                                        className={`flex-1 h-0.5 ${currentStep > step.id ? "bg-[#22C55E]" : "bg-[#0857A1]"
+                                        className={`flex-1 h-0.5 ${currentStep > step.id ? "bg-success" : "bg-primary"
                                             }`}
                                     />
                                 )}
@@ -246,7 +246,7 @@ export default function InterviewPrepPending(): React.ReactElement {
                                     navigate("/interview");
                                 }
                             }}
-                            className="px-6 py-2.5 bg-[#0857A1] text-white rounded-lg text-sm font-medium hover:bg-[#064a85]"
+                            className="px-6 py-2.5 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark"
                         >
                             Next
                         </button>
@@ -287,7 +287,7 @@ function NotesModal({ isOpen, onClose, candidate }: { isOpen: boolean; onClose: 
             <div className="bg-white rounded-xl shadow-2xl w-[500px] max-h-[80vh] flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                    <h3 className="text-lg font-semibold text-[#181D27]">Candidate Overview Notes</h3>
+                    <h3 className="text-lg font-semibold text-text-primary">Candidate Overview Notes</h3>
                     <button
                         onClick={onClose}
                         className="text-gray-400 hover:text-gray-600 p-1"
@@ -329,7 +329,7 @@ function NotesModal({ isOpen, onClose, candidate }: { isOpen: boolean; onClose: 
                                 {/* Note Content */}
                                 <div className="flex-1">
                                     <div className="flex items-center justify-between mb-1">
-                                        <span className="font-medium text-[#181D27]">{note.author}</span>
+                                        <span className="font-medium text-text-primary">{note.author}</span>
                                     </div>
                                     <p className="text-sm text-gray-600 mb-1">{note.content}</p>
                                     <span className="text-xs text-gray-400">{note.timestamp}</span>
@@ -351,13 +351,13 @@ function NotesModal({ isOpen, onClose, candidate }: { isOpen: boolean; onClose: 
                         />
                         <div className="flex items-center justify-between px-3 py-2 bg-gray-50 border-t border-gray-100">
                             <div className="flex items-center gap-3">
-                                <button className="text-[#0857A1] text-sm flex items-center gap-1 hover:underline">
+                                <button className="text-primary text-sm flex items-center gap-1 hover:underline">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
                                     </svg>
                                     Attach File
                                 </button>
-                                <button className="text-[#0857A1] text-sm flex items-center gap-1 hover:underline">
+                                <button className="text-primary text-sm flex items-center gap-1 hover:underline">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <rect x="3" y="3" width="18" height="18" rx="2" />
                                         <circle cx="8.5" cy="8.5" r="1.5" />
@@ -369,7 +369,7 @@ function NotesModal({ isOpen, onClose, candidate }: { isOpen: boolean; onClose: 
                             <button
                                 onClick={handleSaveComment}
                                 disabled={!newNote.trim()}
-                                className="px-4 py-2 bg-[#1e3a5f] text-white rounded-lg text-sm font-medium hover:bg-[#162d4d] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 bg-secondary text-white rounded-lg text-sm font-medium hover:bg-secondary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 Save Comment
                             </button>
@@ -392,7 +392,7 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
                         <button
                             key={tab}
                             className={`pb-3 text-sm font-medium border-b-2 ${index === 0
-                                ? "border-[#0857A1] text-[#0857A1]"
+                                ? "border-primary text-primary"
                                 : "border-transparent text-gray-500 hover:text-gray-700"
                                 }`}
                         >
@@ -407,11 +407,11 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                         <PersonIcon />
-                        <h3 className="text-base font-semibold text-[#181D27]">Candidate Overview</h3>
+                        <h3 className="text-base font-semibold text-text-primary">Candidate Overview</h3>
                     </div>
                     <button
                         onClick={onAddNotes}
-                        className="text-[#0857A1] text-sm font-medium flex items-center gap-1 hover:underline"
+                        className="text-primary text-sm font-medium flex items-center gap-1 hover:underline"
                     >
                         <PlusIcon />
                         Add Notes
@@ -440,7 +440,7 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
                         {/* Info Grid */}
                         <div className="flex-1 grid grid-cols-4 gap-4">
                             <div>
-                                <h4 className="font-semibold text-[#181D27] mb-1">{candidate.name}</h4>
+                                <h4 className="font-semibold text-text-primary mb-1">{candidate.name}</h4>
                                 <p className="text-sm text-gray-500">Applied for {candidate.role}</p>
                                 <div className="flex gap-2 mt-2 flex-wrap">
                                     {candidate.isRecommendedByAI && (
@@ -473,7 +473,7 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
                             <div className="space-y-2">
                                 <div>
                                     <p className="text-xs text-gray-400">Email Address</p>
-                                    <p className="text-sm font-medium text-[#0857A1]">{candidate.email}</p>
+                                    <p className="text-sm font-medium text-primary">{candidate.email}</p>
                                 </div>
                                 <div>
                                     <p className="text-xs text-gray-400">Contact Number</p>
@@ -488,7 +488,7 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
                                 </div>
                                 <div>
                                     <p className="text-xs text-gray-400">LinkedIn Profile</p>
-                                    <p className="text-sm font-medium text-[#0857A1]">{candidate.linkedin}</p>
+                                    <p className="text-sm font-medium text-primary">{candidate.linkedin}</p>
                                 </div>
                             </div>
                         </div>
@@ -509,11 +509,11 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
             <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                     <span className="text-lg">✨</span>
-                    <h3 className="text-base font-semibold text-[#181D27]">360 Evaluation</h3>
+                    <h3 className="text-base font-semibold text-text-primary">360 Evaluation</h3>
                 </div>
 
                 <div className="flex items-center gap-4 mb-4">
-                    <div className="text-3xl font-bold text-[#22C55E]">
+                    <div className="text-3xl font-bold text-success">
                         {candidate.resumeScore}<span className="text-lg text-gray-400">/10</span>
                     </div>
                     <span className="text-sm text-gray-500">Score</span>
@@ -539,7 +539,7 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
                 <div className="mb-8">
                     <div className="flex items-center gap-2 mb-4">
                         <span className="text-lg">🎯</span>
-                        <h3 className="text-base font-semibold text-[#181D27]">Candidate Skills</h3>
+                        <h3 className="text-base font-semibold text-text-primary">Candidate Skills</h3>
                     </div>
                     <div className="flex flex-wrap gap-2">
                         {candidate.skills.map((skill, index) => (
@@ -563,9 +563,9 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
                         <div className="bg-gray-50 rounded-lg p-4">
                             <div className="flex items-center gap-2 mb-3">
                                 <span className="text-lg">📊</span>
-                                <h4 className="text-sm font-semibold text-[#181D27]">Total Score</h4>
+                                <h4 className="text-sm font-semibold text-text-primary">Total Score</h4>
                             </div>
-                            <div className="text-2xl font-bold text-[#0857A1] mb-4">
+                            <div className="text-2xl font-bold text-primary mb-4">
                                 {candidate.overallScore}<span className="text-sm text-gray-400"> / 10</span>
                             </div>
                             <div className="space-y-2">
@@ -590,9 +590,9 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
                         <div className="bg-green-50 rounded-lg p-4">
                             <div className="flex items-center gap-2 mb-3">
                                 <span className="text-lg">✨</span>
-                                <h4 className="text-sm font-semibold text-[#181D27]">AI Recommendation</h4>
+                                <h4 className="text-sm font-semibold text-text-primary">AI Recommendation</h4>
                             </div>
-                            <div className="text-2xl font-bold text-[#22C55E] mb-4">
+                            <div className="text-2xl font-bold text-success mb-4">
                                 {candidate.aiScore}<span className="text-sm text-gray-400"> / 10</span>
                             </div>
                             <div className="space-y-2">
@@ -620,7 +620,7 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
                         <div>
                             <div className="flex items-center gap-2 mb-3">
                                 <span className="text-lg">💪</span>
-                                <h4 className="text-sm font-semibold text-[#181D27]">Strengths</h4>
+                                <h4 className="text-sm font-semibold text-text-primary">Strengths</h4>
                             </div>
                             <ul className="space-y-2">
                                 {candidate.strengths.map((strength, index) => (
@@ -636,7 +636,7 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
                         <div>
                             <div className="flex items-center gap-2 mb-3">
                                 <span className="text-lg">📈</span>
-                                <h4 className="text-sm font-semibold text-[#181D27]">What Needs Improvement</h4>
+                                <h4 className="text-sm font-semibold text-text-primary">What Needs Improvement</h4>
                             </div>
                             <ul className="space-y-2">
                                 {candidate.improvements.map((improvement, index) => (
@@ -654,7 +654,7 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
             {/* Career Overview */}
             {candidate.careerOverview.length > 0 && (
                 <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-[#181D27] mb-2">Career Overview</h4>
+                    <h4 className="text-sm font-semibold text-text-primary mb-2">Career Overview</h4>
                     <ul className="space-y-1">
                         {candidate.careerOverview.map((item, index) => (
                             <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
@@ -669,7 +669,7 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
             {/* Current Work Experience */}
             {candidate.currentWork.length > 0 && (
                 <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-[#181D27] mb-2">Current Work Experience</h4>
+                    <h4 className="text-sm font-semibold text-text-primary mb-2">Current Work Experience</h4>
                     <ul className="space-y-1">
                         {candidate.currentWork.map((item, index) => (
                             <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
@@ -684,13 +684,13 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
             {/* Previous Roles */}
             {candidate.previousRoles.length > 0 && (
                 <div className="mb-8">
-                    <h4 className="text-sm font-semibold text-[#181D27] mb-3">Previous Roles</h4>
+                    <h4 className="text-sm font-semibold text-text-primary mb-3">Previous Roles</h4>
                     <div className="space-y-3">
                         {candidate.previousRoles.map((role, index) => (
                             <div key={index} className="flex items-start gap-2 text-sm">
                                 <span className="text-gray-400">•</span>
                                 <div>
-                                    <span className="font-medium text-[#0857A1]">{role.company}:</span>
+                                    <span className="font-medium text-primary">{role.company}:</span>
                                     <span className="text-gray-600 ml-1">{role.description}</span>
                                 </div>
                             </div>
@@ -703,7 +703,7 @@ function ReviewCandidateDetails({ candidate, onAddNotes }: { candidate: Candidat
             <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                     <span className="text-lg">🎤</span>
-                    <h3 className="text-base font-semibold text-[#181D27]">Interview</h3>
+                    <h3 className="text-base font-semibold text-text-primary">Interview</h3>
                 </div>
                 {candidate.interviewScheduled ? (
                     <p className="text-green-600 text-sm">
@@ -724,7 +724,7 @@ function ReviewInterviewStructure() {
             {/* Section Header */}
             <div className="flex items-center gap-2 mb-2">
                 <EditIcon />
-                <h3 className="text-base font-semibold text-[#181D27]">
+                <h3 className="text-base font-semibold text-text-primary">
                     Technical Interview <span className="text-gray-400 font-normal">(Interview)</span>
                 </h3>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -752,10 +752,10 @@ function ReviewInterviewStructure() {
                         {/* Section Header */}
                         <div className="flex items-center justify-between px-4 py-3 bg-gray-50 border-b border-gray-200">
                             <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium text-[#181D27]">{section.title}</span>
+                                <span className="text-sm font-medium text-text-primary">{section.title}</span>
                                 <ExternalLinkIcon />
                             </div>
-                            <button className="text-[#0857A1] text-sm font-medium flex items-center gap-1">
+                            <button className="text-primary text-sm font-medium flex items-center gap-1">
                                 <PlusIcon />
                                 Add Question
                             </button>
@@ -795,11 +795,11 @@ function ReviewInterviewStructure() {
 
                                 {/* Actions */}
                                 <div className="col-span-3 flex items-center gap-3">
-                                    <button className="text-[#0857A1] text-sm flex items-center gap-1">
+                                    <button className="text-primary text-sm flex items-center gap-1">
                                         <ViewIcon />
                                         View
                                     </button>
-                                    <button className="text-[#0857A1] text-sm flex items-center gap-1">
+                                    <button className="text-primary text-sm flex items-center gap-1">
                                         <EditIcon />
                                         Edit
                                     </button>
@@ -822,11 +822,11 @@ function ReviewInterviewStructure() {
 
             {/* Bottom Action Buttons */}
             <div className="flex justify-end gap-3 mt-6">
-                <button className="px-4 py-2 border border-[#0857A1] text-[#0857A1] rounded-lg text-sm font-medium flex items-center gap-2">
+                <button className="px-4 py-2 border border-primary text-primary rounded-lg text-sm font-medium flex items-center gap-2">
                     <PlusIcon />
                     Add Question
                 </button>
-                <button className="px-4 py-2 border border-[#0857A1] text-[#0857A1] rounded-lg text-sm font-medium flex items-center gap-2">
+                <button className="px-4 py-2 border border-primary text-primary rounded-lg text-sm font-medium flex items-center gap-2">
                     <EditIcon />
                     Edit Interview Structure
                 </button>

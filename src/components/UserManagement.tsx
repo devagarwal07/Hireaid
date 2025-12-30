@@ -38,7 +38,7 @@ const UserManagement: React.FC = () => {
       className="bg-white rounded-lg p-6 border border-gray-200"
       style={{ boxShadow: "0 2px 11px rgba(0,0,0,0.08)" }}
     >
-      <h2 className="text-2xl font-semibold text-[#181D27] mb-6">
+      <h2 className="text-2xl font-semibold text-text-primary mb-6">
         User Management
       </h2>
       <hr className="border-t border-gray-200 mb-6" />
@@ -50,7 +50,7 @@ const UserManagement: React.FC = () => {
           onClick={() => setShowAddNewUser(true)}
           className="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors text-left group"
         >
-          <div className="w-12 h-12 rounded-full bg-[#EBF2FF] flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 rounded-full bg-badge-blue flex items-center justify-center flex-shrink-0">
             <svg
               width="24"
               height="24"
@@ -66,10 +66,10 @@ const UserManagement: React.FC = () => {
             </svg>
           </div>
           <div className="flex-1">
-            <h3 className="text-base font-semibold text-[#181D27] mb-1">
+            <h3 className="text-base font-semibold text-text-primary mb-1">
               Add New Users
             </h3>
-            <p className="text-sm text-[#626262]">
+            <p className="text-sm text-text-secondary">
               Quickly add new users to your account with ease.
             </p>
           </div>
@@ -91,7 +91,7 @@ const UserManagement: React.FC = () => {
           onClick={() => setShowRoleManagement(true)}
           className="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors text-left group"
         >
-          <div className="w-12 h-12 rounded-full bg-[#EBF2FF] flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 rounded-full bg-badge-blue flex items-center justify-center flex-shrink-0">
             <svg
               width="24"
               height="24"
@@ -105,10 +105,10 @@ const UserManagement: React.FC = () => {
             </svg>
           </div>
           <div className="flex-1">
-            <h3 className="text-base font-semibold text-[#181D27] mb-1">
+            <h3 className="text-base font-semibold text-text-primary mb-1">
               Manage Access Privileges
             </h3>
-            <p className="text-sm text-[#626262]">
+            <p className="text-sm text-text-secondary">
               Control and manage user access privileges effortlessly
             </p>
           </div>
@@ -128,18 +128,18 @@ const UserManagement: React.FC = () => {
 
       {/* Users Section */}
       <div>
-        <h3 className="text-lg font-semibold text-[#181D27] mb-4">Users</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-4">Users</h3>
 
         {/* Grey Container */}
-        <div className="bg-[#FAFAFA] border border-gray-200 rounded-lg p-4">
+        <div className="bg-input-bg border border-gray-200 rounded-lg p-4">
           {/* Search and Filter Bar */}
           <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-[#626262]">Showing 1 created role</p>
+            <p className="text-sm text-text-secondary">Showing 1 created role</p>
             <div className="flex items-center gap-3">
               {/* Search */}
               <div className="relative">
                 <svg
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9CA3AF]"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-placeholder"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -157,7 +157,7 @@ const UserManagement: React.FC = () => {
               </div>
 
               {/* Filters Button */}
-              <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm text-[#626262] hover:bg-gray-50 transition-colors">
+              <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm text-text-secondary hover:bg-gray-50 transition-colors">
                 <svg
                   width="16"
                   height="16"
@@ -176,21 +176,21 @@ const UserManagement: React.FC = () => {
           {/* Users Table */}
           <div className="border border-gray-200 rounded-lg overflow-hidden">
             <table className="w-full">
-              <thead className="bg-[#F3F4F6] border-b border-gray-200">
+              <thead className="bg-muted-bg border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#626262] uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
                     Username
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#626262] uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
                     Email
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#626262] uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
                     Role
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#626262] uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#626262] uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -199,28 +199,28 @@ const UserManagement: React.FC = () => {
                 {users.map((user) => (
                   <tr key={user.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm font-medium text-[#0857A1]">
+                      <span className="text-sm font-medium text-primary">
                         {user.username}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm text-[#181D27]">
+                      <span className="text-sm text-text-primary">
                         {user.email}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="inline-flex px-3 py-1 text-xs font-medium text-[#0857A1] bg-[#EBF2FF] rounded-full">
+                      <span className="inline-flex px-3 py-1 text-xs font-medium text-primary bg-badge-blue rounded-full">
                         {user.role}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm text-[#181D27]">
+                      <span className="text-sm text-text-primary">
                         {user.status}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-3">
-                        <button className="text-[#626262] hover:text-[#0857A1] transition-colors">
+                        <button className="text-text-secondary hover:text-primary transition-colors">
                           <svg
                             width="16"
                             height="16"
@@ -233,7 +233,7 @@ const UserManagement: React.FC = () => {
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                           </svg>
                         </button>
-                        <button className="text-[#626262] hover:text-[#0857A1] transition-colors">
+                        <button className="text-text-secondary hover:text-primary transition-colors">
                           <svg
                             width="16"
                             height="16"
@@ -247,7 +247,7 @@ const UserManagement: React.FC = () => {
                             <circle cx="12" cy="19" r="1" />
                           </svg>
                         </button>
-                        <button className="text-[#626262] hover:text-[#0857A1] transition-colors">
+                        <button className="text-text-secondary hover:text-primary transition-colors">
                           <svg
                             width="16"
                             height="16"

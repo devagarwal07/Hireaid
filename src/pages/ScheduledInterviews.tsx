@@ -154,10 +154,10 @@ export default function ScheduledInterviews(): React.ReactElement {
     };
 
     return (
-        <div className="min-h-screen w-full bg-[#F0F4FF]">
+        <div className="min-h-screen w-full bg-page-bg">
             <div className="w-full px-6 py-6">
                 {/* Header Section */}
-                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-[#E2E8F0] overflow-hidden">
+                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-border-card overflow-hidden">
                     {/* Background banner image */}
                     <div
                         className="absolute top-0 right-0 h-full w-1/2 bg-no-repeat bg-right bg-contain pointer-events-none"
@@ -168,26 +168,26 @@ export default function ScheduledInterviews(): React.ReactElement {
                     <div className="flex items-center gap-2 text-sm mb-3 relative z-10">
                         <button
                             onClick={() => navigate("/job-dashboard")}
-                            className="text-[#717171] hover:text-[#0857A1] transition-colors"
+                            className="text-text-muted hover:text-primary transition-colors"
                         >
                             Homepage
                         </button>
-                        <span className="text-[#717171]">/</span>
-                        <span className="text-[#0857A1] font-medium">Interviews</span>
+                        <span className="text-text-muted">/</span>
+                        <span className="text-primary font-medium">Interviews</span>
                     </div>
 
                     {/* Title */}
                     <div className="flex items-center gap-3 relative z-10">
                         <CalendarIcon />
-                        <h1 className="text-2xl font-semibold text-[#181D27]">
+                        <h1 className="text-2xl font-semibold text-text-primary">
                             Scheduled Interviews
                         </h1>
                     </div>
                 </div>
 
                 {/* Interview Dashboard */}
-                <div className="bg-white rounded-2xl p-6 border border-[#E2E8F0]">
-                    <h2 className="text-lg font-semibold text-[#181D27] mb-6">Interview Dashboard</h2>
+                <div className="bg-white rounded-2xl p-6 border border-border-card">
+                    <h2 className="text-lg font-semibold text-text-primary mb-6">Interview Dashboard</h2>
 
                     {/* Calendar Controls */}
                     <div className="flex items-center justify-between mb-6">
@@ -205,7 +205,7 @@ export default function ScheduledInterviews(): React.ReactElement {
                             >
                                 <ChevronRight />
                             </button>
-                            <span className="text-lg font-medium text-[#181D27] ml-2">
+                            <span className="text-lg font-medium text-text-primary ml-2">
                                 {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
                             </span>
                         </div>
@@ -217,7 +217,7 @@ export default function ScheduledInterviews(): React.ReactElement {
                                     key={mode}
                                     onClick={() => setViewMode(mode)}
                                     className={`px-4 py-2 text-sm font-medium transition-colors ${viewMode === mode
-                                        ? "bg-[#1e3a5f] text-white"
+                                        ? "bg-secondary text-white"
                                         : "bg-white text-gray-600 hover:bg-gray-50"
                                         }`}
                                 >
@@ -240,7 +240,7 @@ export default function ScheduledInterviews(): React.ReactElement {
                                     className={`p-3 text-center border-r border-gray-200 last:border-r-0 ${date.toDateString() === new Date().toDateString() ? "bg-blue-50" : "bg-gray-50"
                                         }`}
                                 >
-                                    <div className="text-lg font-semibold text-[#181D27]">{date.getDate()}</div>
+                                    <div className="text-lg font-semibold text-text-primary">{date.getDate()}</div>
                                     <div className="text-xs text-gray-500">
                                         {shortMonthNames[date.getMonth()]}, {shortDayNames[date.getDay()]}
                                     </div>
@@ -303,24 +303,24 @@ export default function ScheduledInterviews(): React.ReactElement {
                             <CloseIcon />
                         </button>
 
-                        <h3 className="text-lg font-semibold text-[#181D27] mb-4">
+                        <h3 className="text-lg font-semibold text-text-primary mb-4">
                             {selectedInterview.candidateName} Interview
                         </h3>
 
                         <div className="grid grid-cols-2 gap-4 mb-4">
                             <div>
                                 <p className="text-xs text-gray-500 mb-1">Candidate Name</p>
-                                <p className="text-sm font-medium text-[#181D27]">{selectedInterview.candidateName}</p>
+                                <p className="text-sm font-medium text-text-primary">{selectedInterview.candidateName}</p>
                             </div>
                             <div>
                                 <p className="text-xs text-gray-500 mb-1">Interviewer Name</p>
-                                <p className="text-sm font-medium text-[#181D27]">{selectedInterview.interviewer} (You)</p>
+                                <p className="text-sm font-medium text-text-primary">{selectedInterview.interviewer} (You)</p>
                             </div>
                         </div>
 
                         <div className="mb-6">
                             <p className="text-xs text-gray-500 mb-1">Description</p>
-                            <p className="text-sm font-medium text-[#181D27]">
+                            <p className="text-sm font-medium text-text-primary">
                                 {selectedInterview.description || `Meeting scheduled for ${dayNames[selectedInterview.date.getDay()]} at ${selectedInterview.startTime}`}
                             </p>
                         </div>
@@ -334,7 +334,7 @@ export default function ScheduledInterviews(): React.ReactElement {
                             </button>
                             <button
                                 onClick={() => navigate(`/job/1/candidate/${selectedInterview.candidateId}`)}
-                                className="flex-1 px-4 py-2.5 bg-[#1e3a5f] text-white rounded-lg font-medium hover:bg-[#162d4d] transition-colors"
+                                className="flex-1 px-4 py-2.5 bg-secondary text-white rounded-lg font-medium hover:bg-secondary-hover transition-colors"
                             >
                                 Interview Prep
                             </button>

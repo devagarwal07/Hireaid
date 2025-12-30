@@ -80,10 +80,10 @@ export default function InterviewHeader({
               onClick={onAssistant}
               className="relative inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-full border text-sm font-medium transition-colors
                          bg-white border-[#67B4FB] text-[#3576B2]
-                         hover:bg-[#F0F8FF] hover:border-[#67B4FB]
+                         hover:bg-primary-light hover:border-[#67B4FB]
                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0857A1]
-                         active:bg-[#0857A1] active:border-[#0857A1] active:text-white
-                         disabled:bg-[#EFEFEF] disabled:border-[#CCCCCC] disabled:text-[#767676]"
+                         active:bg-primary active:border-primary active:text-white
+                         disabled:bg-neutral disabled:border-[#CCCCCC] disabled:text-[#767676]"
             >
               <span className="relative inline-flex items-center justify-center w-5 h-5 flex-none">
                 <span
@@ -101,8 +101,8 @@ export default function InterviewHeader({
               type="button"
               onClick={onStructure}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-full border text-[14px] leading-5 font-medium
-                         bg-white border-[#C8C8C8] text-[#0857A1]
-                         hover:bg-[#F0F8FF] hover:border-[#C8C8C8]"
+                         bg-white border-[#C8C8C8] text-primary
+                         hover:bg-primary-light hover:border-[#C8C8C8]"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +123,7 @@ export default function InterviewHeader({
                          hover:bg-[#FFF2F0] hover:border-[#FFB1B1]
                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#AA0404]
                          active:bg-[#AA0404] active:border-[#AA0404] active:text-white
-                         disabled:bg-[#EFEFEF] disabled:border-[#CCCCCC] disabled:text-[#767676]"
+                         disabled:bg-neutral disabled:border-[#CCCCCC] disabled:text-[#767676]"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

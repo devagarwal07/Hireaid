@@ -40,7 +40,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
               onClick={() => setActiveTab("assistant")}
               className={`flex items-center gap-2 px-3 py-2 rounded-t-xl text-sm font-semibold border-b ${activeTab === "assistant"
                 ? "border-[#A1E4F5] bg-white/70"
-                : "border-transparent bg-transparent text-[#181D27]/80"
+                : "border-transparent bg-transparent text-text-primary/80"
                 }`}
             >
               <span className="inline-flex items-center gap-2">
@@ -58,7 +58,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
                   className={
                     activeTab === "assistant"
                       ? "bg-gradient-to-r from-[#19B9A3] to-[#6990F9] bg-clip-text text-transparent"
-                      : "text-[#181D27]"
+                      : "text-text-primary"
                   }
                 >
                   AI Assistant
@@ -70,7 +70,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
             <button
               type="button"
               onClick={() => setActiveTab("notes")}
-              className={`flex items-center gap-2 px-3 py-2 rounded-t-xl text-sm font-medium border-b ${activeTab === "notes" ? "border-[#0857A1] text-[#0857A1]" : "border-transparent text-[#181D27]"
+              className={`flex items-center gap-2 px-3 py-2 rounded-t-xl text-sm font-medium border-b ${activeTab === "notes" ? "border-primary text-primary" : "border-transparent text-text-primary"
                 }`}
             >
               {/* Notes Icon - changes color on active */}
@@ -85,7 +85,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
             <button
               type="button"
               onClick={() => setActiveTab("transcript")}
-              className={`flex items-center gap-2 px-3 py-2 rounded-t-xl text-sm font-medium border-b ${activeTab === "transcript" ? "border-[#0857A1] text-[#0857A1]" : "border-transparent text-[#181D27]"
+              className={`flex items-center gap-2 px-3 py-2 rounded-t-xl text-sm font-medium border-b ${activeTab === "transcript" ? "border-primary text-primary" : "border-transparent text-text-primary"
                 }`}
             >
               {/* Transcript Icon - changes color on active */}
@@ -97,7 +97,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
             </button>
           </div>
 
-          <div className="flex items-center gap-3 text-[#0857A1]">
+          <div className="flex items-center gap-3 text-primary">
             <button
               type="button"
               className="hidden md:inline-flex text-[15px] font-semibold leading-[19px]"
@@ -107,7 +107,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
             <button
               type="button"
               title="Open in new window"
-              className="p-2 rounded-md hover:bg-white/60 text-[#0857A1]"
+              className="p-2 rounded-md hover:bg-white/60 text-primary"
             >
               <svg
                 width="18"
@@ -135,7 +135,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
             <button
               type="button"
               title="Close"
-              className="p-2 rounded-md hover:bg-white/60 text-[#0857A1]"
+              className="p-2 rounded-md hover:bg-white/60 text-primary"
             >
               <svg
                 width="20"
@@ -174,7 +174,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
           {/* NOTES TAB */}
           {activeTab === "notes" && (
             <div className="max-w-[789px] bg-white border border-[#E3E3E3] rounded-xl px-4 py-4">
-              <p className="text-[14px] leading-[21px] text-[#181D27]">
+              <p className="text-[14px] leading-[21px] text-text-primary">
                 The candidate presents a well-structured resume that highlights strong academic background, relevant professional
                 experience, and clearly demonstrated skills. Achievements are quantified, showcasing impact and results, while the
                 overall format is clean, concise, and easy to follow.
@@ -192,12 +192,12 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
                   <div className="w-11 h-11 rounded-full bg-gray-400" />
                   <div className="flex-1 space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[14px] font-medium text-[#181D27]">John Doe (You)</span>
-                      <span className="px-2 py-[2px] rounded-full bg-[#DAEAFA] text-[12px] text-[#0857A1] tracking-[-0.02em]">
+                      <span className="text-[14px] font-medium text-text-primary">John Doe (You)</span>
+                      <span className="px-2 py-[2px] rounded-full bg-[#DAEAFA] text-[12px] text-primary tracking-[-0.02em]">
                         00:10
                       </span>
                     </div>
-                    <p className="text-[14px] text-[#626262]">Hi Philip, Good Morning</p>
+                    <p className="text-[14px] text-text-secondary">Hi Philip, Good Morning</p>
                   </div>
                 </div>
 
@@ -206,27 +206,27 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
                   <div className="w-11 h-11 rounded-full bg-gray-400" />
                   <div className="flex-1 space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[14px] font-medium text-[#181D27]">Phillip Sam (Candidate 1)</span>
-                      <span className="px-2 py-[2px] rounded-full bg-[#DAEAFA] text-[12px] text-[#0857A1] tracking-[-0.02em]">
+                      <span className="text-[14px] font-medium text-text-primary">Phillip Sam (Candidate 1)</span>
+                      <span className="px-2 py-[2px] rounded-full bg-[#DAEAFA] text-[12px] text-primary tracking-[-0.02em]">
                         00:15
                       </span>
                     </div>
-                    <p className="text-[14px] text-[#626262]">Hey John, Good morning. Good to meet you.</p>
+                    <p className="text-[14px] text-text-secondary">Hey John, Good morning. Good to meet you.</p>
                   </div>
                 </div>
 
                 {/* Question detected banner */}
-                <div className="mt-3 rounded-md bg-[#F0F8FF] px-3 py-3 flex flex-col gap-2">
-                  <div className="text-[12px] font-medium text-[#0857A1]">Question Detected</div>
-                  <p className="text-[14px] text-[#181D27]">
+                <div className="mt-3 rounded-md bg-primary-light px-3 py-3 flex flex-col gap-2">
+                  <div className="text-[12px] font-medium text-primary">Question Detected</div>
+                  <p className="text-[14px] text-text-primary">
                     Can you tell me a bit about yourself ?
                   </p>
                 </div>
 
                 {/* Answer detected block */}
-                <div className="mt-4 rounded-md bg-[#F0F8FF] px-3 py-3 flex flex-col gap-2">
-                  <div className="text-[12px] font-medium text-[#0857A1]">Answer Detected</div>
-                  <p className="text-[14px] text-[#181D27]">
+                <div className="mt-4 rounded-md bg-primary-light px-3 py-3 flex flex-col gap-2">
+                  <div className="text-[12px] font-medium text-primary">Answer Detected</div>
+                  <p className="text-[14px] text-text-primary">
                     I have about 3 years of experience in Human Resources, mainly focusing on recruitment, employee engagement,
                     and performance management. I started my career as an HR coordinator, where I handled onboarding and payroll
                     support, and gradually moved into a generalist role that allowed me to work closely with both management and

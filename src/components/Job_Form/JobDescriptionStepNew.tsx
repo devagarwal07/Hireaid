@@ -195,7 +195,7 @@ const TextInput = ({
 }) => (
   <div className="flex flex-col gap-[6px]">
     <div className="flex justify-between items-center">
-      <label className="text-sm font-normal text-[#626262] leading-[21px]">{label}</label>
+      <label className="text-sm font-normal text-text-secondary leading-[21px]">{label}</label>
       {showInfo && <InfoIcon />}
     </div>
     <div className="flex flex-col gap-[5px]">
@@ -205,10 +205,10 @@ const TextInput = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 text-sm font-normal text-[#181D27] leading-[21px] outline-none bg-transparent"
+          className="flex-1 text-sm font-normal text-text-primary leading-[21px] outline-none bg-transparent"
         />
       </div>
-      <span className="text-xs font-normal text-[#181D27] opacity-60 leading-[18px]">Required</span>
+      <span className="text-xs font-normal text-text-primary opacity-60 leading-[18px]">Required</span>
     </div>
   </div>
 );
@@ -229,21 +229,21 @@ const Dropdown = ({
 }) => (
   <div className="flex flex-col gap-[6px]">
     <div className="flex justify-between items-center">
-      <label className="text-sm font-normal text-[#626262] leading-[21px]">{label}</label>
+      <label className="text-sm font-normal text-text-secondary leading-[21px]">{label}</label>
       {showInfo && <InfoIcon />}
     </div>
     <div className="flex flex-col gap-[5px]">
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="flex items-center justify-between px-4 py-[15px] bg-white border border-[#C8C8C8] rounded-[10px] h-[50px] cursor-pointer text-sm font-normal text-[#181D27] leading-5 outline-none appearance-none"
+        className="flex items-center justify-between px-4 py-[15px] bg-white border border-[#C8C8C8] rounded-[10px] h-[50px] cursor-pointer text-sm font-normal text-text-primary leading-5 outline-none appearance-none"
         style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M6 9L12 15L18 9\' stroke=\'%23989898\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center' }}
       >
         {options.map((opt) => (
           <option key={opt} value={opt}>{opt}</option>
         ))}
       </select>
-      <span className="text-xs font-normal text-[#181D27] opacity-60 leading-[18px]">Required</span>
+      <span className="text-xs font-normal text-text-primary opacity-60 leading-[18px]">Required</span>
     </div>
   </div>
 );
@@ -260,7 +260,7 @@ const DateInput = ({
 }) => (
   <div className="flex flex-col gap-[6px]">
     <div className="flex justify-between items-center">
-      <label className="text-sm font-normal text-[#626262] leading-[21px]">{label}</label>
+      <label className="text-sm font-normal text-text-secondary leading-[21px]">{label}</label>
     </div>
     <div className="flex flex-col gap-[5px]">
       <div className="flex items-center px-4 py-[15px] bg-white border border-[#C8C8C8] rounded-[10px] h-[50px]">
@@ -268,11 +268,11 @@ const DateInput = ({
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="flex-1 text-sm font-normal text-[#181D27] leading-5 outline-none bg-transparent"
+          className="flex-1 text-sm font-normal text-text-primary leading-5 outline-none bg-transparent"
         />
         <CalendarIcon />
       </div>
-      <span className="text-xs font-normal text-[#181D27] opacity-60 leading-[18px]">Required</span>
+      <span className="text-xs font-normal text-text-primary opacity-60 leading-[18px]">Required</span>
     </div>
   </div>
 );
@@ -295,7 +295,7 @@ const SectionCard = ({
     className="bg-white border border-[rgba(0,0,0,0.1)] rounded-[10px] p-5"
   >
     <div className="flex flex-col gap-[15px]">
-      <h3 className="text-xl font-medium text-[#181D27] leading-[30px]">{title}</h3>
+      <h3 className="text-xl font-medium text-text-primary leading-[30px]">{title}</h3>
       <div className="w-full h-[1px] bg-[rgba(0,0,0,0.1)]" />
       {children}
     </div>
@@ -313,15 +313,15 @@ const AISuggestionCard = () => (
           AI Assistant
         </span>
       </div>
-      <button className="text-sm font-semibold text-[#0857A1] leading-4 font-['Raleway']">
+      <button className="text-sm font-semibold text-primary leading-4 font-['Raleway']">
         Apply
       </button>
     </div>
 
     {/* Job Title Suggestion */}
     <div className="flex flex-col gap-1">
-      <span className="text-sm font-medium text-[#626262] leading-[21px]">Job Title</span>
-      <p className="text-sm font-normal text-[#181D27] leading-[150%]">
+      <span className="text-sm font-medium text-text-secondary leading-[21px]">Job Title</span>
+      <p className="text-sm font-normal text-text-primary leading-[150%]">
         • HR Quality & Training specialist is not a very commonly used term we recommend changing the
         title to something along the lines of "<strong>Senior HR Recruiter</strong>"
       </p>
@@ -329,8 +329,8 @@ const AISuggestionCard = () => (
 
     {/* Area of Work Suggestion */}
     <div className="flex flex-col gap-1">
-      <span className="text-sm font-medium text-[#626262] leading-[21px]">Area of work</span>
-      <p className="text-sm font-normal text-[#181D27] leading-[150%]">
+      <span className="text-sm font-medium text-text-secondary leading-[21px]">Area of work</span>
+      <p className="text-sm font-normal text-text-primary leading-[150%]">
         • Recruitment is a narrowing down the scope of the request, its better to use "
         <strong>Talent acquisition</strong>"
       </p>
@@ -354,16 +354,16 @@ const SidebarItem = ({
 }) => (
   <button
     onClick={onClick}
-    className={`flex items-center gap-3 px-3 py-2.5 w-full transition-colors relative ${active ? "bg-[#F0F9FF]" : "hover:bg-[#F9FAFB]"
+    className={`flex items-center gap-3 px-3 py-2.5 w-full transition-colors relative ${active ? "bg-[#F0F9FF]" : "hover:bg-muted-bg"
       }`}
   >
     {/* Left border indicator for active state */}
     {active && (
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 bg-[#0857A1] rounded-r-full" />
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 bg-primary rounded-r-full" />
     )}
     <LoaderIcon active={active} progress={progress} />
     <span
-      className={`text-sm leading-5 ${active ? "font-medium text-[#0857A1]" : "font-normal text-[#344054]"
+      className={`text-sm leading-5 ${active ? "font-medium text-primary" : "font-normal text-text-label"
         }`}
     >
       {label}
@@ -470,12 +470,12 @@ export default function JobDescriptionStepNew({
     <div className="flex flex-col gap-4">
       {/* Header */}
       <div className="flex justify-between items-center mb-2">
-        <h2 className="text-xl font-medium text-[#181D27] leading-7">
+        <h2 className="text-xl font-medium text-text-primary leading-7">
           Complete Job Description
         </h2>
         <button
           onClick={() => setIsPreviewOpen(true)}
-          className="text-base font-medium text-[#0857A1] opacity-80 leading-6 hover:opacity-100 transition-opacity"
+          className="text-base font-medium text-primary opacity-80 leading-6 hover:opacity-100 transition-opacity"
         >
           Show Preview
         </button>
@@ -747,7 +747,7 @@ export default function JobDescriptionStepNew({
           onClick={onNext}
           disabled={!isFormValid()}
           className={`flex items-center justify-center px-6 py-3 rounded-full min-w-[100px] transition-colors ${isFormValid()
-              ? "bg-[#0857A1] hover:bg-[#074785]"
+              ? "bg-primary hover:bg-[#074785]"
               : "bg-gray-300 cursor-not-allowed"
             }`}
         >

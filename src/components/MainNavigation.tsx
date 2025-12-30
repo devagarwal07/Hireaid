@@ -134,7 +134,7 @@ export default function MainNavigation({ children }: { children: React.ReactNode
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_left,_#f5f8ff,_#ffffff)] flex">
+    <div className="min-h-screen bg-page-bg flex">
       {/* Collapsed Sidebar - shown only when not expanded */}
       {!isNavExpanded && (
         <aside

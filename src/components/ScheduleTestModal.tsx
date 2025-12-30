@@ -392,7 +392,7 @@ export default function ScheduleTestModal({
                             </button>
                             <button
                                 onClick={handleDone}
-                                className="px-6 py-2.5 bg-[#1e3a5f] hover:bg-[#162d4d] text-white text-sm font-medium rounded-lg transition-colors"
+                                className="px-6 py-2.5 bg-secondary hover:bg-secondary-hover text-white text-sm font-medium rounded-lg transition-colors"
                             >
                                 Done
                             </button>
@@ -827,7 +827,7 @@ export default function ScheduleTestModal({
                         onClick={handleSchedule}
                         disabled={!isFormValid()}
                         className={`px-6 py-2.5 text-sm font-medium rounded-lg transition-colors ${isFormValid()
-                                ? "bg-[#1e3a5f] hover:bg-[#162d4d] text-white"
+                                ? "bg-secondary hover:bg-secondary-hover text-white"
                                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
                             }`}
                     >

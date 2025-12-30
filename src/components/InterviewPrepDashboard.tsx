@@ -157,7 +157,7 @@ const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({
   const navigate = useNavigate();
 
   return (
-    <div className="w-full min-h-screen bg-[#F0F4FF]">
+    <div className="w-full min-h-screen bg-page-bg">
       {/* Main content area */}
       <div className="w-full px-6 pb-6">
         {/* Page Header */}
@@ -195,7 +195,7 @@ const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({
         </div>
 
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-lg font-semibold text-[#1a1f36]">
+          <h1 className="text-lg font-semibold text-text-primary">
             Interview Prep Dashboard - Interview Completed
           </h1>
         </div>

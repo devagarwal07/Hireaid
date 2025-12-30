@@ -50,7 +50,7 @@ export function DisclaimerModal({ open, onClose, onAgree }: DisclaimerModalProps
             <button
               type="button"
               onClick={onAgree}
-              className="rounded-full bg-[#0857A1] px-5 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(8,87,161,0.4)] hover:bg-[#064684]"
+              className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(8,87,161,0.4)] hover:bg-primary-dark"
             >
               I Agree
             </button>

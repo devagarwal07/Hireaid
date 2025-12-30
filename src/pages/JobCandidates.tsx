@@ -231,7 +231,7 @@ const CandidateTooltip = ({
                 </div>
                 <button
                     onClick={onViewDetails}
-                    className="flex items-center gap-1 text-xs text-[#0857A1] hover:underline mt-2"
+                    className="flex items-center gap-1 text-xs text-primary hover:underline mt-2"
                 >
                     <ViewIcon />
                     View full details
@@ -290,13 +290,13 @@ export default function JobCandidates(): React.ReactElement {
     // If job not found, show error
     if (!job) {
         return (
-            <div className="min-h-screen w-full bg-[#F0F4FF] flex items-center justify-center">
+            <div className="min-h-screen w-full bg-page-bg flex items-center justify-center">
                 <div className="text-center">
                     <h1 className="text-2xl font-semibold text-gray-900 mb-2">Job Not Found</h1>
                     <p className="text-gray-600 mb-4">The job you're looking for doesn't exist.</p>
                     <button
                         onClick={() => navigate("/job-dashboard")}
-                        className="px-4 py-2 bg-[#0857A1] text-white rounded-lg hover:bg-[#074a8a] transition-colors"
+                        className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
                     >
                         Back to Job Dashboard
                     </button>
@@ -325,10 +325,10 @@ export default function JobCandidates(): React.ReactElement {
     );
 
     return (
-        <div className="min-h-screen w-full bg-[#F0F4FF]">
+        <div className="min-h-screen w-full bg-page-bg">
             <div className="w-full px-6 py-6">
                 {/* Header Section */}
-                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-[#E2E8F0]">
+                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-border-card">
                     {/* Background banner image */}
                     <div
                         className="absolute top-0 right-0 h-full w-1/2 bg-no-repeat bg-right bg-contain pointer-events-none"
@@ -339,19 +339,19 @@ export default function JobCandidates(): React.ReactElement {
                     <div className="flex items-center gap-2 text-sm mb-3 relative z-10">
                         <button
                             onClick={() => navigate("/job-dashboard")}
-                            className="text-[#717171] hover:text-[#0857A1] transition-colors"
+                            className="text-text-muted hover:text-primary transition-colors"
                         >
                             Interview Schedule
                         </button>
-                        <span className="text-[#717171]">/</span>
-                        <span className="text-[#0857A1] font-medium">Interview</span>
+                        <span className="text-text-muted">/</span>
+                        <span className="text-primary font-medium">Interview</span>
                     </div>
 
                     {/* Title and Actions Row */}
                     <div className="flex items-start justify-between relative z-10">
                         <div>
                             <div className="flex items-center gap-2 mb-2">
-                                <h1 className="text-2xl font-semibold text-[#181D27]">
+                                <h1 className="text-2xl font-semibold text-text-primary">
                                     {job.title}
                                 </h1>
                                 <button className="p-1 hover:bg-white/50 rounded transition-colors">
@@ -360,7 +360,7 @@ export default function JobCandidates(): React.ReactElement {
                             </div>
                             <button
                                 onClick={() => setShowViewDetails(!showViewDetails)}
-                                className="flex items-center gap-1 text-sm text-[#0857A1] hover:underline"
+                                className="flex items-center gap-1 text-sm text-primary hover:underline"
                             >
                                 View Details
                                 <ChevronDownIcon />
@@ -387,7 +387,7 @@ export default function JobCandidates(): React.ReactElement {
                         <div className="flex items-center gap-3">
                             <button
                                 onClick={() => setShowViewJDModal(true)}
-                                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#0857A1] text-[#0857A1] text-sm font-medium hover:bg-[#f0f7ff] transition-colors"
+                                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary text-primary text-sm font-medium hover:bg-hover-bg transition-colors"
                             >
                                 <EyeIcon />
                                 View JD
@@ -397,7 +397,7 @@ export default function JobCandidates(): React.ReactElement {
                                     setShowToast({ message: "Hiring process editor will open here", type: "success" });
                                     setTimeout(() => setShowToast(null), 3000);
                                 }}
-                                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#0857A1] text-[#0857A1] text-sm font-medium hover:bg-[#f0f7ff] transition-colors"
+                                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary text-primary text-sm font-medium hover:bg-hover-bg transition-colors"
                             >
                                 <EditIcon />
                                 Edit Hiring Process
@@ -407,7 +407,7 @@ export default function JobCandidates(): React.ReactElement {
                             <div className="relative">
                                 <button
                                     onClick={() => setShowMoreActions(!showMoreActions)}
-                                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#1e3a5f] text-white text-sm font-medium hover:bg-[#162d4d] transition-colors"
+                                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-secondary text-white text-sm font-medium hover:bg-secondary-hover transition-colors"
                                 >
                                     More Actions
                                     <ChevronDownIcon />
@@ -460,39 +460,39 @@ export default function JobCandidates(): React.ReactElement {
                 </div>
 
                 {/* Stats Cards - 4 columns */}
-                <div className="grid grid-cols-4 gap-0 bg-white rounded-2xl border border-[#E5E7EB] mb-6 overflow-hidden">
-                    <div className="p-6 text-center border-r border-[#E5E7EB]">
-                        <div className="text-3xl font-semibold text-[#181D27] mb-1">
+                <div className="grid grid-cols-4 gap-0 bg-white rounded-2xl border border-border-card mb-6 overflow-hidden">
+                    <div className="p-6 text-center border-r border-border-card">
+                        <div className="text-3xl font-semibold text-text-primary mb-1">
                             {formatNumber(stats.applied)}
                         </div>
-                        <div className="text-sm text-[#717171]">Applied</div>
+                        <div className="text-sm text-text-muted">Applied</div>
                     </div>
-                    <div className="p-6 text-center border-r border-[#E5E7EB]">
-                        <div className="text-3xl font-semibold text-[#181D27] mb-1">
+                    <div className="p-6 text-center border-r border-border-card">
+                        <div className="text-3xl font-semibold text-text-primary mb-1">
                             {formatNumber(stats.evaluation360)}
                         </div>
-                        <div className="text-sm text-[#717171]">360 Evaluation</div>
+                        <div className="text-sm text-text-muted">360 Evaluation</div>
                     </div>
-                    <div className="p-6 text-center border-r border-[#E5E7EB]">
-                        <div className="text-3xl font-semibold text-[#181D27] mb-1">
+                    <div className="p-6 text-center border-r border-border-card">
+                        <div className="text-3xl font-semibold text-text-primary mb-1">
                             {formatNumber(stats.scheduledForInterview)}
                         </div>
-                        <div className="text-sm text-[#717171]">Scheduled for Interview</div>
+                        <div className="text-sm text-text-muted">Scheduled for Interview</div>
                     </div>
                     <div className="p-6 text-center">
-                        <div className="text-3xl font-semibold text-[#181D27] mb-1">
+                        <div className="text-3xl font-semibold text-text-primary mb-1">
                             {formatNumber(stats.completed)}
                         </div>
-                        <div className="text-sm text-[#717171]">Completed</div>
+                        <div className="text-sm text-text-muted">Completed</div>
                     </div>
                 </div>
 
                 {/* Candidates List Section */}
-                <div className="bg-white rounded-2xl border border-[#E5E7EB]">
+                <div className="bg-white rounded-2xl border border-border-card">
                     {/* Header */}
-                    <div className="flex items-center justify-between p-5 border-b border-[#E5E7EB]">
+                    <div className="flex items-center justify-between p-5 border-b border-border-card">
                         <div className="flex items-center gap-4">
-                            <h2 className="text-lg font-semibold text-[#181D27]">Candidates List</h2>
+                            <h2 className="text-lg font-semibold text-text-primary">Candidates List</h2>
                             <button
                                 onClick={() => setShowUploadModal(true)}
                                 className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
@@ -525,14 +525,14 @@ export default function JobCandidates(): React.ReactElement {
                     </div>
 
                     {/* Table Header */}
-                    <div className="grid grid-cols-[1fr_150px_180px_180px_80px] gap-4 px-5 py-3 border-b border-[#E5E7EB] bg-gray-50/50">
-                        <div className="text-sm font-medium text-[#344054]">Candidate Names</div>
-                        <div className="flex items-center gap-1 text-sm font-medium text-[#344054]">
+                    <div className="grid grid-cols-[1fr_150px_180px_180px_80px] gap-4 px-5 py-3 border-b border-border-card bg-gray-50/50">
+                        <div className="text-sm font-medium text-text-label">Candidate Names</div>
+                        <div className="flex items-center gap-1 text-sm font-medium text-text-label">
                             360 Evaluation
                             <SortIcon />
                         </div>
-                        <div className="text-sm font-medium text-[#344054]">Interview</div>
-                        <div className="text-sm font-medium text-[#344054]">Status</div>
+                        <div className="text-sm font-medium text-text-label">Interview</div>
+                        <div className="text-sm font-medium text-text-label">Status</div>
                         <div></div>
                     </div>
 
@@ -546,7 +546,7 @@ export default function JobCandidates(): React.ReactElement {
                                 {/* Candidate Name - clickable to go to details */}
                                 <span
                                     onClick={() => navigate(`/job/${id}/candidate/${candidate.id}`)}
-                                    className="text-sm font-medium text-[#0857A1] cursor-pointer hover:underline"
+                                    className="text-sm font-medium text-primary cursor-pointer hover:underline"
                                 >
                                     {candidate.name}
                                 </span>
@@ -554,7 +554,7 @@ export default function JobCandidates(): React.ReactElement {
                                 {/* 360 Evaluation */}
                                 <div className="text-sm">
                                     {typeof candidate.evaluation360 === "number" ? (
-                                        <span className="text-[#181D27]">
+                                        <span className="text-text-primary">
                                             <span className="text-lg font-semibold">{candidate.evaluation360}</span>
                                             <span className="text-gray-400 text-xs">/10</span>
                                         </span>
@@ -579,7 +579,7 @@ export default function JobCandidates(): React.ReactElement {
                                             {candidate.interviewStatus === "schedule" ? (
                                                 <button
                                                     onClick={() => handleScheduleInterview(candidate)}
-                                                    className="text-sm text-[#0857A1] hover:underline"
+                                                    className="text-sm text-primary hover:underline"
                                                 >
                                                     Schedule Interview
                                                 </button>
@@ -669,7 +669,7 @@ export default function JobCandidates(): React.ReactElement {
                     </div>
 
                     {/* Pagination */}
-                    <div className="flex items-center justify-end gap-4 px-5 py-4 border-t border-[#E5E7EB]">
+                    <div className="flex items-center justify-end gap-4 px-5 py-4 border-t border-border-card">
                         <span className="text-sm text-gray-600">
                             Page {currentPage} of {totalPages}
                         </span>
@@ -730,7 +730,7 @@ export default function JobCandidates(): React.ReactElement {
                     <div className="absolute inset-0 bg-black/50" onClick={() => setShowViewJDModal(false)} />
                     <div className="relative bg-white rounded-xl shadow-2xl w-[600px] max-w-[90vw] max-h-[80vh] overflow-y-auto">
                         <div className="sticky top-0 bg-white p-6 border-b border-gray-200 flex items-center justify-between">
-                            <h2 className="text-xl font-semibold text-[#181D27]">Job Description</h2>
+                            <h2 className="text-xl font-semibold text-text-primary">Job Description</h2>
                             <button onClick={() => setShowViewJDModal(false)} className="p-1 hover:bg-gray-100 rounded-lg">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2">
                                     <line x1="18" y1="6" x2="6" y2="18" />
@@ -740,16 +740,16 @@ export default function JobCandidates(): React.ReactElement {
                         </div>
                         <div className="p-6 space-y-4">
                             <div>
-                                <h3 className="text-lg font-semibold text-[#181D27] mb-2">{job?.title}</h3>
+                                <h3 className="text-lg font-semibold text-text-primary mb-2">{job?.title}</h3>
                                 <p className="text-sm text-gray-600"><strong>Department:</strong> {job?.department}</p>
                                 <p className="text-sm text-gray-600"><strong>Posted:</strong> {job?.date}</p>
                             </div>
                             <div>
-                                <h4 className="font-medium text-[#181D27] mb-2">Description</h4>
+                                <h4 className="font-medium text-text-primary mb-2">Description</h4>
                                 <p className="text-sm text-gray-600">We are looking for a talented {job?.title} to join our {job?.department} team. This role requires strong analytical skills and the ability to work in a fast-paced environment.</p>
                             </div>
                             <div>
-                                <h4 className="font-medium text-[#181D27] mb-2">Requirements</h4>
+                                <h4 className="font-medium text-text-primary mb-2">Requirements</h4>
                                 <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
                                     <li>3+ years of relevant experience</li>
                                     <li>Strong communication skills</li>
@@ -776,9 +776,9 @@ export default function JobCandidates(): React.ReactElement {
                                 </svg>
                             </div>
                         </div>
-                        <h3 className="text-lg font-semibold text-[#181D27] text-center mb-2">Delete Job</h3>
+                        <h3 className="text-lg font-semibold text-text-primary text-center mb-2">Delete Job</h3>
                         <p className="text-sm text-gray-500 text-center mb-6">
-                            Are you sure you want to delete <span className="font-medium text-[#181D27]">"{job?.title}"</span>? This action cannot be undone.
+                            Are you sure you want to delete <span className="font-medium text-text-primary">"{job?.title}"</span>? This action cannot be undone.
                         </p>
                         <div className="flex gap-3">
                             <button onClick={() => setShowDeleteConfirm(false)} className="flex-1 px-4 py-2.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">

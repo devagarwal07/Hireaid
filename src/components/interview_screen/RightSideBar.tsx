@@ -288,7 +288,7 @@ export default function RightSideBar({
                   </div>
                 </div>
 
-                <h3 className="text-base font-semibold text-[#111827] mb-3">Hi there.</h3>
+                <h3 className="text-base font-semibold text-text-primary mb-3">Hi there.</h3>
                 <p className="text-sm text-[#6b7280] mb-6 leading-relaxed max-w-[260px]">
                   The interview questions are ready. Please click on the button below to start the interview process.
                 </p>

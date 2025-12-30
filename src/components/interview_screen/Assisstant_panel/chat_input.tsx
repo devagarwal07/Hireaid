@@ -79,7 +79,7 @@ export default function ChatInput({
           <div className="flex gap-3">
             <button
               onClick={() => fileRef.current?.click()}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-[#F0F8FF] text-[#0857A1]"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-primary-light text-primary"
             >
               <FiPaperclip className="w-4 h-4" />
               Attach File
@@ -87,7 +87,7 @@ export default function ChatInput({
 
             <button
               onClick={() => imageRef.current?.click()}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-[#F0F8FF] text-[#0857A1]"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-primary-light text-primary"
             >
               <FiUpload className="w-4 h-4" />
               Upload Image
@@ -101,8 +101,8 @@ export default function ChatInput({
             className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors
               ${
                 text.trim()
-                  ? "bg-[#0857A1] hover:bg-[#2C77BD] text-white"
-                  : "bg-[#CCCCCC] text-white cursor-not-allowed"
+                  ? "bg-primary hover:bg-[#2C77BD] text-white"
+                  : "bg-neutral-dark text-white cursor-not-allowed"
               }`}
           >
             <RiArrowUpLine className="w-5 h-5" />
@@ -116,11 +116,11 @@ export default function ChatInput({
               <div className="flex items-center justify-between border border-[#E1E1E1] rounded-md px-3 py-2 bg-white">
                 <div className="flex items-center gap-3">
                   <div className="relative w-10 h-10">
-                    <div className="absolute inset-0 rounded border border-[#D5D7DA] bg-white" />
-                    <div className="absolute left-[10%] right-[35%] top-[45%] bottom-[15%] rounded bg-[#0857A1]" />
+                    <div className="absolute inset-0 rounded border border-border-input bg-white" />
+                    <div className="absolute left-[10%] right-[35%] top-[45%] bottom-[15%] rounded bg-primary" />
                   </div>
                   <div>
-                    <div className="text-[14px] font-medium text-[#181D27] leading-[18px]">{selectedName}</div>
+                    <div className="text-[14px] font-medium text-text-primary leading-[18px]">{selectedName}</div>
                     <div className="flex items-center gap-2 text-[#535862] mt-0.5">
                       <span>Uploading</span>
                       <span className="w-px h-3 bg-[#D5D7DA]" />
@@ -138,11 +138,11 @@ export default function ChatInput({
               <div className="flex items-center justify-between border border-[#E5E6E7] rounded-md px-3 py-2 bg-white">
                 <div className="flex items-center gap-3">
                   <div className="relative w-10 h-10">
-                    <div className="absolute inset-0 rounded border border-[#D5D7DA] bg-white" />
-                    <div className="absolute left-[10%] right-[35%] top-[45%] bottom-[15%] rounded bg-[#0857A1]" />
+                    <div className="absolute inset-0 rounded border border-border-input bg-white" />
+                    <div className="absolute left-[10%] right-[35%] top-[45%] bottom-[15%] rounded bg-primary" />
                   </div>
                   <div>
-                    <div className="text-[14px] font-medium text-[#181D27] leading-[18px]">{selectedName}</div>
+                    <div className="text-[14px] font-medium text-text-primary leading-[18px]">{selectedName}</div>
                     <div className="flex items-center gap-2 text-[#535862] mt-0.5">
                       <span>Uploaded</span>
                       <span className="w-px h-3 bg-[#D5D7DA]" />
@@ -160,11 +160,11 @@ export default function ChatInput({
               <div className="flex items-center justify-between border border-[#E5E6E7] rounded-md px-3 py-2 bg-white">
                 <div className="flex items-center gap-3">
                   <div className="relative w-10 h-10">
-                    <div className="absolute inset-0 rounded border border-[#D5D7DA] bg-white" />
-                    <div className="absolute left-[10%] right-[35%] top-[45%] bottom-[15%] rounded bg-[#0857A1]" />
+                    <div className="absolute inset-0 rounded border border-border-input bg-white" />
+                    <div className="absolute left-[10%] right-[35%] top-[45%] bottom-[15%] rounded bg-primary" />
                   </div>
                   <div>
-                    <div className="text-[14px] font-medium text-[#181D27] leading-[18px]">{selectedName}</div>
+                    <div className="text-[14px] font-medium text-text-primary leading-[18px]">{selectedName}</div>
                     <div className="flex items-center gap-2 mt-0.5">
                       <span className="flex items-center gap-1 text-[#FF3636]">
                         <span className="w-4 h-4 rounded-full border border-[#FF3636]" />

@@ -106,12 +106,12 @@ export default function InterviewSchedule({
     >
       {/* Header */}
       <div className="flex justify-between items-center mb-3">
-        <h3 className="font-['Poppins'] font-semibold text-lg text-[#181D27]">
+        <h3 className="font-semibold text-lg text-text-primary">
           Interview Schedule
         </h3>
         <button
           onClick={() => navigate("/scheduled-interviews")}
-          className="font-['Poppins'] font-normal text-sm text-[#0857A1] hover:underline"
+          className="font-normal text-sm text-primary hover:underline"
         >
           View All
         </button>
@@ -135,7 +135,7 @@ export default function InterviewSchedule({
                   navigate('/scheduled-interviews');
                 }
               }}
-              className="flex items-center gap-3 p-3 bg-white border border-[#EBEBEB] rounded-lg hover:shadow-sm transition-shadow w-full text-left"
+              className="flex items-center gap-3 p-3 bg-white border border-border-light rounded-lg hover:shadow-sm transition-shadow w-full text-left"
               style={{ height: "112px" }}
             >
               {/* Left Color Bar */}
@@ -148,7 +148,7 @@ export default function InterviewSchedule({
               <div className="flex-1 flex flex-col gap-2">
                 {/* Title Row */}
                 <div className="flex justify-between items-center">
-                  <span className="font-['Poppins'] font-medium text-sm text-[#181D27]">
+                  <span className="font-medium text-sm text-text-primary">
                     {interview.title}
                   </span>
                   <svg
@@ -193,7 +193,7 @@ export default function InterviewSchedule({
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <span className="font-['Poppins'] font-normal text-xs text-[#717171]">
+                  <span className="font-normal text-xs text-text-muted">
                     {interview.time}
                   </span>
                 </div>
@@ -222,7 +222,7 @@ export default function InterviewSchedule({
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <span className="font-['Poppins'] font-normal text-xs text-[#717171]">
+                  <span className="font-normal text-xs text-text-muted">
                     {interview.interviewer}
                   </span>
                 </div>
@@ -258,7 +258,7 @@ export default function InterviewSchedule({
                 <circle cx="66" cy="40" r="4" fill="#D9EEF9" />
               </svg>
             </div>
-            <p className="text-sm text-[#626262]">
+            <p className="text-sm text-text-secondary">
               No scheduled interviews.
               <br />
               Add a job to proceed in interview creation.

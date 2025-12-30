@@ -90,10 +90,10 @@ export function QuestionCard({
   return (
     <div
       className={`rounded-2xl border px-4 py-3 transition shadow-[0_16px_40px_rgba(15,23,42,0.08)] ${isActive
-        ? 'border-[#0857A1] bg-white'
+        ? 'border-primary bg-white'
         : isError
           ? 'border-[#FCA5A5] bg-[#FFF5F5]'
-          : 'border-[#E5E7EB] bg-white'
+          : 'border-border-card bg-white'
         }`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -106,7 +106,7 @@ export function QuestionCard({
         </div>
 
         {isActive ? (
-          <span className="mt-1 inline-flex items-center rounded-full bg-[#E0ECFF] px-2.5 py-1 text-[11px] font-semibold text-[#0857A1]">
+          <span className="mt-1 inline-flex items-center rounded-full bg-[#E0ECFF] px-2.5 py-1 text-[11px] font-semibold text-primary">
             Active
           </span>
         ) : null}

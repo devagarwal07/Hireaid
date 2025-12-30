@@ -171,7 +171,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
       <div className="flex items-center gap-2 mb-6">
         <button
           onClick={onBack}
-          className="text-sm text-[#626262] hover:text-[#0857A1] transition-colors flex items-center gap-1"
+          className="text-sm text-text-secondary hover:text-primary transition-colors flex items-center gap-1"
         >
           <svg
             width="16"
@@ -184,11 +184,11 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
         </button>
-        <span className="text-sm text-[#626262]">User Management</span>
-        <span className="text-sm text-[#626262]">/</span>
-        <span className="text-sm text-[#626262]">Role Management</span>
-        <span className="text-sm text-[#626262]">/</span>
-        <span className="text-sm text-[#181D27] font-medium">
+        <span className="text-sm text-text-secondary">User Management</span>
+        <span className="text-sm text-text-secondary">/</span>
+        <span className="text-sm text-text-secondary">Role Management</span>
+        <span className="text-sm text-text-secondary">/</span>
+        <span className="text-sm text-text-primary font-medium">
           Create New Role
         </span>
       </div>
@@ -197,7 +197,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
 
       {/* Role Name Input */}
       <div className="mb-6">
-        <label className="block text-sm text-[#626262] mb-2">
+        <label className="block text-sm text-text-secondary mb-2">
           Enter Role Name
         </label>
         <div className="relative">
@@ -207,7 +207,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
             onChange={(e) => handleRoleNameChange(e.target.value)}
             onBlur={handleRoleNameBlur}
             placeholder="Not Selected"
-            className={`w-full px-4 py-3 border rounded-lg text-sm text-[#181D27] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:border-transparent ${touched.roleName && errors.roleName
+            className={`w-full px-4 py-3 border rounded-lg text-sm text-text-primary placeholder:text-text-placeholder focus:outline-none focus:ring-2 focus:border-transparent ${touched.roleName && errors.roleName
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-blue-500"
               }`}
@@ -229,14 +229,14 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
         {touched.roleName && errors.roleName ? (
           <p className="text-xs text-red-500 mt-1">{errors.roleName}</p>
         ) : (
-          <p className="text-xs text-[#626262] mt-1">Required</p>
+          <p className="text-xs text-text-secondary mt-1">Required</p>
         )}
       </div>
 
       {/* Permissions Section */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-base font-semibold text-[#181D27]">
+          <h3 className="text-base font-semibold text-text-primary">
             Permissions
           </h3>
           {touched.permissions && errors.permissions && (
@@ -248,14 +248,14 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
         <div className={`border rounded-lg overflow-hidden ${touched.permissions && errors.permissions ? "border-red-300" : "border-gray-200"
           }`}>
           {/* Tabs */}
-          <div className="flex items-center gap-6 border-b border-gray-200 bg-[#F9FAFB] px-4">
+          <div className="flex items-center gap-6 border-b border-gray-200 bg-muted-bg px-4">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-1 py-3 text-sm font-medium transition-colors relative ${activeTab === tab
                     ? "text-[#0038CE]"
-                    : "text-[#626262] hover:text-[#181D27]"
+                    : "text-text-secondary hover:text-text-primary"
                   }`}
               >
                 {tab}
@@ -293,7 +293,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
                           />
                           <label
                             htmlFor={permission.id}
-                            className="text-sm font-medium text-[#181D27] cursor-pointer"
+                            className="text-sm font-medium text-text-primary cursor-pointer"
                           >
                             {permission.label}
                           </label>
@@ -318,7 +318,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
                                 />
                                 <label
                                   htmlFor={child.id}
-                                  className="text-sm text-[#626262] cursor-pointer"
+                                  className="text-sm text-text-secondary cursor-pointer"
                                 >
                                   {child.label}
                                 </label>
@@ -329,7 +329,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
                       </div>
                     ))
                   ) : (
-                    <p className="text-sm text-[#9CA3AF] italic">
+                    <p className="text-sm text-text-placeholder italic">
                       No permissions available
                     </p>
                   )}
@@ -346,7 +346,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
           onClick={handleCreateRole}
           disabled={!isFormValid()}
           className={`px-6 py-3 text-sm font-medium rounded-lg transition-colors ${isFormValid()
-              ? "bg-[#0857A1] text-white hover:bg-[#064680]"
+              ? "bg-primary text-white hover:bg-primary-dark"
               : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }`}
         >

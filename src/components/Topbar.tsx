@@ -1,4 +1,4 @@
-// src/components/interview_screen/Topbar.tsx
+// src/components/Topbar.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NotificationDropdown from "@/components/ui/NotificationDropdown";
@@ -42,9 +42,9 @@ export default function Topbar({
   const displayName = fullName ?? `${userName} Doe`;
 
   return (
-    <div className="w-full px-6 pt-4 pb-3">
-      <div className="flex items-center justify-between rounded-2xl bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] px-6 py-3">
-        <div className="text-[18px] font-medium text-[#454545]">{greeting}</div>
+    <div className="w-full px-6 pt-5 pb-4">
+      <div className="flex items-center justify-between rounded-2xl bg-white shadow-card px-6 py-4">
+        <div className="text-lg font-medium text-text-primary">{greeting}</div>
 
         <div className="flex items-center gap-6">
           <div className="relative">
@@ -52,7 +52,7 @@ export default function Topbar({
               type="button"
               onClick={handleToggleNotifications}
               aria-label="notifications"
-              className="relative p-2 rounded-full hover:bg-gray-100 text-gray-500"
+              className="relative p-2 rounded-full hover:bg-primary-light text-text-muted transition-colors duration-200"
             >
               {/* bell icon */}
               <svg
@@ -72,7 +72,7 @@ export default function Topbar({
 
               {/* unread badge */}
               {notificationsCount > 0 && (
-                <span className="absolute -top-1 -right-0.5 flex h-4 min-w-[18px] items-center justify-center rounded-full bg-[#0857A1] px-1 text-[10px] font-semibold text-white">
+                <span className="absolute -top-1 -right-0.5 flex h-4 min-w-[18px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-white">
                   {notificationsCount > 9 ? "9+" : notificationsCount}
                 </span>
               )}
@@ -87,21 +87,21 @@ export default function Topbar({
 
           <button
             onClick={handleProfileClick}
-            className="flex items-center gap-3 rounded-full px-3 py-1.5 hover:bg-gray-50 cursor-pointer"
+            className="flex items-center gap-3 rounded-full px-3 py-1.5 hover:bg-primary-light cursor-pointer transition-colors duration-200"
             type="button"
           >
-            <div className="w-9 h-9 rounded-full bg-gray-300 overflow-hidden flex items-center justify-center text-sm font-semibold text-white">
+            <div className="w-9 h-9 rounded-full bg-primary overflow-hidden flex items-center justify-center text-sm font-semibold text-white">
               {initials}
             </div>
 
             <div className="flex flex-col items-start">
-              <span className="text-sm font-medium text-[#333333]">{displayName}</span>
-              <span className="text-xs text-gray-400">{role}</span>
+              <span className="text-sm font-medium text-text-primary">{displayName}</span>
+              <span className="text-xs text-text-muted">{role}</span>
             </div>
 
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 text-gray-400"
+              className="w-4 h-4 text-text-muted"
               viewBox="0 0 20 20"
               fill="currentColor"
             >

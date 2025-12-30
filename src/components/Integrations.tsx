@@ -54,14 +54,14 @@ const Integrations: React.FC = () => {
       className="bg-white rounded-lg p-6 border border-gray-200"
       style={{ boxShadow: "0 2px 11px rgba(0,0,0,0.08)" }}
     >
-      <h2 className="text-2xl font-semibold text-[#181D27] mb-4">
+      <h2 className="text-2xl font-semibold text-text-primary mb-4">
         Integrations
       </h2>
       <hr className="border-t border-gray-200 mb-6" />
 
       {/* Integrated Softwares Section */}
       <div className="mb-8">
-        <h3 className="text-base font-medium text-[#626262] mb-4">
+        <h3 className="text-base font-medium text-text-secondary mb-4">
           Integrated Softwares
         </h3>
         <div className="border border-gray-200 rounded-lg">
@@ -69,10 +69,10 @@ const Integrations: React.FC = () => {
             <div key={software.name}>
               <div className="flex items-center justify-between p-4">
                 <div>
-                  <h4 className="text-base font-medium text-[#181D27] mb-1">
+                  <h4 className="text-base font-medium text-text-primary mb-1">
                     {software.name}
                   </h4>
-                  <p className="text-sm text-[#626262]">
+                  <p className="text-sm text-text-secondary">
                     {software.description}
                   </p>
                 </div>
@@ -93,7 +93,7 @@ const Integrations: React.FC = () => {
 
       {/* Available Integrations Section */}
       <div>
-        <h3 className="text-base font-medium text-[#626262] mb-4">
+        <h3 className="text-base font-medium text-text-secondary mb-4">
           Available Integrations
         </h3>
         <div className="border border-gray-200 rounded-lg">
@@ -101,10 +101,10 @@ const Integrations: React.FC = () => {
             <div key={integration.name}>
               <div className="flex items-center justify-between p-4">
                 <div className="flex-1">
-                  <h4 className="text-base font-medium text-[#181D27] mb-1">
+                  <h4 className="text-base font-medium text-text-primary mb-1">
                     {integration.name}
                   </h4>
-                  <p className="text-sm text-[#626262]">
+                  <p className="text-sm text-text-secondary">
                     {integration.description}
                   </p>
                 </div>

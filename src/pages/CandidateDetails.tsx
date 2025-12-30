@@ -313,10 +313,10 @@ export default function CandidateDetails(): React.ReactElement {
     };
 
     return (
-        <div className="min-h-screen w-full bg-[#F0F4FF]">
+        <div className="min-h-screen w-full bg-page-bg">
             <div className="w-full px-6 py-6">
                 {/* Header Section */}
-                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-[#E2E8F0] overflow-hidden">
+                <div className="relative bg-white rounded-2xl p-6 mb-6 border border-border-card overflow-hidden">
                     {/* Background banner image - same as PageHeader */}
                     <div
                         className="absolute top-0 right-0 h-full w-1/2 bg-no-repeat bg-right bg-contain pointer-events-none"
@@ -327,19 +327,19 @@ export default function CandidateDetails(): React.ReactElement {
                     <div className="flex items-center gap-2 text-sm mb-3 relative z-10">
                         <button
                             onClick={() => navigate("/job-dashboard")}
-                            className="text-[#717171] hover:text-[#0857A1] transition-colors"
+                            className="text-text-muted hover:text-primary transition-colors"
                         >
                             Job List
                         </button>
-                        <span className="text-[#717171]">/</span>
+                        <span className="text-text-muted">/</span>
                         <button
                             onClick={() => navigate(`/job/${jobId}/candidates`)}
-                            className="text-[#717171] hover:text-[#0857A1] transition-colors"
+                            className="text-text-muted hover:text-primary transition-colors"
                         >
                             HR Quality & Training Specialist
                         </button>
-                        <span className="text-[#717171]">/</span>
-                        <span className="text-[#0857A1] font-medium">{candidate.name}</span>
+                        <span className="text-text-muted">/</span>
+                        <span className="text-primary font-medium">{candidate.name}</span>
                     </div>
 
                     {/* Title Row */}
@@ -350,7 +350,7 @@ export default function CandidateDetails(): React.ReactElement {
                                 <div className="w-7 h-7 bg-gray-100 rounded-full flex items-center justify-center">
                                     <UserIcon />
                                 </div>
-                                <h1 className="text-2xl font-semibold text-[#181D27]">
+                                <h1 className="text-2xl font-semibold text-text-primary">
                                     {candidate.name}
                                 </h1>
                             </div>
@@ -360,27 +360,27 @@ export default function CandidateDetails(): React.ReactElement {
                                 <div className="flex items-center gap-10 mt-2 mb-1">
                                     <div>
                                         <div className="text-xs text-gray-400 mb-0.5">Created On</div>
-                                        <div className="text-sm font-medium text-[#181D27]">24-07-25</div>
+                                        <div className="text-sm font-medium text-text-primary">24-07-25</div>
                                     </div>
                                     <div>
                                         <div className="text-xs text-gray-400 mb-0.5">Work Type</div>
-                                        <div className="text-sm font-medium text-[#181D27]">Permanent</div>
+                                        <div className="text-sm font-medium text-text-primary">Permanent</div>
                                     </div>
                                     <div>
                                         <div className="text-xs text-gray-400 mb-0.5">Duration</div>
-                                        <div className="text-sm font-medium text-[#181D27]">Full Time</div>
+                                        <div className="text-sm font-medium text-text-primary">Full Time</div>
                                     </div>
                                     <div>
                                         <div className="text-xs text-gray-400 mb-0.5">Years of Experience</div>
-                                        <div className="text-sm font-medium text-[#181D27]">5+</div>
+                                        <div className="text-sm font-medium text-text-primary">5+</div>
                                     </div>
                                     <div>
                                         <div className="text-xs text-gray-400 mb-0.5">Hiring Process</div>
-                                        <div className="text-sm font-medium text-[#181D27]">In Progress</div>
+                                        <div className="text-sm font-medium text-text-primary">In Progress</div>
                                     </div>
                                     <div>
                                         <div className="text-xs text-gray-400 mb-0.5">Salary Range</div>
-                                        <div className="text-sm font-medium text-[#181D27]">$20,000 - $30,000</div>
+                                        <div className="text-sm font-medium text-text-primary">$20,000 - $30,000</div>
                                     </div>
                                 </div>
                             )}
@@ -388,7 +388,7 @@ export default function CandidateDetails(): React.ReactElement {
                             {/* Hide/View Details Button */}
                             <button
                                 onClick={() => setShowDetails(!showDetails)}
-                                className="flex items-center gap-1 text-sm text-[#0857A1] hover:underline mt-1"
+                                className="flex items-center gap-1 text-sm text-primary hover:underline mt-1"
                             >
                                 {showDetails ? "Hide Details" : "View Details"}
                                 {showDetails ? <ChevronUpIcon /> : <ChevronDownIcon />}
@@ -414,7 +414,7 @@ export default function CandidateDetails(): React.ReactElement {
                                     setShowToast({ message: `${candidate.name} marked as Qualified!`, type: "success" });
                                     setTimeout(() => setShowToast(null), 3000);
                                 }}
-                                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${qualificationStatus === "qualified" ? "bg-[#16a34a] text-white ring-2 ring-green-300" : "bg-[#22C55E] text-white hover:bg-[#16a34a]"}`}
+                                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${qualificationStatus === "qualified" ? "bg-success-hover text-white ring-2 ring-green-300" : "bg-success text-white hover:bg-success-hover"}`}
                             >
                                 <CheckIcon />
                                 Qualified
@@ -424,21 +424,21 @@ export default function CandidateDetails(): React.ReactElement {
                 </div>
 
                 {/* Candidate Details Card */}
-                <div className="bg-white rounded-2xl border border-[#E5E7EB] mb-6 overflow-hidden">
-                    <div className="p-5 border-b border-[#E5E7EB] flex items-center gap-2">
+                <div className="bg-white rounded-2xl border border-border-card mb-6 overflow-hidden">
+                    <div className="p-5 border-b border-border-card flex items-center gap-2">
                         <UserIcon />
-                        <h2 className="text-lg font-semibold text-[#181D27]">Candidate Details</h2>
+                        <h2 className="text-lg font-semibold text-text-primary">Candidate Details</h2>
                     </div>
 
                     {/* Hiring Steps Progress */}
-                    <div className="grid grid-cols-4 border-b border-[#E5E7EB]">
+                    <div className="grid grid-cols-4 border-b border-border-card">
                         {candidate.hiringSteps.map((step, index) => (
                             <div
                                 key={index}
-                                className={`p-6 text-center ${index < 3 ? "border-r border-[#E5E7EB]" : ""}`}
+                                className={`p-6 text-center ${index < 3 ? "border-r border-border-card" : ""}`}
                             >
                                 {step.status === "completed" ? (
-                                    <div className="text-2xl font-semibold text-[#22C55E] mb-2">
+                                    <div className="text-2xl font-semibold text-success mb-2">
                                         {step.score}<span className="text-sm font-normal text-gray-400">/10</span>
                                     </div>
                                 ) : step.status === "current" ? (
@@ -447,13 +447,13 @@ export default function CandidateDetails(): React.ReactElement {
                                             <>
                                                 <button
                                                     onClick={() => setShowScheduleTestModal(true)}
-                                                    className="px-5 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
+                                                    className="px-5 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors"
                                                 >
                                                     Schedule Test
                                                 </button>
                                                 <button
                                                     onClick={() => navigate(`/job/${jobId}/candidate/${candidateId}/test-prep`)}
-                                                    className="text-[#0857A1] text-sm font-medium hover:underline"
+                                                    className="text-primary text-sm font-medium hover:underline"
                                                 >
                                                     Test Prep →
                                                 </button>
@@ -462,13 +462,13 @@ export default function CandidateDetails(): React.ReactElement {
                                             <>
                                                 <button
                                                     onClick={() => setShowScheduleModal(true)}
-                                                    className="px-5 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
+                                                    className="px-5 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors"
                                                 >
                                                     Schedule Interview
                                                 </button>
                                                 <button
                                                     onClick={() => navigate(`/job/${jobId}/candidate/${candidateId}/interview-prep`)}
-                                                    className="text-[#0857A1] text-sm font-medium hover:underline"
+                                                    className="text-primary text-sm font-medium hover:underline"
                                                 >
                                                     Interview Prep →
                                                 </button>
@@ -484,7 +484,7 @@ export default function CandidateDetails(): React.ReactElement {
                     </div>
 
                     {/* Tabs */}
-                    <div className="border-b border-[#E5E7EB]">
+                    <div className="border-b border-border-card">
                         <div className="flex">
                             {[
                                 { id: "overview", label: "Candidate Overview" },
@@ -495,7 +495,7 @@ export default function CandidateDetails(): React.ReactElement {
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id as typeof activeTab)}
                                     className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === tab.id
-                                        ? "border-[#0857A1] text-[#0857A1]"
+                                        ? "border-primary text-primary"
                                         : "border-transparent text-gray-500 hover:text-gray-700"
                                         }`}
                                 >
@@ -513,11 +513,11 @@ export default function CandidateDetails(): React.ReactElement {
                                 <div className="flex items-center justify-between mb-6">
                                     <div className="flex items-center gap-2">
                                         <UserIcon />
-                                        <h3 className="text-base font-semibold text-[#181D27]">Candidate Overview</h3>
+                                        <h3 className="text-base font-semibold text-text-primary">Candidate Overview</h3>
                                     </div>
                                     <button
                                         onClick={() => setShowNotesModal(true)}
-                                        className="flex items-center gap-2 text-sm text-[#0857A1] hover:underline"
+                                        className="flex items-center gap-2 text-sm text-primary hover:underline"
                                     >
                                         <NoteIcon />
                                         Add Notes
@@ -540,11 +540,11 @@ export default function CandidateDetails(): React.ReactElement {
                                         <div className="flex-1">
                                             <div className="flex items-start justify-between">
                                                 <div>
-                                                    <h4 className="text-lg font-semibold text-[#181D27] mb-1">{candidate.name}</h4>
+                                                    <h4 className="text-lg font-semibold text-text-primary mb-1">{candidate.name}</h4>
                                                     <p className="text-sm text-gray-500 mb-3">Applied for {candidate.role}</p>
                                                     <div className="flex gap-2">
                                                         {candidate.isRecommendedByAI && (
-                                                            <span className="flex items-center gap-1 px-3 py-1 bg-blue-50 text-[#0857A1] text-xs rounded-full">
+                                                            <span className="flex items-center gap-1 px-3 py-1 bg-blue-50 text-primary text-xs rounded-full">
                                                                 <SparkleIcon color="#0857A1" />
                                                                 Recommended by AI
                                                             </span>
@@ -563,27 +563,27 @@ export default function CandidateDetails(): React.ReactElement {
                                         <div className="grid grid-cols-3 gap-x-12 gap-y-4">
                                             <div>
                                                 <div className="text-xs text-gray-400 mb-1">Application Date</div>
-                                                <div className="text-sm font-medium text-[#181D27]">{candidate.applicationDate}</div>
+                                                <div className="text-sm font-medium text-text-primary">{candidate.applicationDate}</div>
                                             </div>
                                             <div>
                                                 <div className="text-xs text-gray-400 mb-1">Email Address</div>
-                                                <div className="text-sm font-medium text-[#0857A1]">{candidate.email}</div>
+                                                <div className="text-sm font-medium text-primary">{candidate.email}</div>
                                             </div>
                                             <div>
                                                 <div className="text-xs text-gray-400 mb-1">Current Location</div>
-                                                <div className="text-sm font-medium text-[#181D27]">{candidate.location}</div>
+                                                <div className="text-sm font-medium text-text-primary">{candidate.location}</div>
                                             </div>
                                             <div>
                                                 <div className="text-xs text-gray-400 mb-1">Status</div>
-                                                <div className="text-sm font-medium text-[#181D27]">{candidate.status}</div>
+                                                <div className="text-sm font-medium text-text-primary">{candidate.status}</div>
                                             </div>
                                             <div>
                                                 <div className="text-xs text-gray-400 mb-1">Contact Number</div>
-                                                <div className="text-sm font-medium text-[#181D27]">{candidate.phone}</div>
+                                                <div className="text-sm font-medium text-text-primary">{candidate.phone}</div>
                                             </div>
                                             <div>
                                                 <div className="text-xs text-gray-400 mb-1">LinkedIn Profile</div>
-                                                <div className="text-sm font-medium text-[#0857A1]">{candidate.linkedin}</div>
+                                                <div className="text-sm font-medium text-primary">{candidate.linkedin}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -599,15 +599,15 @@ export default function CandidateDetails(): React.ReactElement {
                                 </div>
 
                                 {/* 360 Evaluation Section */}
-                                <div className="bg-white rounded-xl border border-[#E5E7EB] p-6 mb-6">
+                                <div className="bg-white rounded-xl border border-border-card p-6 mb-6">
                                     <div className="flex items-center gap-2 mb-5">
                                         <SparkleIcon color="#0857A1" />
-                                        <h3 className="text-base font-semibold text-[#0857A1]">360 Evalution</h3>
+                                        <h3 className="text-base font-semibold text-primary">360 Evalution</h3>
                                     </div>
 
                                     <div className="flex items-start gap-8">
                                         <div className="text-center">
-                                            <div className="text-4xl font-bold text-[#181D27]">
+                                            <div className="text-4xl font-bold text-text-primary">
                                                 {candidate.resumeScore}<span className="text-lg font-normal text-gray-400">/10</span>
                                             </div>
                                             <div className="text-xs text-gray-500 mt-1">Score</div>
@@ -626,10 +626,10 @@ export default function CandidateDetails(): React.ReactElement {
                                 </div>
 
                                 {/* Candidate Skills */}
-                                <div className="bg-white rounded-xl border border-[#E5E7EB] p-6 mb-6">
+                                <div className="bg-white rounded-xl border border-border-card p-6 mb-6">
                                     <div className="flex items-center gap-2 mb-5">
                                         <SparkleIcon color="#0857A1" />
-                                        <h3 className="text-base font-semibold text-[#0857A1]">Candidate Skills</h3>
+                                        <h3 className="text-base font-semibold text-primary">Candidate Skills</h3>
                                     </div>
                                     <div className="flex flex-wrap gap-2">
                                         {candidate.skills.map((skill, idx) => (
@@ -645,10 +645,10 @@ export default function CandidateDetails(): React.ReactElement {
                                 </div>
 
                                 {/* Overall Statistics */}
-                                <div className="bg-white rounded-xl border border-[#E5E7EB] p-6 mb-6">
+                                <div className="bg-white rounded-xl border border-border-card p-6 mb-6">
                                     <div className="flex items-center gap-2 mb-5">
                                         <SparkleIcon color="#0857A1" />
-                                        <h3 className="text-base font-semibold text-[#0857A1]">Overall Statistics</h3>
+                                        <h3 className="text-base font-semibold text-primary">Overall Statistics</h3>
                                     </div>
 
                                     <div className="grid grid-cols-2 gap-8">
@@ -656,9 +656,9 @@ export default function CandidateDetails(): React.ReactElement {
                                         <div className="border border-gray-100 rounded-xl p-5">
                                             <div className="flex items-center gap-2 mb-4">
                                                 <span className="text-gray-400 text-sm">◉</span>
-                                                <span className="text-sm font-medium text-[#181D27]">Total Score</span>
+                                                <span className="text-sm font-medium text-text-primary">Total Score</span>
                                             </div>
-                                            <div className="text-3xl font-bold text-[#181D27] mb-6">
+                                            <div className="text-3xl font-bold text-text-primary mb-6">
                                                 {candidate.overallScore}<span className="text-lg font-normal text-gray-400"> / 10</span>
                                             </div>
                                             <div className="space-y-3">
@@ -697,10 +697,10 @@ export default function CandidateDetails(): React.ReactElement {
                                                 <SparkleIcon color="#22C55E" />
                                                 <span className="text-sm font-medium text-green-600">AI Recommendation</span>
                                             </div>
-                                            <div className="text-3xl font-bold text-[#181D27] mb-2">
+                                            <div className="text-3xl font-bold text-text-primary mb-2">
                                                 {candidate.aiScore}<span className="text-lg font-normal text-gray-400"> / 10</span>
                                             </div>
-                                            <div className="text-sm font-semibold text-[#181D27] mb-4">Problem Solving</div>
+                                            <div className="text-sm font-semibold text-text-primary mb-4">Problem Solving</div>
                                             <div className="space-y-3">
                                                 {candidate.aiRecommendation.points.map((point, idx) => (
                                                     <div key={idx} className="flex items-start gap-2">
@@ -715,7 +715,7 @@ export default function CandidateDetails(): React.ReactElement {
 
                                 {/* Strengths & Improvements */}
                                 <div className="grid grid-cols-2 gap-6 mb-6">
-                                    <div className="bg-white rounded-xl border border-[#E5E7EB] p-6">
+                                    <div className="bg-white rounded-xl border border-border-card p-6">
                                         <div className="flex items-center gap-2 mb-4">
                                             <SparkleIcon color="#22C55E" />
                                             <h4 className="text-sm font-semibold text-green-600">Strengths</h4>
@@ -729,7 +729,7 @@ export default function CandidateDetails(): React.ReactElement {
                                             ))}
                                         </ul>
                                     </div>
-                                    <div className="bg-white rounded-xl border border-[#E5E7EB] p-6">
+                                    <div className="bg-white rounded-xl border border-border-card p-6">
                                         <div className="flex items-center gap-2 mb-4">
                                             <SparkleIcon color="#F59E0B" />
                                             <h4 className="text-sm font-semibold text-amber-500">What Needs Improvement</h4>
@@ -747,7 +747,7 @@ export default function CandidateDetails(): React.ReactElement {
 
                                 {/* Career Overview */}
                                 <div className="mb-6">
-                                    <h4 className="text-sm font-bold text-[#181D27] mb-3">Career Overview</h4>
+                                    <h4 className="text-sm font-bold text-text-primary mb-3">Career Overview</h4>
                                     <ul className="space-y-1">
                                         {candidate.careerOverview.map((item, idx) => (
                                             <li key={idx} className="text-sm text-gray-600 flex items-start gap-2">
@@ -760,7 +760,7 @@ export default function CandidateDetails(): React.ReactElement {
 
                                 {/* Current Work Experience */}
                                 <div className="mb-6">
-                                    <h4 className="text-sm font-bold text-[#181D27] mb-3">Current Work Experience</h4>
+                                    <h4 className="text-sm font-bold text-text-primary mb-3">Current Work Experience</h4>
                                     <ul className="space-y-1">
                                         {candidate.currentWork.map((item, idx) => (
                                             <li key={idx} className="text-sm text-gray-600 flex items-start gap-2">
@@ -773,12 +773,12 @@ export default function CandidateDetails(): React.ReactElement {
 
                                 {/* Previous Roles */}
                                 <div className="mb-6">
-                                    <h4 className="text-sm font-bold text-[#181D27] mb-3">Previous Roles</h4>
+                                    <h4 className="text-sm font-bold text-text-primary mb-3">Previous Roles</h4>
                                     <ul className="space-y-3">
                                         {candidate.previousRoles.map((role, idx) => (
                                             <li key={idx} className="text-sm text-gray-600 flex items-start gap-2">
                                                 <span className="text-gray-400">•</span>
-                                                <span><strong className="text-[#181D27]">{role.company}:</strong> {role.description}</span>
+                                                <span><strong className="text-text-primary">{role.company}:</strong> {role.description}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -804,7 +804,7 @@ export default function CandidateDetails(): React.ReactElement {
                                         <p className="text-gray-500 mb-4">Interview not scheduled</p>
                                         <button
                                             onClick={() => setShowScheduleModal(true)}
-                                            className="px-6 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
+                                            className="px-6 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors"
                                         >
                                             Schedule Interview
                                         </button>
@@ -816,10 +816,10 @@ export default function CandidateDetails(): React.ReactElement {
                 </div>
 
                 {/* Interview Section */}
-                <div className="bg-white rounded-2xl border border-[#E5E7EB] p-6">
+                <div className="bg-white rounded-2xl border border-border-card p-6">
                     <div className="flex items-center gap-2 mb-4">
                         <CalendarIcon />
-                        <h3 className="text-base font-semibold text-[#181D27]">Interview</h3>
+                        <h3 className="text-base font-semibold text-text-primary">Interview</h3>
                     </div>
                     {candidate.interviewCompleted ? (
                         <PostInterviewReport
@@ -831,7 +831,7 @@ export default function CandidateDetails(): React.ReactElement {
                             <p className="text-sm text-gray-500 mb-4">Interview not scheduled</p>
                             <button
                                 onClick={() => setShowScheduleModal(true)}
-                                className="px-6 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-full hover:bg-[#162d4d] transition-colors"
+                                className="px-6 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors"
                             >
                                 Schedule Interview
                             </button>
@@ -875,7 +875,7 @@ export default function CandidateDetails(): React.ReactElement {
                     <div className="relative bg-white rounded-xl shadow-2xl w-[600px] max-w-[90vw] p-6">
                         {/* Header */}
                         <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-lg font-semibold text-[#181D27]">Candidate Overview</h2>
+                            <h2 className="text-lg font-semibold text-text-primary">Candidate Overview</h2>
                             <button
                                 onClick={() => setShowLinksModal(false)}
                                 className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
@@ -892,29 +892,29 @@ export default function CandidateDetails(): React.ReactElement {
                             {/* Row 1 */}
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Application Date</div>
-                                <div className="text-sm font-medium text-[#181D27]">{candidate.applicationDate}</div>
+                                <div className="text-sm font-medium text-text-primary">{candidate.applicationDate}</div>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Email Address</div>
-                                <div className="text-sm font-medium text-[#181D27]">{candidate.email}</div>
+                                <div className="text-sm font-medium text-text-primary">{candidate.email}</div>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Current Location</div>
-                                <div className="text-sm font-medium text-[#181D27]">{candidate.location}</div>
+                                <div className="text-sm font-medium text-text-primary">{candidate.location}</div>
                             </div>
 
                             {/* Row 2 */}
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Status</div>
-                                <div className="text-sm font-medium text-[#181D27]">{candidate.status}</div>
+                                <div className="text-sm font-medium text-text-primary">{candidate.status}</div>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Contact Number</div>
-                                <div className="text-sm font-medium text-[#181D27]">{candidate.phone}</div>
+                                <div className="text-sm font-medium text-text-primary">{candidate.phone}</div>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">LinkedIn Profile</div>
-                                <a href={`https://${candidate.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                <a href={`https://${candidate.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline">
                                     {candidate.linkedin}
                                 </a>
                             </div>
@@ -922,19 +922,19 @@ export default function CandidateDetails(): React.ReactElement {
                             {/* Row 3 - Links */}
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Github Link</div>
-                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline">
                                     johndoeworks.xyz
                                 </a>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Website Link</div>
-                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline">
                                     johndoeworks.xyz
                                 </a>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Website Link 1</div>
-                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline">
                                     johndoeworks.xyz
                                 </a>
                             </div>
@@ -942,19 +942,19 @@ export default function CandidateDetails(): React.ReactElement {
                             {/* Row 4 - More Links */}
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Website Link 2</div>
-                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline">
                                     johndoeworks.xyz
                                 </a>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Website Link 3</div>
-                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline">
                                     johndoeworks.xyz
                                 </a>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Website Link 4</div>
-                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0857A1] hover:underline">
+                                <a href="https://johndoeworks.xyz" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline">
                                     johndoeworks.xyz
                                 </a>
                             </div>
@@ -962,7 +962,7 @@ export default function CandidateDetails(): React.ReactElement {
                             {/* Resume */}
                             <div>
                                 <div className="text-xs text-gray-400 mb-1">Resume</div>
-                                <a href="#" className="text-sm font-medium text-[#0857A1] hover:underline flex items-center gap-1">
+                                <a href="#" className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
                                     View Resume
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -977,7 +977,7 @@ export default function CandidateDetails(): React.ReactElement {
                         <div className="flex justify-center mt-6">
                             <button
                                 onClick={() => setShowLinksModal(false)}
-                                className="px-8 py-2.5 bg-[#1e3a5f] text-white text-sm font-medium rounded-lg hover:bg-[#162d4d] transition-colors"
+                                className="px-8 py-2.5 bg-secondary text-white text-sm font-medium rounded-lg hover:bg-secondary-hover transition-colors"
                             >
                                 Close
                             </button>
@@ -999,7 +999,7 @@ export default function CandidateDetails(): React.ReactElement {
                     <div className="relative bg-white rounded-xl shadow-2xl w-[500px] max-w-[90vw] p-6">
                         {/* Header */}
                         <div className="flex items-center justify-between mb-4">
-                            <h2 className="text-lg font-semibold text-[#181D27]">Add Note for {candidate.name}</h2>
+                            <h2 className="text-lg font-semibold text-text-primary">Add Note for {candidate.name}</h2>
                             <button
                                 onClick={() => setShowNotesModal(false)}
                                 className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
@@ -1016,7 +1016,7 @@ export default function CandidateDetails(): React.ReactElement {
                             value={noteText}
                             onChange={(e) => setNoteText(e.target.value)}
                             placeholder="Enter your notes about this candidate..."
-                            className="w-full h-32 p-3 border border-gray-200 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#0857A1] focus:border-transparent"
+                            className="w-full h-32 p-3 border border-gray-200 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         />
 
                         {/* Buttons */}
@@ -1036,7 +1036,7 @@ export default function CandidateDetails(): React.ReactElement {
                                         setShowNotesModal(false);
                                     }
                                 }}
-                                className="px-4 py-2 bg-[#0857A1] text-white rounded-lg text-sm font-medium hover:bg-[#074a8a] transition-colors"
+                                className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors"
                             >
                                 Save Note
                             </button>

@@ -97,17 +97,17 @@ export default function PageHeader({ config }: PageHeaderProps) {
     const getButtonStyles = (variant: string = "secondary") => {
         switch (variant) {
             case "primary":
-                return "bg-[#0857A1] text-white hover:bg-[#064a8a]";
+                return "bg-primary text-white hover:bg-primary-hover";
             case "danger":
                 return "bg-[#FFF0F0] text-[#E53935] border border-[#FFCDD2] hover:bg-[#FFEBEE]";
             case "secondary":
             default:
-                return "bg-white text-[#0857A1] border border-[#E3EEFF] hover:bg-[#F5F9FF]";
+                return "bg-white text-primary border border-border-light hover:bg-primary-light";
         }
     };
 
     return (
-        <div className="w-full rounded-2xl bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden relative">
+        <div className="w-full rounded-2xl bg-white shadow-card overflow-hidden relative">
             {/* Background banner image */}
             <div
                 className="absolute top-0 right-0 h-full w-1/2 bg-no-repeat bg-right bg-contain pointer-events-none"
@@ -115,34 +115,34 @@ export default function PageHeader({ config }: PageHeaderProps) {
             />
 
             {/* Content */}
-            <div className="relative z-10 px-6 py-4">
+            <div className="relative z-10 px-6 py-5">
                 {/* Breadcrumb */}
                 <Breadcrumb items={headerConfig.breadcrumbs} />
 
                 {/* Main content row */}
-                <div className="flex items-center justify-between mt-2">
+                <div className="flex items-center justify-between mt-3">
                     {/* Left side - Title and info */}
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1.5">
                         <div className="flex items-center gap-3">
                             {headerConfig.showPersonIcon && (
-                                <span className="text-gray-500">
+                                <span className="text-text-muted">
                                     <PersonIcon />
                                 </span>
                             )}
-                            <h1 className="text-2xl font-semibold text-[#1a1f36]">
+                            <h1 className="text-2xl font-semibold text-text-primary">
                                 {headerConfig.title}
                             </h1>
                         </div>
 
                         {headerConfig.showTime && headerConfig.time && (
-                            <div className="flex items-center gap-1.5 text-gray-500 text-sm">
+                            <div className="flex items-center gap-1.5 text-text-muted text-sm">
                                 <ClockIcon />
                                 <span>{headerConfig.time}</span>
                             </div>
                         )}
 
                         {headerConfig.subtitle && (
-                            <p className="text-gray-500 text-sm">{headerConfig.subtitle}</p>
+                            <p className="text-text-secondary text-sm">{headerConfig.subtitle}</p>
                         )}
                     </div>
 
@@ -153,7 +153,7 @@ export default function PageHeader({ config }: PageHeaderProps) {
                                 <button
                                     key={index}
                                     onClick={button.onClick}
-                                    className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-colors ${getButtonStyles(button.variant)}`}
+                                    className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${getButtonStyles(button.variant)}`}
                                 >
                                     {button.icon}
                                     {button.label}

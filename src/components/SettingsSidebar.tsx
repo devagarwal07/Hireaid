@@ -78,13 +78,13 @@ const SettingsSidebar: React.FC<SettingsSidebarProps> = ({
             onClick={() => onSectionChange(item.id)}
             className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-all ${
               activeSection === item.id
-                ? "bg-[#EBF2FF] text-[#0857A1] font-medium"
-                : "text-[#626262] hover:bg-gray-50"
+                ? "bg-badge-blue text-primary font-medium"
+                : "text-text-secondary hover:bg-gray-50"
             }`}
           >
             <span
               className={
-                activeSection === item.id ? "text-[#0857A1]" : "text-[#626262]"
+                activeSection === item.id ? "text-primary" : "text-text-secondary"
               }
             >
               {item.icon}

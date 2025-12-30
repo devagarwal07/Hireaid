@@ -45,7 +45,7 @@ const RoleManagement: React.FC<RoleManagementProps> = ({ onBack }) => {
       <div className="flex items-center gap-2 mb-6">
         <button
           onClick={onBack}
-          className="text-sm text-[#626262] hover:text-[#0857A1] transition-colors flex items-center gap-1"
+          className="text-sm text-text-secondary hover:text-primary transition-colors flex items-center gap-1"
         >
           <svg
             width="16"
@@ -59,8 +59,8 @@ const RoleManagement: React.FC<RoleManagementProps> = ({ onBack }) => {
           </svg>
           User Management
         </button>
-        <span className="text-sm text-[#626262]">/</span>
-        <span className="text-sm text-[#181D27] font-medium">
+        <span className="text-sm text-text-secondary">/</span>
+        <span className="text-sm text-text-primary font-medium">
           Role Management
         </span>
       </div>
@@ -72,7 +72,7 @@ const RoleManagement: React.FC<RoleManagementProps> = ({ onBack }) => {
         onClick={() => setShowCreateNewRole(true)}
         className="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors text-left group mb-6 w-full"
       >
-        <div className="w-12 h-12 rounded-full bg-[#EBF2FF] flex items-center justify-center flex-shrink-0">
+        <div className="w-12 h-12 rounded-full bg-badge-blue flex items-center justify-center flex-shrink-0">
           <svg
             width="24"
             height="24"
@@ -88,10 +88,10 @@ const RoleManagement: React.FC<RoleManagementProps> = ({ onBack }) => {
           </svg>
         </div>
         <div className="flex-1">
-          <h3 className="text-base font-semibold text-[#181D27] mb-1">
+          <h3 className="text-base font-semibold text-text-primary mb-1">
             Create New Role
           </h3>
-          <p className="text-sm text-[#626262]">
+          <p className="text-sm text-text-secondary">
             Create and define new user roles with ease
           </p>
         </div>
@@ -110,7 +110,7 @@ const RoleManagement: React.FC<RoleManagementProps> = ({ onBack }) => {
 
       {/* Roles Section */}
       <div>
-        <h3 className="text-base font-semibold text-[#626262] mb-4">Roles</h3>
+        <h3 className="text-base font-semibold text-text-secondary mb-4">Roles</h3>
 
         {/* Roles Container */}
         <div className="border border-gray-200 rounded-lg overflow-hidden">
@@ -118,10 +118,10 @@ const RoleManagement: React.FC<RoleManagementProps> = ({ onBack }) => {
             <React.Fragment key={role.id}>
               <div className="flex items-center gap-4 p-4 bg-white hover:bg-gray-50 transition-colors">
                 <div className="flex-1">
-                  <h4 className="text-base font-semibold text-[#181D27] mb-1">
+                  <h4 className="text-base font-semibold text-text-primary mb-1">
                     {role.name}
                   </h4>
-                  <p className="text-sm text-[#626262]">{role.description}</p>
+                  <p className="text-sm text-text-secondary">{role.description}</p>
                 </div>
                 <svg
                   width="20"
