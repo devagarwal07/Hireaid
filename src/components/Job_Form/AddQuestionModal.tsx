@@ -33,9 +33,8 @@ export default function AddQuestionModal({
     isOpen,
     onClose,
     onSave,
-    onSaveAll,
+    // onSaveAll and editingQuestion are intentionally unused for now
     sections,
-    editingQuestion,
 }: AddQuestionModalProps) {
     // Tab and view state
     const [activeTab, setActiveTab] = useState<TabType>("Manual");

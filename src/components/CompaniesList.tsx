@@ -79,7 +79,7 @@ export default function CompaniesList() {
             </div>
             <button
               onClick={() => navigate("/companies/create-account")}
-              className="flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-full font-medium text-sm transition-all duration-200"
+              className="flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary-hover transition-all duration-200 text-white rounded-full font-medium text-sm"
             >
               <svg
                 width="16"

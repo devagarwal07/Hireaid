@@ -8,7 +8,7 @@ export default function RecommendedQuestionCanvas({
   onAsk,
 }: Props) {
   return (
-    <div className="w-full max-w-md p-2 bg-white rounded-2xl border border-[#eef6ff] shadow-sm">
+    <div className="w-full max-w-md p-2 bg-white rounded-2xl border border-blue-50 shadow-sm">
       {/* Header: tiny waveform + title */}
       <div className="flex items-center gap-3 mb-3">
         <div className="flex-shrink-0">
@@ -21,11 +21,11 @@ export default function RecommendedQuestionCanvas({
           </svg>
         </div>
 
-        <div className="text-xs font-semibold text-[#0f4db2]">Recommended follow up question</div>
+        <div className="text-xs font-semibold text-primary">Recommended follow up question</div>
       </div>
 
       {/* Big rounded card */}
-      <div className="border-2 border-[#CFEFFF] rounded-xl p-4 bg-white">
+      <div className="border-2 border-cyan-200 rounded-xl p-4 bg-white">
         <div className="flex items-start gap-4">
           {/* sparkle icon */}
           <div className="flex-shrink-0 pt-1">
@@ -37,14 +37,14 @@ export default function RecommendedQuestionCanvas({
 
           {/* question text */}
           <div className="flex-1">
-            <div className="text-[#0c6ea6] text-sm leading-6">{text}</div>
+            <div className="text-primary text-sm leading-6">{text}</div>
           </div>
 
           {/* Ask CTA */}
           <div className="flex items-start">
             <button
               onClick={() => onAsk?.()}
-              className="text-sm font-medium text-[#0f4db2] hover:underline"
+              className="text-sm font-medium text-primary hover:underline"
             >
               Ask Question
             </button>

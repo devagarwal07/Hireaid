@@ -30,7 +30,7 @@ export default function ScheduleInterviewDemo(): React.ReactElement {
                 </p>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="px-6 py-3 bg-secondary hover:bg-secondary-hover text-white font-medium rounded-lg transition-colors"
+                    className="px-6 py-3 bg-secondary hover:bg-secondary-hover text-white font-medium rounded-lg"
                 >
                     Open Schedule Interview Modal
                 </button>

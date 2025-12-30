@@ -177,7 +177,7 @@ export default function UploadApplicationsModal({
                                 e.stopPropagation();
                                 handleUploadClick();
                             }}
-                            className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary text-primary text-sm font-medium hover:bg-hover-bg transition-colors mb-3"
+                            className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary text-primary text-sm font-medium hover:bg-hover-bg transition-colors duration-200 mb-3"
                         >
                             <UploadIcon />
                             Upload Document
@@ -226,7 +226,7 @@ export default function UploadApplicationsModal({
                         className={`
               px-6 py-2.5 rounded-lg text-sm font-medium transition-colors
               ${uploadedFiles.length > 0
-                                ? "bg-secondary hover:bg-secondary-hover text-white"
+                                ? "bg-secondary hover:bg-secondary-hover transition-colors duration-200 text-white"
                                 : "bg-gray-200 text-gray-400 cursor-not-allowed"
                             }
             `}

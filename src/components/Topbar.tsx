@@ -52,7 +52,7 @@ export default function Topbar({
               type="button"
               onClick={handleToggleNotifications}
               aria-label="notifications"
-              className="relative p-2 rounded-full hover:bg-primary-light text-text-muted transition-colors duration-200"
+              className="relative p-2 rounded-full hover:bg-primary-light transition-colors duration-200 text-text-muted"
             >
               {/* bell icon */}
               <svg
@@ -87,7 +87,7 @@ export default function Topbar({
 
           <button
             onClick={handleProfileClick}
-            className="flex items-center gap-3 rounded-full px-3 py-1.5 hover:bg-primary-light cursor-pointer transition-colors duration-200"
+            className="flex items-center gap-3 rounded-full px-3 py-1.5 hover:bg-primary-light transition-colors duration-200 cursor-pointer"
             type="button"
           >
             <div className="w-9 h-9 rounded-full bg-primary overflow-hidden flex items-center justify-center text-sm font-semibold text-white">

@@ -63,7 +63,7 @@ export default function ChatInput({
       />
 
       {/* Container */}
-      <div className="bg-white rounded-xl p-4 border border-[#DFDFDF] shadow-sm">
+      <div className="bg-white rounded-xl p-4 border border-gray-300 shadow-sm">
         {/* Input Field */}
         <input
           value={text}
@@ -101,7 +101,7 @@ export default function ChatInput({
             className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors
               ${
                 text.trim()
-                  ? "bg-primary hover:bg-[#2C77BD] text-white"
+                  ? "bg-primary hover:bg-primary-hover text-white"
                   : "bg-neutral-dark text-white cursor-not-allowed"
               }`}
           >
@@ -113,7 +113,7 @@ export default function ChatInput({
         {selectedName && (
           <div className="mt-4 space-y-2 text-xs">
             {isUploading === "uploading" && (
-              <div className="flex items-center justify-between border border-[#E1E1E1] rounded-md px-3 py-2 bg-white">
+              <div className="flex items-center justify-between border border-border-light rounded-md px-3 py-2 bg-white">
                 <div className="flex items-center gap-3">
                   <div className="relative w-10 h-10">
                     <div className="absolute inset-0 rounded border border-border-input bg-white" />
@@ -121,9 +121,9 @@ export default function ChatInput({
                   </div>
                   <div>
                     <div className="text-[14px] font-medium text-text-primary leading-[18px]">{selectedName}</div>
-                    <div className="flex items-center gap-2 text-[#535862] mt-0.5">
+                    <div className="flex items-center gap-2 text-text-secondary mt-0.5">
                       <span>Uploading</span>
-                      <span className="w-px h-3 bg-[#D5D7DA]" />
+                      <span className="w-px h-3 bg-border-input" />
                       <span className="flex items-center gap-1">
                         <span className="w-4 h-4 rounded-full border border-[#A4A7AE]" />
                         <span>40%</span>
@@ -143,9 +143,9 @@ export default function ChatInput({
                   </div>
                   <div>
                     <div className="text-[14px] font-medium text-text-primary leading-[18px]">{selectedName}</div>
-                    <div className="flex items-center gap-2 text-[#535862] mt-0.5">
+                    <div className="flex items-center gap-2 text-text-secondary mt-0.5">
                       <span>Uploaded</span>
-                      <span className="w-px h-3 bg-[#D5D7DA]" />
+                      <span className="w-px h-3 bg-border-input" />
                       <span className="flex items-center gap-1">
                         <span className="w-4 h-4 rounded-full border border-[#11A843]" />
                         <span>100%</span>
@@ -166,7 +166,7 @@ export default function ChatInput({
                   <div>
                     <div className="text-[14px] font-medium text-text-primary leading-[18px]">{selectedName}</div>
                     <div className="flex items-center gap-2 mt-0.5">
-                      <span className="flex items-center gap-1 text-[#FF3636]">
+                      <span className="flex items-center gap-1 text-error">
                         <span className="w-4 h-4 rounded-full border border-[#FF3636]" />
                         <span>Upload failed</span>
                       </span>

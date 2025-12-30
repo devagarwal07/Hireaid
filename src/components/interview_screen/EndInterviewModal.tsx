@@ -33,7 +33,7 @@ export function EndInterviewModal({ open, onClose, onConfirm }: EndInterviewModa
 
                 {/* Header with warning icon */}
                 <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-full bg-[#FFF4E6] flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-warning-light flex items-center justify-center flex-shrink-0">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
                                 d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
@@ -44,7 +44,7 @@ export function EndInterviewModal({ open, onClose, onConfirm }: EndInterviewModa
                             />
                         </svg>
                     </div>
-                    <h2 className="text-xl font-semibold text-[#1a1a1a]">Confirmation</h2>
+                    <h2 className="text-xl font-semibold text-text-primary">Confirmation</h2>
                 </div>
 
                 {/* Message */}
@@ -62,7 +62,7 @@ export function EndInterviewModal({ open, onClose, onConfirm }: EndInterviewModa
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="px-5 py-2.5 rounded-lg bg-primary hover:bg-[#064580] text-white font-medium transition-colors"
+                        className="px-5 py-2.5 rounded-lg bg-primary hover:bg-primary-dark text-white font-medium transition-colors"
                     >
                         End Interview
                     </button>

@@ -130,7 +130,7 @@ export default function JobList() {
         </h2>
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center justify-center gap-1.5 px-3 h-10 bg-primary rounded-[35px] hover:bg-primary-dark transition-colors"
+          className="flex items-center justify-center gap-1.5 px-3 h-10 bg-primary rounded-[35px] hover:bg-primary-dark"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 3.33334V12.6667" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -156,11 +156,11 @@ export default function JobList() {
               placeholder="Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 text-sm text-text-primary bg-transparent outline-none placeholder:text-[#989898]"
+              className="flex-1 text-sm text-text-primary bg-transparent outline-none placeholder:text-text-placeholder"
             />
           </div>
           {/* Filter Button */}
-          <button className="flex items-center justify-center gap-1 px-3.5 h-10 bg-[#F2F2F2] border border-border-input rounded-[36px] hover:bg-[#E8E8E8] transition-colors">
+          <button className="flex items-center justify-center gap-1 px-3.5 h-10 bg-neutral border border-border-input rounded-[36px] hover:bg-neutral-hover transition-colors">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="#989898" strokeWidth="1.67" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -181,7 +181,7 @@ export default function JobList() {
               <div className="flex justify-between items-start">
                 <div className="flex items-center gap-3">
                   {/* Icon Box */}
-                  <div className="flex items-center justify-center w-[47px] h-[47px] bg-[rgba(39,214,189,0.06)] border border-[#BDE8E2] rounded-[5.68px]">
+                  <div className="flex items-center justify-center w-[47px] h-[47px] bg-[rgba(39,214,189,0.06)] border border-teal-200 rounded-[5.68px]">
                     <JobIcon type={job.icon} />
                   </div>
                   {/* Job Info */}
@@ -201,7 +201,7 @@ export default function JobList() {
                         </span>
                       </div>
                       {/* Separator */}
-                      <div className="w-1 h-1 rounded-full bg-[#AEAEAE]" />
+                      <div className="w-1 h-1 rounded-full bg-text-muted" />
                       {/* Date */}
                       <div className="flex items-center gap-1.5">
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -327,7 +327,7 @@ export default function JobList() {
 
               {/* Footer */}
               <div className="flex flex-col gap-3">
-                <div className="w-full h-px bg-[#F0F0F0]" />
+                <div className="w-full h-px bg-neutral" />
                 <div className="flex justify-between items-center">
                   <button
                     onClick={() => navigate(`/job/${job.id}/candidates`)}
@@ -354,7 +354,7 @@ export default function JobList() {
           </p>
           <button
             onClick={() => setOpen(true)}
-            className="flex items-center gap-1.5 px-5 py-2.5 bg-primary text-white rounded-[35px] hover:bg-primary-dark transition-colors"
+            className="flex items-center gap-1.5 px-5 py-2.5 bg-primary text-white rounded-[35px] hover:bg-primary-dark"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8 3.33334V12.6667" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />

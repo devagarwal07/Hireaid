@@ -15,7 +15,7 @@ export function DisclaimerModal({ open, onClose, onAgree }: DisclaimerModalProps
       <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
         <div className="w-full max-w-lg rounded-3xl bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)]">
           <div className="flex items-start gap-3">
-            <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-2xl bg-[#FFF4EB] text-[#C05621]">
+            <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-2xl bg-warning-light text-warning-text">
               <svg
                 width="20"
                 height="20"

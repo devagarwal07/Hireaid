@@ -77,7 +77,7 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-[#181D27] px-6 py-4 flex justify-between items-center">
+        <div className="bg-text-primary px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <h2 className="font-semibold text-lg text-white">
               Job Description Preview
@@ -255,7 +255,7 @@ export default function JobDescriptionPreviewModal({ isOpen, onClose, formData }
         <div className="flex justify-end p-6 border-t border-border-light">
           <button
             onClick={onClose}
-            className="px-5 py-2.5 rounded-lg font-medium text-sm text-white bg-primary hover:bg-primary-dark transition-colors"
+            className="px-5 py-2.5 rounded-lg font-medium text-sm text-white bg-primary hover:bg-primary-dark transition-colors duration-200"
           >
             Close
           </button>

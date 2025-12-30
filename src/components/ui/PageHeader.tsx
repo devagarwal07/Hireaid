@@ -99,7 +99,7 @@ export default function PageHeader({ config }: PageHeaderProps) {
             case "primary":
                 return "bg-primary text-white hover:bg-primary-hover";
             case "danger":
-                return "bg-[#FFF0F0] text-[#E53935] border border-[#FFCDD2] hover:bg-[#FFEBEE]";
+                return "bg-error-light text-error border border-red-200 hover:bg-red-50";
             case "secondary":
             default:
                 return "bg-white text-primary border border-border-light hover:bg-primary-light";

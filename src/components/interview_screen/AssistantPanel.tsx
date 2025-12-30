@@ -39,7 +39,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
               type="button"
               onClick={() => setActiveTab("assistant")}
               className={`flex items-center gap-2 px-3 py-2 rounded-t-xl text-sm font-semibold border-b ${activeTab === "assistant"
-                ? "border-[#A1E4F5] bg-white/70"
+                ? "border-cyan-300 bg-white/70"
                 : "border-transparent bg-transparent text-text-primary/80"
                 }`}
             >
@@ -159,13 +159,13 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
         <div className="flex-1 overflow-y-auto px-4 pt-4 pb-4 space-y-4">
           {/* AI ASSISTANT TAB */}
           {activeTab === "assistant" && (
-            <div className="max-w-[692px] bg-[#F3FEFF] border border-[#88E6FF] rounded-xl px-5 py-3">
-              <p className="text-[#088E7D] text-[14px] leading-[1.2] font-semibold font-[Lato,ui-sans-serif]">
+            <div className="max-w-[692px] bg-cyan-50 border border-cyan-300 rounded-xl px-5 py-3">
+              <p className="text-teal-600 text-[14px] leading-[1.2] font-semibold font-[Lato,ui-sans-serif]">
                 Hi {firstName}, Lets get this interview started. Feel free to ask me any doubts you have during the interview,
                 I will also provide Realtime feedback and evaluations for the candidates answers. You can also use this area to
                 take notes.
               </p>
-              <div className="mt-3 text-[11px] leading-[17px] text-[#7F7F7F] font-medium">
+              <div className="mt-3 text-[11px] leading-[17px] text-text-muted font-medium">
                 9:40 AM
               </div>
             </div>
@@ -173,7 +173,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
 
           {/* NOTES TAB */}
           {activeTab === "notes" && (
-            <div className="max-w-[789px] bg-white border border-[#E3E3E3] rounded-xl px-4 py-4">
+            <div className="max-w-[789px] bg-white border border-border-light rounded-xl px-4 py-4">
               <p className="text-[14px] leading-[21px] text-text-primary">
                 The candidate presents a well-structured resume that highlights strong academic background, relevant professional
                 experience, and clearly demonstrated skills. Achievements are quantified, showcasing impact and results, while the
@@ -184,7 +184,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
 
           {/* TRANSCRIPT TAB */}
           {activeTab === "transcript" && (
-            <div className="max-w-[787px] bg-white border border-[#E3E3E3] rounded-xl px-4 py-4 space-y-4">
+            <div className="max-w-[787px] bg-white border border-border-light rounded-xl px-4 py-4 space-y-4">
               {/* Simple transcript aligned with Figma copy */}
               <div className="space-y-3">
                 {/* John (You) */}
@@ -193,7 +193,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
                   <div className="flex-1 space-y-1">
                     <div className="flex items-center gap-2">
                       <span className="text-[14px] font-medium text-text-primary">John Doe (You)</span>
-                      <span className="px-2 py-[2px] rounded-full bg-[#DAEAFA] text-[12px] text-primary tracking-[-0.02em]">
+                      <span className="px-2 py-[2px] rounded-full bg-primary-light text-[12px] text-primary tracking-[-0.02em]">
                         00:10
                       </span>
                     </div>
@@ -207,7 +207,7 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
                   <div className="flex-1 space-y-1">
                     <div className="flex items-center gap-2">
                       <span className="text-[14px] font-medium text-text-primary">Phillip Sam (Candidate 1)</span>
-                      <span className="px-2 py-[2px] rounded-full bg-[#DAEAFA] text-[12px] text-primary tracking-[-0.02em]">
+                      <span className="px-2 py-[2px] rounded-full bg-primary-light text-[12px] text-primary tracking-[-0.02em]">
                         00:15
                       </span>
                     </div>

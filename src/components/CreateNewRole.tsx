@@ -254,13 +254,13 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ onBack }) => {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-1 py-3 text-sm font-medium transition-colors relative ${activeTab === tab
-                    ? "text-[#0038CE]"
+                    ? "text-primary"
                     : "text-text-secondary hover:text-text-primary"
                   }`}
               >
                 {tab}
                 {activeTab === tab && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0038CE]" />
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
                 )}
               </button>
             ))}

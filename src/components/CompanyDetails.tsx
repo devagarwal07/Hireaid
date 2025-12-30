@@ -16,7 +16,7 @@ export default function CompanyDetails() {
                     <p className="text-gray-600 mb-6">The company you're looking for doesn't exist.</p>
                     <button
                         onClick={() => navigate("/companies")}
-                        className="px-5 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-md font-medium text-sm transition-colors"
+                        className="px-5 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-md font-medium text-sm"
                     >
                         Back to Companies List
                     </button>
@@ -68,7 +68,7 @@ export default function CompanyDetails() {
                 </div>
                 <button
                     onClick={() => navigate("/companies")}
-                    className="px-5 py-2.5 bg-neutral hover:bg-neutral-hover text-text-primary rounded-md font-medium text-sm transition-colors"
+                    className="px-5 py-2.5 bg-neutral hover:bg-neutral-hover text-text-primary rounded-md font-medium text-sm"
                 >
                     Back to List
                 </button>

@@ -78,7 +78,7 @@ const Integrations: React.FC = () => {
                 </div>
                 <button
                   onClick={() => handleUnlink(software.name)}
-                  className="text-[#ff3636] text-sm font-medium hover:underline"
+                  className="text-error text-sm font-medium hover:underline"
                 >
                   Unlink
                 </button>
@@ -110,7 +110,7 @@ const Integrations: React.FC = () => {
                 </div>
                 <button
                   onClick={() => handleIntegrate(integration.name)}
-                  className="text-[#3B82F6] text-sm font-medium hover:underline ml-4"
+                  className="text-info text-sm font-medium hover:underline ml-4"
                 >
                   Integrate
                 </button>

@@ -447,7 +447,7 @@ export default function CandidateDetails(): React.ReactElement {
                                             <>
                                                 <button
                                                     onClick={() => setShowScheduleTestModal(true)}
-                                                    className="px-5 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors"
+                                                    className="px-5 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors duration-200"
                                                 >
                                                     Schedule Test
                                                 </button>
@@ -462,7 +462,7 @@ export default function CandidateDetails(): React.ReactElement {
                                             <>
                                                 <button
                                                     onClick={() => setShowScheduleModal(true)}
-                                                    className="px-5 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors"
+                                                    className="px-5 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors duration-200"
                                                 >
                                                     Schedule Interview
                                                 </button>
@@ -692,7 +692,7 @@ export default function CandidateDetails(): React.ReactElement {
                                         </div>
 
                                         {/* Right: AI Recommendation */}
-                                        <div className="bg-[#E6F7F7] rounded-xl p-5">
+                                        <div className="bg-teal-50 rounded-xl p-5">
                                             <div className="flex items-center gap-2 mb-4">
                                                 <SparkleIcon color="#22C55E" />
                                                 <span className="text-sm font-medium text-green-600">AI Recommendation</span>
@@ -804,7 +804,7 @@ export default function CandidateDetails(): React.ReactElement {
                                         <p className="text-gray-500 mb-4">Interview not scheduled</p>
                                         <button
                                             onClick={() => setShowScheduleModal(true)}
-                                            className="px-6 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors"
+                                            className="px-6 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors duration-200"
                                         >
                                             Schedule Interview
                                         </button>
@@ -831,7 +831,7 @@ export default function CandidateDetails(): React.ReactElement {
                             <p className="text-sm text-gray-500 mb-4">Interview not scheduled</p>
                             <button
                                 onClick={() => setShowScheduleModal(true)}
-                                className="px-6 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors"
+                                className="px-6 py-2.5 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors duration-200"
                             >
                                 Schedule Interview
                             </button>
@@ -977,7 +977,7 @@ export default function CandidateDetails(): React.ReactElement {
                         <div className="flex justify-center mt-6">
                             <button
                                 onClick={() => setShowLinksModal(false)}
-                                className="px-8 py-2.5 bg-secondary text-white text-sm font-medium rounded-lg hover:bg-secondary-hover transition-colors"
+                                className="px-8 py-2.5 bg-secondary text-white text-sm font-medium rounded-lg hover:bg-secondary-hover transition-colors duration-200"
                             >
                                 Close
                             </button>
@@ -1036,7 +1036,7 @@ export default function CandidateDetails(): React.ReactElement {
                                         setShowNotesModal(false);
                                     }
                                 }}
-                                className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors"
+                                className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors duration-200"
                             >
                                 Save Note
                             </button>

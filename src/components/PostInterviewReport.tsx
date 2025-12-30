@@ -264,7 +264,7 @@ John Doe`);
                             </button>
                             <button
                                 onClick={handleConfirmEdit}
-                                className="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors"
+                                className="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors duration-200"
                             >
                                 Proceed
                             </button>
@@ -619,7 +619,7 @@ John Doe`);
                     <p className="text-gray-500 mb-4">Test not scheduled</p>
                     <button
                         onClick={() => setShowScheduleTestModal(true)}
-                        className="px-6 py-2.5 bg-secondary text-white rounded-lg font-medium hover:bg-secondary-hover transition-colors"
+                        className="px-6 py-2.5 bg-secondary text-white rounded-lg font-medium hover:bg-secondary-hover transition-colors duration-200"
                     >
                         Schedule Test
                     </button>
@@ -699,7 +699,7 @@ John Doe`);
                                     }
                                 }}
                                 disabled={!testDate || !testTime}
-                                className="px-4 py-2 bg-secondary text-white text-sm font-medium rounded-lg hover:bg-secondary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="px-4 py-2 bg-secondary text-white text-sm font-medium rounded-lg hover:bg-secondary-hover transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Schedule Test
                             </button>
@@ -824,7 +824,7 @@ John Doe`);
                         </div>
 
                         <div className="flex justify-end p-6 border-t border-gray-200">
-                            <button onClick={handleShare} className="px-6 py-2.5 bg-secondary text-white rounded-lg font-medium hover:bg-secondary-hover transition-colors flex items-center gap-2">
+                            <button onClick={handleShare} className="px-6 py-2.5 bg-secondary text-white rounded-lg font-medium hover:bg-secondary-hover transition-colors duration-200 flex items-center gap-2">
                                 Share Report
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <line x1="22" y1="2" x2="11" y2="13" />

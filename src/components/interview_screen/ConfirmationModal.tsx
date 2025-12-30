@@ -18,7 +18,7 @@ export function ConfirmationModal({ open, onClose, onConfirm }: ConfirmationModa
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#FFF4EB] text-[#C05621]">
+                            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-warning-light text-warning-text">
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.5" />
                                     <path d="M6 3V6.5M6 8.5V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

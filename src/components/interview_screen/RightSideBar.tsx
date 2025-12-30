@@ -48,7 +48,7 @@ export default function RightSideBar({
   totalSteps: externalTotal,
   onActionButton,
   onShowScreenShare,
-  onEvaluateQuestion,
+  // onEvaluateQuestion is intentionally unused for now
 }: Props): React.ReactElement {
   const [open, setOpen] = useState(true);
   const [activeTab, setActiveTab] = useState<RightTab>("structure");
@@ -123,12 +123,13 @@ export default function RightSideBar({
   const derivedCurrent = typeof externalCurrent === "number" ? externalCurrent : current;
   const q = questionsState[derivedCurrent] || questionsState[0];
 
-  function goNext() {
-    setCurrent((s) => Math.min(questionsState.length - 1, s + 1));
-  }
-  function goPrev() {
-    setCurrent((s) => Math.max(0, s - 1));
-  }
+  // Navigation functions (kept for future use)
+  // function goNext() {
+  //   setCurrent((s) => Math.min(questionsState.length - 1, s + 1));
+  // }
+  // function goPrev() {
+  //   setCurrent((s) => Math.max(0, s - 1));
+  // }
 
   function handleSaveNavigation() {
     // default navigation to InterviewPrepDashboard
@@ -243,21 +244,21 @@ export default function RightSideBar({
   return (
     <>
       <div className={`transform transition-all ${open ? "opacity-100" : "opacity-0 scale-95 pointer-events-none"} w-full`} aria-hidden={!open}>
-        <div className="rounded-2xl shadow-[0_12px_30px_rgba(34,54,84,0.12)] overflow-hidden bg-white border border-[#e6f0ff]" style={{ minHeight: '600px' }}>
+        <div className="rounded-2xl shadow-[0_12px_30px_rgba(34,54,84,0.12)] overflow-hidden bg-white border border-primary-light" style={{ minHeight: '600px' }}>
           <div className="h-full px-4 py-5 flex flex-col">
             {/* Header tabs */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-4">
-                <button onClick={() => setActiveTab("structure")} className={`text-sm font-medium pb-2 ${activeTab === "structure" ? "text-[#0f4db2] border-b-2 border-[#dbeafe]" : "text-[#6b7280]"}`}>
+                <button onClick={() => setActiveTab("structure")} className={`text-sm font-medium pb-2 ${activeTab === "structure" ? "text-primary border-b-2 border-blue-100" : "text-text-secondary"}`}>
                   Interview Structure
                 </button>
-                <button onClick={() => setActiveTab("resume")} className={`text-sm font-medium pb-2 ${activeTab === "resume" ? "text-[#0f4db2] border-b-2 border-[#dbeafe]" : "text-[#6b7280]"}`}>
+                <button onClick={() => setActiveTab("resume")} className={`text-sm font-medium pb-2 ${activeTab === "resume" ? "text-primary border-b-2 border-blue-100" : "text-text-secondary"}`}>
                   Resume Details
                 </button>
               </div>
 
-              <div className="flex items-center gap-2 text-[#6b7280]">
-                <button title="Open" className="p-1 rounded hover:bg-[#f3f7ff]" onClick={() => onExpand?.()}>
+              <div className="flex items-center gap-2 text-text-secondary">
+                <button title="Open" className="p-1 rounded hover:bg-hover-bg" onClick={() => onExpand?.()}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                     <polyline points="15 3 21 3 21 9"></polyline>
@@ -265,7 +266,7 @@ export default function RightSideBar({
                   </svg>
                 </button>
 
-                <button title="Close" className="p-1 rounded hover:bg-[#f3f7ff]" onClick={() => setOpen(false)}>
+                <button title="Close" className="p-1 rounded hover:bg-hover-bg" onClick={() => setOpen(false)}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -274,14 +275,14 @@ export default function RightSideBar({
               </div>
             </div>
 
-            <div className="border-b border-[#eef6ff] mb-3" />
+            <div className="border-b border-blue-50 mb-3" />
 
             {/* If not started: show the initial start screen */}
             {!started ? (
               <div className="flex-1 flex flex-col items-center justify-center text-center px-6 py-8">
                 <div className="mb-6">
-                  <div className="w-20 h-20 rounded-full bg-[#eef7ff] flex items-center justify-center mx-auto">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="text-[#0b61c9]">
+                  <div className="w-20 h-20 rounded-full bg-primary-light flex items-center justify-center mx-auto">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="text-primary">
                       <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="#0b61c9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="#0b61c9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -289,7 +290,7 @@ export default function RightSideBar({
                 </div>
 
                 <h3 className="text-base font-semibold text-text-primary mb-3">Hi there.</h3>
-                <p className="text-sm text-[#6b7280] mb-6 leading-relaxed max-w-[260px]">
+                <p className="text-sm text-text-secondary mb-6 leading-relaxed max-w-[260px]">
                   The interview questions are ready. Please click on the button below to start the interview process.
                 </p>
 
@@ -306,7 +307,7 @@ export default function RightSideBar({
               <>
                 <div className="flex-1 overflow-auto px-1 pb-4">
                   <div className="mb-3">
-                    <div className="text-xs text-[#9aa4b2]">Warmup ({derivedCurrent + 1} out of {questionsState.length} Questions)</div>
+                    <div className="text-xs text-text-muted">Warmup ({derivedCurrent + 1} out of {questionsState.length} Questions)</div>
                   </div>
 
                   {/* Question card using shared QuestionCard component */}
@@ -339,7 +340,7 @@ export default function RightSideBar({
                 </div>
 
                 {/* Footer */}
-                <div className="pt-2 border-t border-[#f1f7ff]">
+                <div className="pt-2 border-t border-blue-50">
                   <div className="flex items-center justify-end">
                     <button
                       onClick={onPrimaryClick}

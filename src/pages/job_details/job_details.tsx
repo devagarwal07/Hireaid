@@ -31,7 +31,7 @@ const JobDashboardPage: React.FC = () => {
 
                     <button
                       type="button"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary bg-white text-primary font-medium text-sm hover:bg-hover-bg transition"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary bg-white text-primary font-medium text-sm hover:bg-hover-bg transition-colors duration-200"
                     >
                       Try it now
                     </button>

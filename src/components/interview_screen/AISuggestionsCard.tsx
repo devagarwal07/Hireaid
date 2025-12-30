@@ -15,8 +15,7 @@ const headlineByVariant: Record<AISuggestionVariant, string> = {
 
 export default function AISuggestionsCard({
   variant = "listening",
-  primaryLabel = "Submit & Next",
-  onPrimaryAction,
+  // primaryLabel and onPrimaryAction are intentionally unused for now
 }: Props) {
   const headline = headlineByVariant[variant];
 
@@ -28,7 +27,7 @@ export default function AISuggestionsCard({
   const showDescription = Boolean(description);
 
   return (
-    <div className="w-full bg-white shadow-[4px_4px_40px_rgba(0,0,0,0.1)] rounded-2xl border border-[#EFEFEF] px-4 py-4 mb-3">
+    <div className="w-full bg-white shadow-[4px_4px_40px_rgba(0,0,0,0.1)] rounded-2xl border border-neutral px-4 py-4 mb-3">
       {/* Header: HireAide AI */}
       <div className="flex flex-col gap-2 mb-3">
         <div className="flex items-center gap-2">
@@ -64,7 +63,7 @@ export default function AISuggestionsCard({
             {headline}
           </p>
           {showDescription && (
-            <p className="mt-2 text-[14px] leading-[21px] text-[#FF3737]">
+            <p className="mt-2 text-[14px] leading-[21px] text-error">
               {description}
             </p>
           )}

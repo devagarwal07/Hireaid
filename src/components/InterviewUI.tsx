@@ -192,9 +192,9 @@ export default function InterviewUI(): React.ReactElement {
           {/* LEFT COLUMN: Video + AI Assistant Panel */}
           <div className="flex-1 min-w-0 flex flex-col gap-4">
             {/* VIDEO CARD */}
-            <div className="bg-white border border-[#eef3fa] rounded-2xl shadow-sm overflow-hidden">
+            <div className="bg-white border border-border-light rounded-2xl shadow-sm overflow-hidden">
               <div
-                className="relative bg-[#1a1a2e] flex items-center justify-center text-white"
+                className="relative bg-gray-900 flex items-center justify-center text-white"
                 style={{ height: "400px" }}
               >
                 {/* Video placeholder - in real app this would be a video element */}
@@ -204,7 +204,7 @@ export default function InterviewUI(): React.ReactElement {
                 </div>
                 <span className="text-4xl font-medium">{candidate.name}</span>
                 {/* Bottom video controls bar */}
-                <div className="absolute bottom-0 left-0 right-0 bg-[#2d2d3a] px-4 py-2 flex items-center justify-center gap-4">
+                <div className="absolute bottom-0 left-0 right-0 bg-gray-800 px-4 py-2 flex items-center justify-center gap-4">
                   <button className="p-2 hover:bg-white/10 rounded-lg text-white/80 text-xs flex flex-col items-center gap-1">
                     <svg
                       width="18"

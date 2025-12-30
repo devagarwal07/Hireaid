@@ -575,7 +575,7 @@ export default function PostInterviewReportPage(): React.ReactElement {
                                             Upload Image
                                         </button>
                                     </div>
-                                    <button className="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors">
+                                    <button className="px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark">
                                         Save Comment
                                     </button>
                                 </div>

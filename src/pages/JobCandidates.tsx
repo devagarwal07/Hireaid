@@ -296,7 +296,7 @@ export default function JobCandidates(): React.ReactElement {
                     <p className="text-gray-600 mb-4">The job you're looking for doesn't exist.</p>
                     <button
                         onClick={() => navigate("/job-dashboard")}
-                        className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+                        className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
                     >
                         Back to Job Dashboard
                     </button>
@@ -387,7 +387,7 @@ export default function JobCandidates(): React.ReactElement {
                         <div className="flex items-center gap-3">
                             <button
                                 onClick={() => setShowViewJDModal(true)}
-                                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary text-primary text-sm font-medium hover:bg-hover-bg transition-colors"
+                                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary text-primary text-sm font-medium hover:bg-hover-bg"
                             >
                                 <EyeIcon />
                                 View JD
@@ -397,7 +397,7 @@ export default function JobCandidates(): React.ReactElement {
                                     setShowToast({ message: "Hiring process editor will open here", type: "success" });
                                     setTimeout(() => setShowToast(null), 3000);
                                 }}
-                                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary text-primary text-sm font-medium hover:bg-hover-bg transition-colors"
+                                className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary text-primary text-sm font-medium hover:bg-hover-bg"
                             >
                                 <EditIcon />
                                 Edit Hiring Process
@@ -407,7 +407,7 @@ export default function JobCandidates(): React.ReactElement {
                             <div className="relative">
                                 <button
                                     onClick={() => setShowMoreActions(!showMoreActions)}
-                                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-secondary text-white text-sm font-medium hover:bg-secondary-hover transition-colors"
+                                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-secondary text-white text-sm font-medium hover:bg-secondary-hover"
                                 >
                                     More Actions
                                     <ChevronDownIcon />

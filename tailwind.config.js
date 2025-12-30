@@ -106,6 +106,17 @@ export default {
       boxShadow: {
         'card': '0 2px 11px rgba(0, 0, 0, 0.08)',
         'sidebar': '0px 4px 7.2px rgba(0, 0, 0, 0.12)',
+        'hover': '0 4px 20px rgba(0, 0, 0, 0.1)',
+      },
+      // Transitions - smooth animations
+      transitionDuration: {
+        'fast': '150ms',
+        'normal': '200ms',
+        'slow': '300ms',
+      },
+      transitionTimingFunction: {
+        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
       },
       // Font sizes matching design system
       fontSize: {

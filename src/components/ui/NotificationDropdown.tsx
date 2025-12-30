@@ -82,7 +82,7 @@ export const NotificationDropdown: FC<NotificationDropdownProps> = () => {
               <div className="mt-2 flex items-center gap-3">
                 <button
                   type="button"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#E0ECFF] px-3 py-1 text-[11px] font-medium text-primary hover:bg-[#D0E4FF]"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary-light px-3 py-1 text-[11px] font-medium text-primary hover:bg-blue-200"
                 >
                   <span className="inline-block h-[14px] w-[14px] rounded bg-primary/90" />
                   See Comment
@@ -95,7 +95,7 @@ export const NotificationDropdown: FC<NotificationDropdownProps> = () => {
           {/* item 3 */}
           <div className="flex items-start gap-3 px-5 py-4">
             <div className="h-9 w-9 rounded-full bg-gray-100 flex items-center justify-center">
-              <span className="h-5 w-5 rounded-lg bg-[#E5E7EB]" />
+              <span className="h-5 w-5 rounded-lg bg-gray-200" />
             </div>
             <div className="flex-1 text-sm">
               <p className="text-[13px] leading-5 font-semibold text-text-primary">

@@ -316,7 +316,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "superadmin" ? "bg-badge-blue" : ""
                     }`}
                 >
-                  <div className="w-4 h-4 rounded-full border-2 border-[#9CA3AF] flex items-center justify-center flex-shrink-0">
+                  <div className="w-4 h-4 rounded-full border-2 border-gray-400 flex items-center justify-center flex-shrink-0">
                     {formData.role === "superadmin" && (
                       <div className="w-2 h-2 rounded-full bg-primary"></div>
                     )}
@@ -338,7 +338,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "recruiter" ? "bg-badge-blue" : ""
                     }`}
                 >
-                  <div className="w-4 h-4 rounded-full border-2 border-[#9CA3AF] flex items-center justify-center flex-shrink-0">
+                  <div className="w-4 h-4 rounded-full border-2 border-gray-400 flex items-center justify-center flex-shrink-0">
                     {formData.role === "recruiter" && (
                       <div className="w-2 h-2 rounded-full bg-primary"></div>
                     )}
@@ -360,7 +360,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors ${formData.role === "interviewer" ? "bg-badge-blue" : ""
                     }`}
                 >
-                  <div className="w-4 h-4 rounded-full border-2 border-[#9CA3AF] flex items-center justify-center flex-shrink-0">
+                  <div className="w-4 h-4 rounded-full border-2 border-gray-400 flex items-center justify-center flex-shrink-0">
                     {formData.role === "interviewer" && (
                       <div className="w-2 h-2 rounded-full bg-primary"></div>
                     )}
@@ -405,7 +405,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ onBack, onInvite }) => {
           onClick={handleInvite}
           disabled={!isFormValid()}
           className={`px-6 py-2.5 rounded-full font-medium text-sm transition-colors ${isFormValid()
-              ? "bg-primary hover:bg-primary-hover text-white"
+              ? "bg-primary hover:bg-primary-hover transition-colors duration-200 text-white"
               : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }`}
         >

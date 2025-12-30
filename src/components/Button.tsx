@@ -10,7 +10,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseClasses =
-	"inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50";
+	"inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 ease-out hover:shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-none disabled:active:scale-100";
 
 const sizeClasses: Record<ButtonSize, string> = {
 	sm: "px-4 py-2 text-sm h-8",
@@ -20,11 +20,11 @@ const sizeClasses: Record<ButtonSize, string> = {
 
 const variantClasses: Record<ButtonVariant, string> = {
 	primary:
-		"text-white bg-primary hover:bg-primary-hover active:bg-primary-dark",
+		"text-white bg-primary hover:bg-primary-hover transition-colors duration-200 active:bg-primary-dark",
 	secondary:
-		"text-text-primary bg-neutral hover:bg-neutral-hover active:bg-neutral-active",
+		"text-text-primary bg-neutral hover:bg-neutral-hover transition-colors duration-200 active:bg-neutral-active",
 	tertiary:
-		"text-primary bg-transparent hover:bg-primary-light active:text-primary-dark",
+		"text-primary bg-transparent hover:bg-primary-light transition-colors duration-200 active:text-primary-dark",
 };
 
 export function Button({ 

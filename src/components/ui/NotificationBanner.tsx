@@ -1,27 +1,27 @@
 const VARIANT_STYLES = {
   info: {
-    container: 'bg-[#EDF2FF] border border-[#C7D2FE]',
-    iconBg: 'bg-[#EEF0FF]',
-    title: 'text-[#1F2775]',
-    body: 'text-[#4B5563]',
+    container: 'bg-primary-light border border-indigo-200',
+    iconBg: 'bg-primary-light',
+    title: 'text-text-primary',
+    body: 'text-text-secondary',
   },
   error: {
-    container: 'bg-[#FFF5F5] border border-[#FED7D7]',
-    iconBg: 'bg-[#FFF0F0]',
-    title: 'text-[#9B1C1C]',
-    body: 'text-[#4B5563]',
+    container: 'bg-error-light border border-[#FED7D7]',
+    iconBg: 'bg-error-light',
+    title: 'text-error-text',
+    body: 'text-text-secondary',
   },
   warning: {
-    container: 'bg-[#FFF4EB] border border-[#FED7AA]',
-    iconBg: 'bg-[#FFF1E6]',
+    container: 'bg-warning-light border border-[#FED7AA]',
+    iconBg: 'bg-warning-light',
     title: 'text-[#9A3412]',
-    body: 'text-[#4B5563]',
+    body: 'text-text-secondary',
   },
   success: {
-    container: 'bg-[#EEFFF4] border border-[#A7F3D0]',
-    iconBg: 'bg-[#E6FFFA]',
+    container: 'bg-success-light border border-green-200',
+    iconBg: 'bg-teal-50',
     title: 'text-[#166534]',
-    body: 'text-[#4B5563]',
+    body: 'text-text-secondary',
   },
 } as const;
 
@@ -64,7 +64,7 @@ export function NotificationBanner({
         <button
           type="button"
           onClick={onClose}
-          className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/70 text-slate-500 shadow-[0_4px_24px_rgba(0,0,0,0.12)] transition hover:bg-white hover:text-slate-700"
+          className="ml-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/70 text-slate-500 shadow-[0_4px_24px_rgba(0,0,0,0.12)] transition hover:bg-white transition-colors duration-200 hover:text-slate-700"
           aria-label="Dismiss notification"
         >
           <svg

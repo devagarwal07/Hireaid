@@ -199,7 +199,7 @@ const TextInput = ({
       {showInfo && <InfoIcon />}
     </div>
     <div className="flex flex-col gap-[5px]">
-      <div className="flex items-center px-4 py-[15px] bg-white border border-[#C8C8C8] rounded-[10px] h-[50px]">
+      <div className="flex items-center px-4 py-[15px] bg-white border border-gray-300 rounded-[10px] h-[50px]">
         <input
           type="text"
           value={value}
@@ -236,7 +236,7 @@ const Dropdown = ({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="flex items-center justify-between px-4 py-[15px] bg-white border border-[#C8C8C8] rounded-[10px] h-[50px] cursor-pointer text-sm font-normal text-text-primary leading-5 outline-none appearance-none"
+        className="flex items-center justify-between px-4 py-[15px] bg-white border border-gray-300 rounded-[10px] h-[50px] cursor-pointer text-sm font-normal text-text-primary leading-5 outline-none appearance-none"
         style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M6 9L12 15L18 9\' stroke=\'%23989898\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center' }}
       >
         {options.map((opt) => (
@@ -263,7 +263,7 @@ const DateInput = ({
       <label className="text-sm font-normal text-text-secondary leading-[21px]">{label}</label>
     </div>
     <div className="flex flex-col gap-[5px]">
-      <div className="flex items-center px-4 py-[15px] bg-white border border-[#C8C8C8] rounded-[10px] h-[50px]">
+      <div className="flex items-center px-4 py-[15px] bg-white border border-gray-300 rounded-[10px] h-[50px]">
         <input
           type="text"
           value={value}
@@ -304,7 +304,7 @@ const SectionCard = ({
 
 // AI Suggestion Card Component
 const AISuggestionCard = () => (
-  <div className="bg-[#F3FEFF] border border-[#88E6FF] rounded-[10px] p-5 flex flex-col gap-3">
+  <div className="bg-cyan-50 border border-cyan-300 rounded-[10px] p-5 flex flex-col gap-3">
     {/* Header */}
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-[6px]">
@@ -313,7 +313,7 @@ const AISuggestionCard = () => (
           AI Assistant
         </span>
       </div>
-      <button className="text-sm font-semibold text-primary leading-4 font-['Raleway']">
+      <button className="text-sm font-semibold text-primary leading-4 ">
         Apply
       </button>
     </div>
@@ -354,7 +354,7 @@ const SidebarItem = ({
 }) => (
   <button
     onClick={onClick}
-    className={`flex items-center gap-3 px-3 py-2.5 w-full transition-colors relative ${active ? "bg-[#F0F9FF]" : "hover:bg-muted-bg"
+    className={`flex items-center gap-3 px-3 py-2.5 w-full transition-colors relative ${active ? "bg-primary-light" : "hover:bg-muted-bg"
       }`}
   >
     {/* Left border indicator for active state */}
@@ -484,7 +484,7 @@ export default function JobDescriptionStepNew({
       {/* Main Content */}
       <div className="flex gap-6">
         {/* Sidebar */}
-        <div className="w-[220px] flex-shrink-0 bg-white border border-[#E4E7EC] rounded-xl overflow-hidden h-fit sticky top-4">
+        <div className="w-[220px] flex-shrink-0 bg-white border border-border-card rounded-xl overflow-hidden h-fit sticky top-4">
           <div className="flex flex-col py-2">
             {sidebarSections.map((section) => (
               <SidebarItem
@@ -736,18 +736,18 @@ export default function JobDescriptionStepNew({
       </div>
 
       {/* Bottom Buttons */}
-      <div className="flex justify-end items-center gap-3 pt-6 mt-4 border-t border-[#E4E7EC]">
+      <div className="flex justify-end items-center gap-3 pt-6 mt-4 border-t border-border-card">
         <button
           onClick={onSaveDraft}
-          className="flex items-center px-5 py-3 bg-[#F4F5F5] rounded-full hover:bg-[#E8E9EA] transition-colors"
+          className="flex items-center px-5 py-3 bg-neutral rounded-full hover:bg-neutral-hover transition-colors"
         >
-          <span className="text-sm font-medium text-[#515B60]">Save as Draft</span>
+          <span className="text-sm font-medium text-text-secondary">Save as Draft</span>
         </button>
         <button
           onClick={onNext}
           disabled={!isFormValid()}
           className={`flex items-center justify-center px-6 py-3 rounded-full min-w-[100px] transition-colors ${isFormValid()
-              ? "bg-primary hover:bg-[#074785]"
+              ? "bg-primary hover:bg-primary-dark"
               : "bg-gray-300 cursor-not-allowed"
             }`}
         >

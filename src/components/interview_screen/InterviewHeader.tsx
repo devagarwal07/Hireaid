@@ -31,10 +31,10 @@ export default function InterviewHeader({
             </div>
 
             <div className="flex items-center gap-2.5 mt-0.5">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#e7f0ff] text-[#0a6adf] text-lg font-semibold">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-light text-primary text-lg font-semibold">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 text-[#0a6adf]"
+                  className="w-5 h-5 text-primary"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -51,10 +51,10 @@ export default function InterviewHeader({
               <div className="flex flex-col leading-tight">
                 <span className="text-lg font-semibold text-gray-900">{candidate.name}</span>
 
-                <span className="inline-flex items-center rounded-full border border-[#d4e4f7] bg-[#eef5fd] px-2 h-6 text-sm font-medium text-[#0a6adf]">
+                <span className="inline-flex items-center rounded-full border border-primary-light bg-primary-light px-2 h-6 text-sm font-medium text-primary">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-3.5 h-3.5 text-[#0a6adf]"
+                    className="w-3.5 h-3.5 text-primary"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -79,11 +79,11 @@ export default function InterviewHeader({
               type="button"
               onClick={onAssistant}
               className="relative inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-full border text-sm font-medium transition-colors
-                         bg-white border-[#67B4FB] text-[#3576B2]
-                         hover:bg-primary-light hover:border-[#67B4FB]
+                         bg-white border-primary text-primary
+                         hover:bg-primary-light transition-colors duration-200 hover:border-primary
                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0857A1]
                          active:bg-primary active:border-primary active:text-white
-                         disabled:bg-neutral disabled:border-[#CCCCCC] disabled:text-[#767676]"
+                         disabled:bg-neutral disabled:border-neutral-dark disabled:text-text-muted"
             >
               <span className="relative inline-flex items-center justify-center w-5 h-5 flex-none">
                 <span
@@ -101,8 +101,8 @@ export default function InterviewHeader({
               type="button"
               onClick={onStructure}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-full border text-[14px] leading-5 font-medium
-                         bg-white border-[#C8C8C8] text-primary
-                         hover:bg-primary-light hover:border-[#C8C8C8]"
+                         bg-white border-gray-300 text-primary
+                         hover:bg-primary-light transition-colors duration-200 hover:border-gray-300"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -119,11 +119,11 @@ export default function InterviewHeader({
               type="button"
               onClick={onEnd}
               className="relative inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full border text-[16px] leading-6 font-medium transition-colors
-                         bg-white border-[#FFB1B1] text-[#FF3636]
-                         hover:bg-[#FFF2F0] hover:border-[#FFB1B1]
+                         bg-white border-error text-error
+                         hover:bg-error-light hover:border-error
                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#AA0404]
-                         active:bg-[#AA0404] active:border-[#AA0404] active:text-white
-                         disabled:bg-neutral disabled:border-[#CCCCCC] disabled:text-[#767676]"
+                         active:bg-red-800 active:border-red-800 active:text-white
+                         disabled:bg-neutral disabled:border-neutral-dark disabled:text-text-muted"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

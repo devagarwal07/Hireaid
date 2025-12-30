@@ -169,7 +169,7 @@ export default function JobFormLayoutNew() {
                     {/* Connector Line */}
                     {index < formSteps.length - 1 && (
                       <div
-                        className={`flex-1 h-[2px] mx-6 rounded-full ${currentStepIndex > index ? "bg-primary" : "bg-[#E4E7EC]"
+                        className={`flex-1 h-[2px] mx-6 rounded-full ${currentStepIndex > index ? "bg-primary" : "bg-border-light"
                           }`}
                       />
                     )}

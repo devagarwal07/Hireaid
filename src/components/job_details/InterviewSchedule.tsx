@@ -118,7 +118,7 @@ export default function InterviewSchedule({
       </div>
 
       {/* Divider */}
-      <div className="h-px bg-[#E2E2E2] mb-4" />
+      <div className="h-px bg-border-light mb-4" />
 
       {/* Interview Cards */}
       <div className="flex flex-col gap-4 overflow-y-auto max-h-[600px] pr-1">
@@ -157,7 +157,7 @@ export default function InterviewSchedule({
                     viewBox="0 0 16 16"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="text-[#989898]"
+                    className="text-text-placeholder"
                   >
                     <path
                       d="M6 12L10 8L6 4"
