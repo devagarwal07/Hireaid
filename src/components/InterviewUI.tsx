@@ -1,4 +1,3 @@
-// src/components/interview_screen/InterviewUI.tsx
 import React, { useState } from "react";
 import RightSideBar from "@/components/interview_screen/RightSideBar";
 import AssistantPanel from "@/components/interview_screen/AssistantPanel";
@@ -7,23 +6,37 @@ import { DisclaimerModal } from "@/components/interview_screen/DisclaimerModal";
 import { ScreenShareView } from "@/components/interview_screen/ScreenShareView";
 import type { Candidate } from "@/components/interview_screen/InterviewHeader";
 import { useAppContext } from "@/context/AppContext";
+import { VideoContainer } from "@/components/interview_screen/VideoCall";
+import { dailyApi, aiApi } from "@/lib/api";
+import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 
 export default function InterviewUI(): React.ReactElement {
   const { currentInterview } = useAppContext();
   const [started, setStarted] = useState(false);
-
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [hasAcceptedDisclaimer, setHasAcceptedDisclaimer] = useState(false);
   const [showScreenShare, setShowScreenShare] = useState(false);
+
+  // Video call state
+  const [roomUrl, setRoomUrl] = useState<string | null>(null);
+  const [roomToken, setRoomToken] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  // Speech Recognition hook
+  const { transcript, interimTranscript, startListening, stopListening, resetTranscript } = useSpeechRecognition();
+
+  // AI Evaluation state
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [aiEvaluation, setAiEvaluation] = useState<any | null>(null);
 
   // Step state for the Submit / Next / Save flow
   const [step, setStep] = useState<number>(0);
   const totalSteps = 3; // set this to however many steps you want; final step index will be totalSteps
 
   const candidate: Candidate = {
-    name: currentInterview.candidateName,
-    role: currentInterview.candidateRole,
-    time: currentInterview.scheduledTime,
+    name: currentInterview?.candidateName ?? "No Candidate",
+    role: currentInterview?.candidateRole ?? "—",
+    time: currentInterview?.scheduledTime ?? "—",
   };
 
   function handleStartInterview() {
@@ -31,12 +44,42 @@ export default function InterviewUI(): React.ReactElement {
       setShowDisclaimer(true);
     } else {
       setStarted(true);
+      initializeCall();
     }
     console.log("Start interview clicked for", candidate.name);
   }
 
+  async function initializeCall() {
+    try {
+      setError(null);
+      // Create Daily room using our API
+      const interviewId = (currentInterview as any)?._id || (currentInterview as any)?.id;
+      const response = await dailyApi.createRoom(interviewId);
+      if (response.success && response.data) {
+        setRoomUrl(response.data.url);
+        setRoomToken(response.data.token);
+        // Important: check if it's a mock room because the user lacks an API key
+        if (response.data.isMock) {
+          (window as any).__isMockDailyRoom = true;
+        } else {
+          (window as any).__isMockDailyRoom = false;
+        }
+        // Start recording locally when room is ready
+        startListening();
+      } else {
+        setError("Could not retrieve room URL from server.");
+      }
+    } catch (err: any) {
+      console.error("Failed to initialize Daily room", err);
+      setError(err.message || "Failed to initialize video call");
+    }
+  }
+
   function handleSidebarClose() {
     setStarted(false);
+    setRoomUrl(null);
+    setRoomToken(null);
+    stopListening();
     console.log("sidebar closed / interview ended");
   }
 
@@ -45,11 +88,41 @@ export default function InterviewUI(): React.ReactElement {
   }
 
   // Called when user clicks "Submit" or "Next"
-  function handleNext() {
+  async function handleNext() {
+    if (transcript && transcript.trim().length > 0) {
+      setIsAnalyzing(true);
+      try {
+        // Assume we pass 'Question X' as the question for now, or you can extract it from actual question state
+        const question = `Question ${step + 1} for role: ${candidate.role}`;
+
+        const req = {
+          candidateId: (currentInterview as any)?._id || (currentInterview as any)?.id, // Fallback if candidate ID is missing
+          question: question,
+          answer: transcript,
+          role: candidate.role
+        };
+
+        console.log("Sending for AI Evaluation:", req);
+        const response = await aiApi.analyzeAnswer(req);
+
+        if (response.success && response.data) {
+          setAiEvaluation(response.data.evaluation);
+        }
+      } catch (error) {
+        console.error("Error analyzing answer:", error);
+        // Fallback or show error
+      } finally {
+        setIsAnalyzing(false);
+      }
+    }
+
     // If not at final step, advance
+    // Here we might eventually also want to trigger Gemini analysis for the current step's transcript
     if (step < totalSteps) {
       setStep((s) => s + 1);
       console.log("Moved to step", step + 1);
+      // Reset transcript for the next question/step
+      resetTranscript();
     } else {
       // If somehow called on final step, treat as save
       handleSave();
@@ -81,6 +154,7 @@ export default function InterviewUI(): React.ReactElement {
     setHasAcceptedDisclaimer(true);
     setShowDisclaimer(false);
     setStarted(true);
+    initializeCall();
   }
 
   function handleDisclaimerClose() {
@@ -103,7 +177,7 @@ export default function InterviewUI(): React.ReactElement {
       )}
 
       {/* Main content area */}
-      <div className="w-full px-6 pb-6">
+      <div className="w-full px-6 pb-6 mt-4">
         {/* Breadcrumb header with candidate info and buttons */}
         <div className="mb-4">
           <PageHeader
@@ -192,111 +266,43 @@ export default function InterviewUI(): React.ReactElement {
           {/* LEFT COLUMN: Video + AI Assistant Panel */}
           <div className="flex-1 min-w-0 flex flex-col gap-4">
             {/* VIDEO CARD */}
-            <div className="bg-white border border-border-light rounded-2xl shadow-sm overflow-hidden">
-              <div
-                className="relative bg-gray-900 flex items-center justify-center text-white"
-                style={{ height: "400px" }}
-              >
-                {/* Video placeholder - in real app this would be a video element */}
-                <div className="absolute top-3 left-3 text-xs text-white bg-black/40 px-2 py-1 rounded flex items-center gap-1">
-                  <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                  View
+            <div className="bg-white border border-border-light rounded-2xl shadow-sm overflow-hidden h-auto">
+              {started && roomUrl ? (
+                <VideoContainer url={roomUrl} token={roomToken ?? undefined} onLeave={handleSidebarClose} />
+              ) : (
+                <div
+                  className="relative bg-gray-900 flex flex-col items-center justify-center text-white p-4"
+                  style={{ height: "400px" }}
+                >
+                  {error ? (
+                    <div className="text-red-400 bg-red-400/10 p-4 rounded-xl max-w-md text-center">
+                      <p className="font-semibold mb-1">Error initializing video call</p>
+                      <p className="text-sm opacity-80">{error}</p>
+                      <button onClick={initializeCall} className="mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm transition-colors">Try Again</button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M15.6 11.6L22 7v10l-6.4-4.5v-1zM4 5h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2z" />
+                        </svg>
+                      </div>
+                      <span className="text-xl font-medium mb-2">Video call not started</span>
+                      <span className="text-gray-400 text-sm">Click "Start Interview" to begin</span>
+                    </>
+                  )}
                 </div>
-                <span className="text-4xl font-medium">{candidate.name}</span>
-                {/* Bottom video controls bar */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gray-800 px-4 py-2 flex items-center justify-center gap-4">
-                  <button className="p-2 hover:bg-white/10 rounded-lg text-white/80 text-xs flex flex-col items-center gap-1">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-                      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                      <line x1="12" y1="19" x2="12" y2="23" />
-                    </svg>
-                    <span>Audio</span>
-                  </button>
-                  <button className="p-2 hover:bg-white/10 rounded-lg text-white/80 text-xs flex flex-col items-center gap-1">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path d="M23 7l-7 5 7 5V7z" />
-                      <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-                    </svg>
-                    <span>Video</span>
-                  </button>
-                  <button className="p-2 hover:bg-white/10 rounded-lg text-white/80 text-xs flex flex-col items-center gap-1">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                    <span>Participants</span>
-                  </button>
-                  <button className="p-2 hover:bg-white/10 rounded-lg text-white/80 text-xs flex flex-col items-center gap-1">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
-                    <span>Chat</span>
-                  </button>
-                  <button className="p-2 bg-red-500 hover:bg-red-600 rounded-lg text-white text-xs flex flex-col items-center gap-1">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
-                    </svg>
-                    <span>End</span>
-                  </button>
-                  <button className="p-2 hover:bg-white/10 rounded-lg text-white/80 text-xs flex flex-col items-center gap-1">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="12" y1="16" x2="12" y2="12" />
-                      <line x1="12" y1="8" x2="12.01" y2="8" />
-                    </svg>
-                    <span>More</span>
-                  </button>
-                </div>
-              </div>
+              )}
             </div>
 
             {/* AI ASSISTANT PANEL */}
             <AssistantPanel
               candidate={candidate}
               onSend={handleAssistantSend}
+              transcript={transcript}
+              interimTranscript={interimTranscript}
+              aiEvaluation={aiEvaluation}
+              isAnalyzing={isAnalyzing}
             />
           </div>
 
@@ -310,7 +316,6 @@ export default function InterviewUI(): React.ReactElement {
               onActionButton={() => handleActionButton()}
               onStartInterview={() => {
                 handleStartInterview();
-                console.log("sidebar started");
               }}
               onExpand={() => console.log("expand pressed")}
               onShowScreenShare={() => setShowScreenShare(true)}

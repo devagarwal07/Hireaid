@@ -1,0 +1,230 @@
+// Prisma schema for Hireaid backend
+// Using SQLite for zero-setup development
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── User / Auth ───────────────────────────────────────────
+
+model User {
+  id                 String   @id @default(cuid())
+  email              String   @unique
+  password           String
+  firstName          String
+  lastName           String
+  role               String   @default("User") // SuperAdmin, Admin, Interviewer, User
+  status             String   @default("Active") // Active, Inactive
+  notificationsCount Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  // Relations
+  candidateNotes CandidateNote[]
+  interviews     Interview[]     @relation("Interviewer")
+}
+
+// ─── Company ───────────────────────────────────────────────
+
+model Company {
+  id           String   @id @default(cuid())
+  companyName  String
+  adminName    String
+  designation  String
+  email        String
+  contactNumber String  @default("")
+  location     String   @default("")
+  department   String   @default("")
+  contactAddress String @default("")
+  status       String   @default("active") // active, inactive, pending
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  settings CompanySettings?
+}
+
+model CompanySettings {
+  id          String  @id @default(cuid())
+  companyId   String  @unique
+  theme       Int     @default(0)
+  company     Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+// ─── Job ───────────────────────────────────────────────────
+
+model Job {
+  id                      String   @id @default(cuid())
+  title                   String
+  department              String
+  status                  String   @default("open") // open, on-hold, closed
+  icon                    String   @default("code") // design, data, people, code, analyze, frontend
+  applied                 Int      @default(0)
+  inProcess               Int      @default(0)
+  qualified               Int      @default(0)
+
+  // Extended job description fields
+  jobId                   String?
+  areaOfWork              String?
+  hiringManager           String?
+  hiringLocation          String?
+  workType                String?
+  travelRequirement       String?
+  employerClient          String?
+  employmentType          String?
+  startDate               String?
+  endDate                 String?
+  jobExpirationDate       String?
+  jobSummary              String?
+  keyResponsibilities     String?
+  requiredQualifications  String?
+  preferredQualifications String?
+  yearsOfExperience       String?
+  bestFitScore            String?
+  skills                  String?
+  salaryRange             String?
+  workAuthorization       String?
+
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  // Relations
+  candidates Candidate[]
+  interviews Interview[]
+}
+
+// ─── Candidate ─────────────────────────────────────────────
+
+model Candidate {
+  id                 String   @id @default(cuid())
+  name               String
+  role               String
+  photo              String   @default("")
+  applicationDate    String
+  status             String   @default("Pending Interview") // Pending Interview, Interview Scheduled, Interview Completed, Pending 360 Evaluation, Cancelled by System
+  email              String
+  phone              String   @default("")
+  location           String   @default("")
+  linkedin           String   @default("")
+  isRecommendedByAI  Boolean  @default(false)
+  isTop10Rated       Boolean  @default(false)
+  resumeScore        Float?
+  overallScore       Float    @default(0)
+  aiScore            Float    @default(0)
+  interviewScheduled Boolean  @default(false)
+  scheduledTime      String?
+  scheduledDate      String?
+  interviewCompleted Boolean  @default(false)
+
+  // JSON fields stored as strings (SQLite doesn't support JSON natively)
+  evaluationTags     String   @default("[]")     // JSON array
+  skills             String   @default("[]")     // JSON array
+  statistics         String   @default("[]")     // JSON array
+  aiRecommendation   String   @default("{}")     // JSON object
+  strengths          String   @default("[]")     // JSON array
+  improvements       String   @default("[]")     // JSON array
+  careerOverview     String   @default("[]")     // JSON array
+  currentWork        String   @default("[]")     // JSON array
+  previousRoles      String   @default("[]")     // JSON array
+  hiringSteps        String   @default("[]")     // JSON array
+
+  // Foreign keys
+  jobId              String
+  job                Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  // Relations
+  notes              CandidateNote[]
+  interviews         Interview[]
+  uploadedFiles      UploadedFile[]
+}
+
+// ─── Candidate Note ────────────────────────────────────────
+
+model CandidateNote {
+  id          String   @id @default(cuid())
+  content     String
+  isAISummary Boolean  @default(false)
+  timestamp   String
+
+  // Foreign keys
+  candidateId String
+  candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+
+  createdAt   DateTime  @default(now())
+}
+
+// ─── Interview ─────────────────────────────────────────────
+
+model Interview {
+  id           String   @id @default(cuid())
+  date         String
+  time         String
+  duration     String   @default("")
+  description  String   @default("")
+  status       String   @default("scheduled") // scheduled, completed, cancelled
+
+  // Interview report data (JSON stored as string)
+  evaluationTags String @default("[]")
+  strengths      String @default("[]")
+  improvements   String @default("[]")
+  questions      String @default("[]") // JSON array of {question, score, criteria[]}
+
+  // Foreign keys
+  jobId        String
+  job          Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  candidateId  String
+  candidate    Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  interviewerId String
+  interviewer   User    @relation("Interviewer", fields: [interviewerId], references: [id])
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  transcript   Transcript?
+}
+
+// ─── Uploaded File ─────────────────────────────────────────
+
+model UploadedFile {
+  id           String   @id @default(cuid())
+  filename     String
+  originalName String
+  mimetype     String
+  size         Int
+  path         String
+
+  // Foreign key (optional - files can be orphaned)
+  candidateId  String?
+  candidate    Candidate? @relation(fields: [candidateId], references: [id], onDelete: SetNull)
+
+  createdAt    DateTime @default(now())
+}
+
+// ─── Transcript ────────────────────────────────────────────
+
+model Transcript {
+  id          String   @id @default(cuid())
+  entries     String   @default("[]") // JSON array of {speaker, text, timestamp}
+  summary     String   @default("")   // AI-generated summary
+  
+  // Foreign key
+  interviewId String   @unique
+  interview   Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

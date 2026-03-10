@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ChatInput from "@/components/interview_screen/Assisstant_panel/chat_input.tsx";
 
 type Candidate = {
@@ -7,15 +7,41 @@ type Candidate = {
   time?: string;
 };
 
+type AIEvaluation = {
+  score?: number;
+  evaluation?: string;
+  strengths?: string[];
+  improvements?: string[];
+};
+
 type Props = {
   candidate?: Candidate; // no longer required
   onSend?: (text: string) => void;
   defaultTab?: "assistant" | "notes" | "transcript";
+  transcript?: string;
+  interimTranscript?: string;
+  aiEvaluation?: AIEvaluation | null;
+  isAnalyzing?: boolean;
 };
 
-export default function AssistantPanel({ candidate, onSend, defaultTab = "assistant" }: Props) {
+export default function AssistantPanel({ candidate, onSend, defaultTab = "assistant", transcript = "", interimTranscript = "", aiEvaluation = null, isAnalyzing = false }: Props) {
   const [activeTab, setActiveTab] = useState<"assistant" | "notes" | "transcript">(defaultTab);
   const [text, setText] = useState("");
+  const transcriptEndRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll transcript
+  useEffect(() => {
+    if (activeTab === "transcript" && transcriptEndRef.current) {
+      transcriptEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [transcript, interimTranscript, activeTab]);
+
+  // Switch to assistant tab when new evaluation comes in
+  useEffect(() => {
+    if (aiEvaluation) {
+      setActiveTab("assistant");
+    }
+  }, [aiEvaluation]);
 
   function send() {
     const trimmed = text.trim();
@@ -159,15 +185,64 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
         <div className="flex-1 overflow-y-auto px-4 pt-4 pb-4 space-y-4">
           {/* AI ASSISTANT TAB */}
           {activeTab === "assistant" && (
-            <div className="max-w-[692px] bg-cyan-50 border border-cyan-300 rounded-xl px-5 py-3">
-              <p className="text-teal-600 text-[14px] leading-[1.2] font-semibold font-[Lato,ui-sans-serif]">
-                Hi {firstName}, Lets get this interview started. Feel free to ask me any doubts you have during the interview,
-                I will also provide Realtime feedback and evaluations for the candidates answers. You can also use this area to
-                take notes.
-              </p>
-              <div className="mt-3 text-[11px] leading-[17px] text-text-muted font-medium">
-                9:40 AM
+            <div className="space-y-4">
+              <div className="max-w-[692px] bg-cyan-50 border border-cyan-300 rounded-xl px-5 py-3">
+                <p className="text-teal-600 text-[14px] leading-[1.2] font-semibold font-[Lato,ui-sans-serif]">
+                  Hi {firstName}, Lets get this interview started. Feel free to ask me any doubts you have during the interview,
+                  I will also provide Realtime feedback and evaluations for the candidates answers. You can also use this area to
+                  take notes.
+                </p>
+                <div className="mt-3 text-[11px] leading-[17px] text-text-muted font-medium">
+                  Welcome Message
+                </div>
               </div>
+
+              {isAnalyzing && (
+                <div className="max-w-[692px] bg-white border border-border-light rounded-xl px-5 py-4 flex items-center gap-3 shadow-sm">
+                  <div className="w-5 h-5 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+                  <p className="text-[14px] text-text-primary">Gemini AI is analyzing the candidate's answer...</p>
+                </div>
+              )}
+
+              {aiEvaluation && (
+                <div className="max-w-[692px] bg-white border border-cyan-200 rounded-xl shadow-sm overflow-hidden">
+                  <div className="bg-gradient-to-r from-cyan-50 to-blue-50 px-4 py-3 border-b border-cyan-100 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyan-600">
+                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                      </svg>
+                      <span className="font-semibold text-cyan-800 text-sm">Gemini AI Evaluation</span>
+                    </div>
+                    <div className="bg-white px-2 py-1 rounded text-cyan-600 font-bold text-sm border border-cyan-100 shadow-sm">
+                      Score: {aiEvaluation.score}/10
+                    </div>
+                  </div>
+                  <div className="p-4 space-y-3">
+                    <div>
+                      <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Feedback</h4>
+                      <p className="text-sm text-gray-800 leading-relaxed">{aiEvaluation.evaluation}</p>
+                    </div>
+
+                    {aiEvaluation.strengths && aiEvaluation.strengths.length > 0 && (
+                      <div>
+                        <h4 className="text-xs font-semibold text-green-600 uppercase tracking-wider mb-1">Strengths</h4>
+                        <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                          {aiEvaluation.strengths.map((str, i) => <li key={i}>{str}</li>)}
+                        </ul>
+                      </div>
+                    )}
+
+                    {aiEvaluation.improvements && aiEvaluation.improvements.length > 0 && (
+                      <div>
+                        <h4 className="text-xs font-semibold text-amber-600 uppercase tracking-wider mb-1">Areas for Improvement</h4>
+                        <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                          {aiEvaluation.improvements.map((str, i) => <li key={i}>{str}</li>)}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -185,54 +260,16 @@ export default function AssistantPanel({ candidate, onSend, defaultTab = "assist
           {/* TRANSCRIPT TAB */}
           {activeTab === "transcript" && (
             <div className="max-w-[787px] bg-white border border-border-light rounded-xl px-4 py-4 space-y-4">
-              {/* Simple transcript aligned with Figma copy */}
-              <div className="space-y-3">
-                {/* John (You) */}
-                <div className="flex items-start gap-3">
-                  <div className="w-11 h-11 rounded-full bg-gray-400" />
-                  <div className="flex-1 space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[14px] font-medium text-text-primary">John Doe (You)</span>
-                      <span className="px-2 py-[2px] rounded-full bg-primary-light text-[12px] text-primary tracking-[-0.02em]">
-                        00:10
-                      </span>
-                    </div>
-                    <p className="text-[14px] text-text-secondary">Hi Philip, Good Morning</p>
-                  </div>
-                </div>
-
-                {/* Phillip (Candidate) */}
-                <div className="flex items-start gap-3">
-                  <div className="w-11 h-11 rounded-full bg-gray-400" />
-                  <div className="flex-1 space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[14px] font-medium text-text-primary">Phillip Sam (Candidate 1)</span>
-                      <span className="px-2 py-[2px] rounded-full bg-primary-light text-[12px] text-primary tracking-[-0.02em]">
-                        00:15
-                      </span>
-                    </div>
-                    <p className="text-[14px] text-text-secondary">Hey John, Good morning. Good to meet you.</p>
-                  </div>
-                </div>
-
-                {/* Question detected banner */}
-                <div className="mt-3 rounded-md bg-primary-light px-3 py-3 flex flex-col gap-2">
-                  <div className="text-[12px] font-medium text-primary">Question Detected</div>
-                  <p className="text-[14px] text-text-primary">
-                    Can you tell me a bit about yourself ?
-                  </p>
-                </div>
-
-                {/* Answer detected block */}
-                <div className="mt-4 rounded-md bg-primary-light px-3 py-3 flex flex-col gap-2">
-                  <div className="text-[12px] font-medium text-primary">Answer Detected</div>
-                  <p className="text-[14px] text-text-primary">
-                    I have about 3 years of experience in Human Resources, mainly focusing on recruitment, employee engagement,
-                    and performance management. I started my career as an HR coordinator, where I handled onboarding and payroll
-                    support, and gradually moved into a generalist role that allowed me to work closely with both management and
-                    employees.
-                  </p>
-                </div>
+              <div className="space-y-4">
+                {transcript ? (
+                  <p className="text-[14px] text-text-primary leading-relaxed whitespace-pre-wrap">{transcript}</p>
+                ) : (
+                  <p className="text-[14px] text-text-muted italic">Waiting for speech...</p>
+                )}
+                {interimTranscript && (
+                  <p className="text-[14px] text-text-secondary leading-relaxed italic">{interimTranscript}</p>
+                )}
+                <div ref={transcriptEndRef} />
               </div>
             </div>
           )}

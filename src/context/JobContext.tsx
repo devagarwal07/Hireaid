@@ -1,8 +1,8 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { jobsApi } from "@/lib/api";
 
-// Job type definition
 export interface Job {
-    id: string | number;
+    id: string;
     title: string;
     department: string;
     date: string;
@@ -13,141 +13,101 @@ export interface Job {
     icon: "design" | "data" | "people" | "code" | "analyze" | "frontend";
 }
 
-// Sample job data
-const sampleJobs: Job[] = [
-    {
-        id: 1,
-        title: "Product Designer",
-        department: "Entertainment",
-        date: "11-07-25",
-        applied: 24,
-        inProcess: 12,
-        qualified: 8,
-        status: "open",
-        icon: "design",
-    },
-    {
-        id: 2,
-        title: "Data Engineer",
-        department: "Finance",
-        date: "11-07-25",
-        applied: 18,
-        inProcess: 9,
-        qualified: 5,
-        status: "open",
-        icon: "data",
-    },
-    {
-        id: 3,
-        title: "HR Talent Acquisition Specialist",
-        department: "Human Resources",
-        date: "11-07-25",
-        applied: 32,
-        inProcess: 15,
-        qualified: 10,
-        status: "open",
-        icon: "people",
-    },
-    {
-        id: 4,
-        title: "Fullstack Developer",
-        department: "Finance",
-        date: "11-07-25",
-        applied: 45,
-        inProcess: 20,
-        qualified: 12,
-        status: "on-hold",
-        icon: "code",
-    },
-    {
-        id: 5,
-        title: "Business Analyst",
-        department: "Finance",
-        date: "11-07-25",
-        applied: 28,
-        inProcess: 14,
-        qualified: 7,
-        status: "on-hold",
-        icon: "analyze",
-    },
-    {
-        id: 6,
-        title: "Frontend Developer",
-        department: "Finance",
-        date: "11-07-25",
-        applied: 36,
-        inProcess: 18,
-        qualified: 9,
-        status: "closed",
-        icon: "frontend",
-    },
-];
+const formatDate = (isoStr: string) => {
+    const d = new Date(isoStr);
+    return `${d.getDate().toString().padStart(2, '0')}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getFullYear().toString().slice(-2)}`;
+};
 
 interface JobContextType {
     jobs: Job[];
+    isLoading: boolean;
     getJobById: (id: string | number) => Job | undefined;
-    addJob: (job: Omit<Job, "id" | "date" | "applied" | "inProcess" | "qualified">) => void;
-    removeJob: (id: string | number) => void;
-    updateJob: (id: string | number, updates: Partial<Job>) => void;
-    duplicateJob: (id: string | number) => void;
+    addJob: (job: Omit<Job, "id" | "date" | "applied" | "inProcess" | "qualified">) => Promise<void>;
+    removeJob: (id: string | number) => Promise<void>;
+    updateJob: (id: string | number, updates: Partial<Job>) => Promise<void>;
+    duplicateJob: (id: string | number) => Promise<void>;
+    refreshJobs: () => Promise<void>;
 }
 
 const JobContext = createContext<JobContextType | undefined>(undefined);
 
 export function JobProvider({ children }: { children: ReactNode }) {
-    const [jobs, setJobs] = useState<Job[]>(sampleJobs);
+    const [jobs, setJobs] = useState<Job[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const refreshJobs = async () => {
+        try {
+            setIsLoading(true);
+            const res = await jobsApi.list();
+            if (res.success && res.data) {
+                const mapped = res.data.map((j: any) => ({
+                    ...j,
+                    date: formatDate(j.createdAt),
+                    id: String(j.id)
+                }));
+                setJobs(mapped);
+            }
+        } catch (err) {
+            console.error("Failed to load jobs:", err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        refreshJobs();
+    }, []);
 
     const getJobById = (id: string | number): Job | undefined => {
-        // Convert to number for comparison if it's a string
-        const numId = typeof id === 'string' ? parseInt(id, 10) : id;
-        return jobs.find((job) => job.id === numId || job.id === id);
+        return jobs.find((job) => String(job.id) === String(id));
     };
 
-    const addJob = (jobData: Omit<Job, "id" | "date" | "applied" | "inProcess" | "qualified">) => {
-        const today = new Date();
-        const dateStr = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear().toString().slice(-2)}`;
-
-        const newJob: Job = {
-            ...jobData,
-            id: jobs.length + 1,
-            date: dateStr,
-            applied: 0,
-            inProcess: 0,
-            qualified: 0,
-        };
-
-        setJobs([newJob, ...jobs]);
+    const addJob = async (jobData: Omit<Job, "id" | "date" | "applied" | "inProcess" | "qualified">) => {
+        try {
+            const res = await jobsApi.create(jobData);
+            if (res.success) {
+                await refreshJobs();
+            }
+        } catch (err) {
+            console.error("Failed to create job", err);
+        }
     };
 
-    const removeJob = (id: string | number) => {
-        setJobs(jobs.filter((job) => job.id !== id));
+    const removeJob = async (id: string | number) => {
+        try {
+            const res = await jobsApi.delete(String(id));
+            if (res.success) {
+                setJobs((prev) => prev.filter((j) => String(j.id) !== String(id)));
+            }
+        } catch (err) {
+            console.error("Failed to delete job", err);
+        }
     };
 
-    const updateJob = (id: string | number, updates: Partial<Job>) => {
-        setJobs(jobs.map((job) => (job.id === id ? { ...job, ...updates } : job)));
+    const updateJob = async (id: string | number, updates: Partial<Job>) => {
+        try {
+            const res = await jobsApi.update(String(id), updates);
+            if (res.success) {
+                await refreshJobs();
+            }
+        } catch (err) {
+            console.error("Failed to update job", err);
+        }
     };
 
-    const duplicateJob = (id: string | number) => {
-        const jobToDuplicate = getJobById(id);
-        if (jobToDuplicate) {
-            const today = new Date();
-            const dateStr = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear().toString().slice(-2)}`;
-
-            const duplicatedJob: Job = {
-                ...jobToDuplicate,
-                id: Math.max(...jobs.map(j => typeof j.id === 'number' ? j.id : 0)) + 1,
-                title: `${jobToDuplicate.title} (Copy)`,
-                date: dateStr,
-                applied: 0,
-                inProcess: 0,
-                qualified: 0,
-            };
-            setJobs([duplicatedJob, ...jobs]);
+    const duplicateJob = async (id: string | number) => {
+        try {
+            const res = await jobsApi.duplicate(String(id));
+            if (res.success) {
+                await refreshJobs();
+            }
+        } catch (err) {
+            console.error("Failed to duplicate job", err);
         }
     };
 
     return (
-        <JobContext.Provider value={{ jobs, getJobById, addJob, removeJob, updateJob, duplicateJob }}>
+        <JobContext.Provider value={{ jobs, isLoading, getJobById, addJob, removeJob, updateJob, duplicateJob, refreshJobs }}>
             {children}
         </JobContext.Provider>
     );

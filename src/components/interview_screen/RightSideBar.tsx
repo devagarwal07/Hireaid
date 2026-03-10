@@ -5,6 +5,7 @@ import AISuggestionsCard from "./AISuggestionsCard";
 import { QuestionCard } from "./QuestionCard";
 import { ConfirmationModal } from "./ConfirmationModal";
 import { EndInterviewModal } from "./EndInterviewModal";
+import ResumeDetailsTab from "./ResumeDetailsTab";
 
 export type RightTab = "structure" | "resume";
 
@@ -305,39 +306,48 @@ export default function RightSideBar({
             ) : (
               // Scrollable content (shown after start)
               <>
-                <div className="flex-1 overflow-auto px-1 pb-4">
-                  <div className="mb-3">
-                    <div className="text-xs text-text-muted">Warmup ({derivedCurrent + 1} out of {questionsState.length} Questions)</div>
+                {activeTab === "structure" ? (
+                  <div className="flex-1 overflow-auto px-1 pb-4">
+                    <div className="mb-3">
+                      <div className="text-xs text-text-muted">Warmup ({derivedCurrent + 1} out of {questionsState.length} Questions)</div>
+                    </div>
+
+                    {/* Question card using shared QuestionCard component */}
+                    <div className="mb-4">
+                      <QuestionCard
+                        index={derivedCurrent + 1}
+                        title={q?.body ?? "Question"}
+                        state="active"
+                        evaluatedSummary={`Score: ${q?.score?.toFixed(1) ?? '8.8'} / 10`}
+                        feedbackPoints={q?.feedback ?? ["Concise answer and to the point.", "Great communication skills"]}
+                        metrics={q?.metrics ? q.metrics.map(m => ({
+                          label: m.label,
+                          value: m.value,
+                          color: m.label === "Technical Skills" ? "#10B981" :
+                            m.label === "Problem Solving" ? "#6366F1" : "#F59E0B"
+                        })) : [
+                          { label: "Technical Skills", value: 90, color: "#10B981" },
+                          { label: "Problem Solving", value: 90, color: "#6366F1" },
+                          { label: "Communication", value: 62, color: "#F59E0B" }
+                        ]}
+                        status="analysis-complete"
+                      />
+                    </div>
+
+                    {/* Recommended follow-up question */}
+                    <RecommendedQuestion text="Could you tell me what are the features in ADP Workforce Now you liked the most ?" />
+
+                    {/* AI suggestions module: listening state + chat-like display */}
+                    <AISuggestionsCard variant="listening" />
                   </div>
-
-                  {/* Question card using shared QuestionCard component */}
-                  <div className="mb-4">
-                    <QuestionCard
-                      index={derivedCurrent + 1}
-                      title={q?.body ?? "Question"}
-                      state="active"
-                      evaluatedSummary={`Score: ${q?.score?.toFixed(1) ?? '8.8'} / 10`}
-                      feedbackPoints={q?.feedback ?? ["Concise answer and to the point.", "Great communication skills"]}
-                      metrics={q?.metrics ? q.metrics.map(m => ({
-                        label: m.label,
-                        value: m.value,
-                        color: m.label === "Technical Skills" ? "#10B981" :
-                          m.label === "Problem Solving" ? "#6366F1" : "#F59E0B"
-                      })) : [
-                        { label: "Technical Skills", value: 90, color: "#10B981" },
-                        { label: "Problem Solving", value: 90, color: "#6366F1" },
-                        { label: "Communication", value: 62, color: "#F59E0B" }
-                      ]}
-                      status="analysis-complete"
-                    />
-                  </div>
-
-                  {/* Recommended follow-up question */}
-                  <RecommendedQuestion text="Could you tell me what are the features in ADP Workforce Now you liked the most ?" />
-
-                  {/* AI suggestions module: listening state + chat-like display */}
-                  <AISuggestionsCard variant="listening" />
-                </div>
+                ) : (
+                  <ResumeDetailsTab
+                    candidate={{
+                      name: candidate.name,
+                      role: candidate.role,
+                    }}
+                  />
+                )}
 
                 {/* Footer */}
                 <div className="pt-2 border-t border-blue-50">
