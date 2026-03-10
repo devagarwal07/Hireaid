@@ -1,4 +1,6 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { interviewsApi } from "@/lib/api";
 
 type User = {
 	firstName: string;
@@ -15,33 +17,66 @@ type Interview = {
 };
 
 type AppContextValue = {
-	user: User;
-	currentInterview: Interview;
+	user: User | null;
+	currentInterview: Interview | null;
+	isLoading: boolean;
 };
 
-const defaultValue: AppContextValue = {
-	user: {
-		firstName: "John",
-		lastName: "Doe",
-		role: "Superadmin",
-		initials: "JD",
-		notificationsCount: 9,
-	},
-	currentInterview: {
-		candidateName: "Samuel Baker",
-		candidateRole: "Frontend Developer",
-		scheduledTime: "10:05",
-	},
-};
-
-const AppContext = createContext<AppContextValue>(defaultValue);
+const AppContext = createContext<AppContextValue | undefined>(undefined);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-	// In the future you can lift real data here (API/auth/router, etc.)
-	return <AppContext.Provider value={defaultValue}>{children}</AppContext.Provider>;
+	const { user: authUser, isAuthenticated, isLoading: authLoading } = useAuth();
+	const [currentInterview, setCurrentInterview] = useState<Interview | null>(null);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		async function fetchInterview() {
+			try {
+				if (!isAuthenticated) return;
+
+				// Optional: Fetch next scheduled interview
+				const res = await interviewsApi.listScheduled();
+				if (res.success && res.data && res.data.length > 0) {
+					const next = res.data[0];
+					setCurrentInterview({
+						candidateName: next.candidate?.name || "Unknown Candidate",
+						candidateRole: next.job?.title || "Unknown Role",
+						scheduledTime: next.time || "TBD",
+					});
+				}
+			} catch (err) {
+				console.error("Failed to load generic scheduled interviews", err);
+			} finally {
+				setIsLoading(false);
+			}
+		}
+
+		if (!authLoading) {
+			fetchInterview();
+		}
+	}, [isAuthenticated, authLoading]);
+
+	const user: User | null = authUser ? {
+		firstName: authUser.firstName,
+		lastName: authUser.lastName,
+		role: authUser.role,
+		initials: `${authUser.firstName?.[0] || ""}${authUser.lastName?.[0] || ""}`.toUpperCase(),
+		notificationsCount: authUser.notificationsCount || 0,
+	} : null;
+
+	const value: AppContextValue = {
+		user,
+		currentInterview,
+		isLoading: authLoading || isLoading,
+	};
+
+	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
 export function useAppContext(): AppContextValue {
-	return useContext(AppContext);
+	const context = useContext(AppContext);
+	if (context === undefined) {
+		throw new Error("useAppContext must be used within an AppProvider");
+	}
+	return context;
 }
-

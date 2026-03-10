@@ -60,9 +60,9 @@ const defaultFormData: FormData = {
   travelRequirement: "",
   employerClient: "CNN",
   employmentType: "Full Time",
-  startDate: "12-04-25",
-  endDate: "12-04-25",
-  jobExpirationDate: "12-04-25",
+  startDate: "2025-04-12",
+  endDate: "2025-04-12",
+  jobExpirationDate: "2025-04-12",
   jobSummary: "Immediate Joiner needed",
   keyResponsibilities: "Hiring, Candidate Handling, Interview, Recruitment",
   requiredQualifications: "B.Tech, MBA",
@@ -257,25 +257,45 @@ const DateInput = ({
   label: string;
   value: string;
   onChange: (val: string) => void;
-}) => (
-  <div className="flex flex-col gap-[6px]">
-    <div className="flex justify-between items-center">
-      <label className="text-sm font-normal text-text-secondary leading-[21px]">{label}</label>
-    </div>
-    <div className="flex flex-col gap-[5px]">
-      <div className="flex items-center px-4 py-[15px] bg-white border border-gray-300 rounded-[10px] h-[50px]">
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="flex-1 text-sm font-normal text-text-primary leading-5 outline-none bg-transparent"
-        />
-        <CalendarIcon />
+}) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  return (
+    <div className="flex flex-col gap-[6px]">
+      <div className="flex justify-between items-center">
+        <label className="text-sm font-normal text-text-secondary leading-[21px]">{label}</label>
       </div>
-      <span className="text-xs font-normal text-text-primary opacity-60 leading-[18px]">Required</span>
+      <div className="flex flex-col gap-[5px]">
+        <div
+          className="flex items-center px-4 py-[15px] bg-white border border-gray-300 rounded-[10px] h-[50px] relative cursor-pointer"
+          onClick={() => inputRef.current?.showPicker?.()}
+        >
+          <input
+            ref={inputRef}
+            type="date"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="flex-1 text-sm font-normal text-text-primary leading-5 outline-none bg-transparent cursor-pointer w-full relative z-10"
+            style={{ colorScheme: 'light' }}
+          />
+          <div className="absolute right-4 z-0 pointer-events-none">
+            <CalendarIcon />
+          </div>
+          <style>{`
+            input[type="date"]::-webkit-calendar-picker-indicator {
+              opacity: 0;
+              position: absolute;
+              right: 0;
+              width: 100%;
+              height: 100%;
+              cursor: pointer;
+            }
+          `}</style>
+        </div>
+        <span className="text-xs font-normal text-text-primary opacity-60 leading-[18px]">Required</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Section Card Component
 const SectionCard = ({
@@ -747,8 +767,8 @@ export default function JobDescriptionStepNew({
           onClick={onNext}
           disabled={!isFormValid()}
           className={`flex items-center justify-center px-6 py-3 rounded-full min-w-[100px] transition-colors ${isFormValid()
-              ? "bg-primary hover:bg-primary-dark"
-              : "bg-gray-300 cursor-not-allowed"
+            ? "bg-primary hover:bg-primary-dark"
+            : "bg-gray-300 cursor-not-allowed"
             }`}
         >
           <span className={`text-sm font-medium ${isFormValid() ? "text-white" : "text-gray-500"}`}>Next</span>

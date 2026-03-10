@@ -168,10 +168,10 @@ const InterviewPrepDashboard: React.FC<InterviewPrepDashboardProps> = ({
                 { label: "Interview Schedule", path: "/job-dashboard" },
                 { label: "Interview" },
               ],
-              title: `${currentInterview.candidateName} Report`,
+              title: `${currentInterview?.candidateName ?? "Candidate"} Report`,
               showPersonIcon: true,
               showTime: true,
-              time: `${currentInterview.scheduledTime} - Conducted by ${user.firstName} ${user.lastName}`,
+              time: `${currentInterview?.scheduledTime ?? "Time TBD"} - Conducted by ${user?.firstName ?? "Unknown"} ${user?.lastName ?? "Reviewer"}`,
               buttons: [
                 {
                   label: "Go to Candidates List",

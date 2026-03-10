@@ -1,73 +1,59 @@
-# React + TypeScript + Vite
+# Hireaid
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Hireaid is a full-stack applicant tracking and hiring management system.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- `/src` - Frontend React application (Vite + TypeScript)
+- `/server` - Backend Node.js API (Express + Prisma + SQLite)
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js (v18+)
+- npm
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Frontend Setup
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+From the root directory:
+```bash
+npm install
+npm run dev
+```
+The frontend will run on `http://localhost:5173`.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. Backend Setup
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Open a new terminal and navigate to the `server` directory:
+
+```bash
+cd server
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Initialize the database and seed it with initial data:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npx prisma db push
+npm run db:seed
 ```
+
+Start the backend development server:
+
+```bash
+npm run dev
+```
+
+The backend API will start on `http://localhost:5001`.
+
+## Features
+- **Authentication**: JWT-based login and registration.
+- **Jobs Management**: Create, update, duplicate, and manage job postings.
+- **Candidate Pipeline**: Track candidates throughout the hiring process, add notes, and upload resumes.
+- **Interviews**: Schedule interviews, view upcoming schedules, and submit evaluation reports.
+- **Company Management**: Manage employer client details.
+
+## Tech Stack
+**Frontend**: React, TypeScript, Tailwind CSS, Vite
+**Backend**: Node.js, Express, Prisma ORM, SQLite, Zod (Validation), Multer (Uploads)
